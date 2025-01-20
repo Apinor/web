@@ -9,6 +9,7 @@ For **database tables**, we use the **Train-Case** naming convention. This style
 ### Examples of Train-Case:
 - `Lorem-Ipsum`
 - `Lorem-Ipsum-Dolor`
+- `Lorem-Ipsum-Dolor-Sit`
 
 > **Note**: Each word is capitalized, and words are separated by hyphens (`-`), making it easy to identify separate concepts.
 
@@ -19,6 +20,7 @@ For **functions**, we use **PascalCase** (also known as **UpperCamelCase**). Thi
 ### Examples of PascalCase/UpperCamelCase:
 - `LoremIpsum`
 - `LoremIpsumDolor`
+- `LoremIpsumDolorSit`
 
 > **Note**: The first letter of each word is capitalized, without any separators, making function names clean and easy to read.
 
@@ -29,6 +31,7 @@ For **variables**, we use **camelCase**. This widely recognized convention promo
 ### Examples of camelCase:
 - `loremIpsum`
 - `loremIpsumDolor`
+- `loremIpsumDolorSit`
 
 > **Note**: The first word starts with a lowercase letter, and subsequent words are capitalized, with no separators.
 
