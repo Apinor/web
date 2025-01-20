@@ -57,3 +57,42 @@ export class Result<T> {
   }
 }
 ```
+
+
+# Example function using the predefined types
+
+```typescript
+// controllers/productController.ts
+
+import { Result } from "../utils/result.ts";
+import { getProductById, updateProduct } from "../services/productService.ts";
+import { ErrorLevel } from "../types.ts";
+
+export async function increasePrice(productId: string, increment: number): Promise<Result<void>> {
+  const productResult = await getProductById(productId);
+
+  if (!productResult.success) {
+    return Result.fail({
+      code: productResult.error?.code || 500,
+      message: `Failed to retrieve product: ${productResult.error?.message}`,
+      level: productResult.error?.level || ErrorLevel.Error,
+      details: productResult.error?.details,
+    });
+  }
+
+  const updatedPrice = productResult.data.price + increment;
+  const updateResult = await updateProduct(productId, { price: updatedPrice });
+
+  if (!updateResult.success) {
+    return Result.fail({
+      code: updateResult.error?.code || 500,
+      message: `Failed to update product ${productId}: ${updateResult.error?.message}`,
+      level: updateResult.error?.level || ErrorLevel.Error,
+      details: updateResult.error?.details,
+    });
+  }
+
+  return Result.ok(undefined);
+}
+
+```
