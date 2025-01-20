@@ -1,4 +1,7 @@
+
+
 {
+  //this is the output for the product table in the database, here you can get a ruff idea of what we can store in the database.
   "ID": 1,
   "Name": "Sample Product",
   "Price": 19.99,
