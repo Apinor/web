@@ -28,7 +28,7 @@ ON DELETE SET NULL
 ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- 5) Create the "Products" table (depends on "Discount" & "Stikers")
+-- 5) Create the "Products" table (depends on "Discount" & "Stickers")
 CREATE TABLE Products (
 ID INT AUTO_INCREMENT PRIMARY KEY,
 Name VARCHAR(255) NOT NULL,
