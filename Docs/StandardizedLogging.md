@@ -12,6 +12,7 @@ We use four distinct logging levels to categorize log messages based on their se
 
 ### Logging Levels and Best Practices
 
+---
 1. **INFO**
    - **Purpose**: Captures general information about the system's normal operations.
    - **Use Case**: Tracks events that do not indicate problems but are helpful for auditing and understanding the system's flow.
@@ -28,6 +29,7 @@ We use four distinct logging levels to categorize log messages based on their se
    - `INFO: User 'jane_doe' updated her profile settings.`
      - **Context**: Logs changes to user profiles, useful for auditing purposes.
 
+---
 2. **WARN**
    - **Purpose**: Flags abnormal situations that could indicate potential problems in the future.
    - **Use Case**: Early indicators of issues that may require investigation but do not disrupt the system.
@@ -44,6 +46,7 @@ We use four distinct logging levels to categorize log messages based on their se
    - `WARN: Failed to connect to external analytics service, retrying in 10 seconds.`
      - **Context**: Alerts that an external service is temporarily unavailable, without immediately impacting user experience.
 
+---
 3. **ERROR**
    - **Purpose**: Logs unrecoverable errors that affect specific operations but not the entire application.
    - **Use Case**: Highlights issues that require developer attention.
@@ -60,6 +63,7 @@ We use four distinct logging levels to categorize log messages based on their se
    - `ERROR: Unable to process user registration, 'email' field is null.`
      - **Context**: Provides clear insight into a failed registration attempt due to a missing required field.
 
+---
 4. **FATAL**
    - **Purpose**: Logs critical errors that cause the application to crash or become unusable.
    - **Use Case**: Highlights system-wide failures requiring immediate attention.
