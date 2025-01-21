@@ -61,11 +61,6 @@ Cookie_ID VARCHAR(255),
 First_Visit DATETIME,
 Last_Visit DATETIME,
 Total_Visits INT DEFAULT 0,
-Cart_ID INT
--- You could add a unique constraint or a foreign key here if you
--- want to enforce that this column references the "Cart" table.
--- But note that "Cart" will also reference "Users", which can create
--- a circular reference. Often you pick only one direction for the FK.
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 7) Create the "Cart" table (depends on "Users")
