@@ -1,33 +1,31 @@
-import { ErrorResponse, SuccessResponse, Response } from "../types.ts";
+import { SuccessResponse, ErrorResponse, Response } from "../types.ts";
 import console from "../utils/logging.ts"; // Assuming logging.ts is imported
-
+ 
 export class Result<T> {
-  public success: boolean;
-  public data?: T;
-  public error?: {
-    code: number;
-    message: string;
-    details?: any;
-  };
-
-  private constructor(success: boolean, data?: T, error?: ErrorResponse["error"]) {
-    this.success = success;
-    if (success) {
-      this.data = data;
-      // Log success
-      console.success(`Operation succeeded: ${JSON.stringify(data)}`);
+  private response: Response<T>;
+ 
+  private constructor(response: Response<T>) {
+    this.response = response;
+ 
+    // Log the result
+    if (this.response.success) {
+      console.success(`Operation succeeded: ${JSON.stringify(this.response.data)}`);
     } else {
-      this.error = error;
-      // Log error
-      console.error(`Operation failed with error: ${JSON.stringify(error)}`);
+      console.error(`Operation failed with error: ${JSON.stringify(this.response.error)}`);
     }
   }
-
+ 
   public static ok<U>(data: U): Result<U> {
-    return new Result<U>(true, data);
+    const successResponse: SuccessResponse<U> = { success: true, data };
+    return new Result<U>(successResponse);
   }
-
+ 
   public static fail<U>(error: ErrorResponse["error"]): Result<U> {
-    return new Result<U>(false, undefined, error);
+    const errorResponse: ErrorResponse = { success: false, error };
+    return new Result<U>(errorResponse);
+  }
+ 
+  public getResponse(): Response<T> {
+    return this.response;
   }
 }
