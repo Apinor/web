@@ -1,19 +1,22 @@
+// utils/logging.ts
+
 // Function to write logs to a file
 async function WriteLog(level: string, text: string) {
   const date = new Date().toLocaleString();
   const logMessage = `(${date}) [${level.toUpperCase()}] ${text}\n`;
- 
+
   try {
     // Ensure the logs directory exists
-    await Deno.mkdir("logs", { recursive: true });
- 
+    await Deno.mkdir("src/logs", { recursive: true });
+
     // Append the log message to the file
-    await Deno.writeTextFile("./logs/server.log", logMessage, { append: true });
+    await Deno.writeTextFile("./src/logs/server.log", logMessage, { append: true });
+    // console.info(`✅ Log written to file: ${logMessage.trim()}`);
   } catch (err) {
-    console.error('Error writing to log file', err);
+    console.error('❌ Error writing to log file', err);
   }
 }
- 
+
 // Colorize log messages for different levels
 function colorizeLog(level: string, message: string) {
   switch (level) {
@@ -29,34 +32,34 @@ function colorizeLog(level: string, message: string) {
       return message; // Default color for info (no change)
   }
 }
- 
+
 // Custom logging function that includes levels
-function log(level: string, ...args: unknown[]) {
+async function log(level: string, ...args: unknown[]) {
   const currentTime = new Date();
   const formattedTime = currentTime.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
   });
- 
+
   // Format the log message
   const message = args.map(arg => String(arg)).join(' ');
- 
+
   // Log to console with colorized message
   console.info(`${formattedTime} [${level.toUpperCase()}]: ${colorizeLog(level, message)}`);
- 
+
   // Write the message to the log file
-  WriteLog(level, message);
+  await WriteLog(level, message);
 }
- 
+
 // Define log levels
 const logger = {
   success: (...args: unknown[]) => log('success', ...args),
   info: (...args: unknown[]) => log('info', ...args),
   warn: (...args: unknown[]) => log('warn', ...args),
   error: (...args: unknown[]) => log('error', ...args),
-  fatal: (...args: unknown[]) => log('fatal', ...args)
+  fatal: (...args: unknown[]) => log('fatal', ...args),
 };
- 
+
 // Export logger for use in other modules
 export default logger;

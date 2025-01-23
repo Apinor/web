@@ -1,5 +1,5 @@
-import { SuccessResponse, ErrorResponse, Response } from "../types.ts";
-import console from "../utils/logging.ts"; // Assuming logging.ts is imported
+import { SuccessResponse, ErrorResponse, Response } from "./types.ts";
+import console from "./logging.ts"; // Assuming logging.ts is imported
  
 export class Result<T> {
   private response: Response<T>;
