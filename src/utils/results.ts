@@ -1,5 +1,5 @@
 import { ErrorResponse, SuccessResponse, Response } from "../types.ts";
-import { logger } from "../utils/logging.ts"; // Assuming logging.ts is imported
+import console from "../utils/logging.ts"; // Assuming logging.ts is imported
 
 export class Result<T> {
   public success: boolean;

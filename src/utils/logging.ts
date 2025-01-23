@@ -1,7 +1,7 @@
 import path from "path";
 import { fs } from "./loadmodules";
-import { promisify } from "util";
 
+const __dirname = new URL('.', import.meta.url).pathname;
 const logPath = path.join(__dirname, "logs", 'server.log');
 
 // Function to write logs to a file
@@ -45,14 +45,14 @@ function log(level: string, ...args: any[]) {
   const message = args.join(' ');
 
   // Log to console with colorized message
-  console.log(`${formattedTime} [${level.toUpperCase()}]: ${colorizeLog(level, message)}`);
+  console.info(`${formattedTime} [${level.toUpperCase()}]: ${colorizeLog(level, message)}`);
 
   // Write the message to the log file
   WriteLog(level, message);
 }
 
 // Define log levels
-const logger = {
+const console = {
   success: (...args: any[]) => log('success', ...args),
   info: (...args: any[]) => log('info', ...args),
   warn: (...args: any[]) => log('warn', ...args),
@@ -61,4 +61,4 @@ const logger = {
 };
 
 // Export logger for use in other modules
-export default logger;
+export default console;
