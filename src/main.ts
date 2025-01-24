@@ -1,8 +1,16 @@
-export function add(a: number, b: number): number {
-  return a + b;
-}
+import { serveDir } from "https://deno.land/std@0.224.0/http/file_server.ts";
+import { load } from "https://deno.land/std@0.224.0/dotenv/mod.ts";
+import { Client } from "https://deno.land/x/mysql@v2.12.1/mod.ts";
 
-// Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
-if (import.meta.main) {
-  console.log("Add 2 + 3 =", add(2, 3));
-}
+
+Deno.serve(async (req: Request) => {
+  try {
+    const url = new URL(req.url);
+  
+    // Serve files from the 'public' directory for all other paths
+    return serveDir(req, { fsRoot: "./public" });
+  } catch (error) {
+    console.error("Error handling request:", error);
+    return new Response("Internal Server Error", { status: 500 });
+  }
+});

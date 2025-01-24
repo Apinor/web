@@ -1,8 +1,9 @@
 # Product Data Format Documentation
 
-Here is the documentation for how the Product data format (products Table) works:
 
-```json
+**Here is the documentation for how the Product data format (products Table) works:**
+
+```typescript
 {
   "ID": 1,
   "Name": "Sample Product",
@@ -17,3 +18,13 @@ Here is the documentation for how the Product data format (products Table) works
   "Discount-ID": 2,
   "Sticker-ID": 3
 }
+
+```
+
+---
+
+#Info
+
+- Product format is outputed in json. 
+- There is a wide amount of data to extract as well as store in the database.
+
