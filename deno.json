@@ -2,7 +2,8 @@
   "tasks": {
     "dev": "deno run --watch --allow-net --allow-read --allow-env src/main.ts",
     "test": "deno run --watch --allow-net --allow-read --allow-env src/main_test.ts",
-    "createDB": "deno run --allow-net --allow-read --allow-write --allow-env src/dbscripts/createDB.ts"
+    "createDB": "deno run --allow-net --allow-read --allow-write --allow-env src/dbscripts/createDB.ts",
+    "createTestData": "deno run --allow-net --allow-read --allow-write --allow-env src/dbscripts/createTestData.ts"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1"
