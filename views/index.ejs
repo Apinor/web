@@ -34,20 +34,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apinor</title>
+  <title><%= title || 'Apinor' %></title>
+  <link rel="icon" href="favicon.ico">
 </head>
 <body>
-  <div id="navbarContainer">
-    <nav><button class="navbar">OM APINOR</button><button class="navbar">BESTILLING</button><button class="navbar">KONTAKT</button></nav>
-  </div>
+  <!-- <div id="navbarContainer">
+    <nav>
+      <button class="navbar"></button>
+      <button class="navbar"></button>
+      <button class="navbar"></button>
+    </nav>
+  </div> -->
   <div id="newsCarusellContainer">
+    <% if (newsCarousel && newsCarousel.length) { %>
+      <% newsCarousel.forEach((item) => { %>
+        <div class="carousel-item"><%= item %></div>
+      <% }) %>
+    <% } %>
   </div>
-  <div id="shopTopTextContainer"><h1>VELKOMMEN TIL APINOR.NO - NETTBUTIKKEN FOR BIRØKTERE</h1></div>
+  <div id="shopTopTextContainer">
+    <h1><%= shopTopText || 'VELKOMMEN TIL APINOR.NO - NETTBUTIKKEN FOR BIRØKTERE' %></h1>
+  </div>
   <div id="shopFrontContainer">
+    <% if (shopItems && shopItems.length) { %>
+      <% shopItems.forEach((item) => { %>
+        <div class="shop-item">
+          <h2><%= item.title %></h2>
+          <p><%= item.description %></p>
+          <span><%= item.price %></span>
+        </div>
+      <% }) %>
+    <% } %>
   </div>
   <div id="newsContainer">
+    <% if (news && news.length) { %>
+      <% news.forEach((article) => { %>
+        <div class="news-article">
+          <h3><%= article.title %></h3>
+          <p><%= article.content %></p>
+        </div>
+      <% }) %>
+    <% } %>
   </div>
   <div id="footerContainer">
+    <%= footer || '' %>
   </div>
 </body>
 </html>
