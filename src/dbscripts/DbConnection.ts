@@ -3,6 +3,12 @@ import { Client } from "https://deno.land/x/mysql@v2.11.0/mod.ts";
 import console from "../utils/logging.ts";
 const env = await load();
 
+// Logging for testing .env connection status and variables, uncomment for use in testing if needed.
+// console.info("hostname: ", env.DB_HOST);
+// console.info("port: ", env.DB_PORT);
+// console.info("username: ", env.DB_USER);
+// console.info("password: ", env.DB_PASSWORD);
+
 export async function createSqlConnection() {
   const client = await new Client().connect({
     hostname: env["DB_HOST"],
