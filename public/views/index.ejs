@@ -2,62 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= it.title || 'Apinor' %></title>
-  <link rel="icon" href="favicon.ico">
+  <title><%= title %></title>
 </head>
 <body>
-  <div id="navbarContainer">
-    <nav>
-      <button class="navbar">OM APINOR</button>
-      <button class="navbar">Bestilling</button>
-      <button class="navbar">KONTAKT</button>
-    </nav>
-  </div>
-  
-  <div id="newsCarusellContainer">
-    <% if (it.newsCarousel && it.newsCarousel.length) { %>
-      <% it.newsCarousel.forEach((item) => { %>
-        <div class="carousel-item"><%= item %></div>
-      <% }) %>
-    <% } else { %>
-      <p>No news available</p>
-    <% } %>
-  </div>
-  
-  <div id="shopTopTextContainer">
-    <h1><%= it.shopTopText %></h1>
-  </div>
-  
-  <div id="shopFrontContainer">
-    <% if (it.shopItems && it.shopItems.length) { %>
-      <% it.shopItems.forEach((item) => { %>
-        <div class="shop-item">
-          <h2><%= item.title %></h2>
-          <p><%= item.description %></p>
-          <span><%= item.price %></span>
-        </div>
-      <% }) %>
-    <% } else { %>
-      <p>No items available</p>
-    <% } %>
-  </div>
-  
-  <div id="newsContainer">
-    <% if (it.news && it.news.length) { %>
-      <% it.news.forEach((article) => { %>
-        <div class="news-article">
-          <h3><%= article.title %></h3>
-          <p><%= article.content %></p>
-        </div>
-      <% }) %>
-    <% } else { %>
-      <p>No news articles available</p>
-    <% } %>
-  </div>
-  
-  <div id="footerContainer">
-    <%= it.footer || '' %>
-  </div>
+  <h1>Hello, <%= name %>!</h1>
 </body>
 </html>
