@@ -1,10 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title><%= title %></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
 </head>
 <body>
-  <h1>Hello, <%= name %>!</h1>
+    <!-- News Carousel Section -->
+    <div class="carousel">
+        <% newsCarousel.forEach(function(news) { %>
+            <div class="carousel-item">
+                <%= news %>
+            </div>
+        <% }); %>
+    </div>
+
+    <!-- Shop Section -->
+    <section class="shop">
+        <h1><%= shopTopText %></h1>
+        
+        <div class="shop-items">
+            <% shopItems.forEach(function(item) { %>
+                <div class="shop-item">
+                    <img src="<%= item.image %>" alt="<%= item.title %>">
+                    <h3><%= item.title %></h3>
+                    <p><%= item.description %></p>
+                    <span class="price"><%= item.price %></span>
+                </div>
+            <% }); %>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news">
+        <h2>Latest News</h2>
+        <% news.forEach(function(article) { %>
+            <article>
+                <h3><%= article.title %></h3>
+                <time><%= article.date %></time>
+                <p><%= article.content %></p>
+            </article>
+        <% }); %>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="company-info">
+            <p><%= footer.companyInfo %></p>
+        </div>
+        <div class="contact">
+            <p>Email: <%= footer.contact.email %></p>
+            <p>Phone: <%= footer.contact.phone %></p>
+        </div>
+        <div class="social">
+            <p>Follow us:</p>
+            <a href="https://facebook.com/<%= footer.social.facebook %>">Facebook</a>
+            <a href="https://instagram.com/<%= footer.social.instagram %>">Instagram</a>
+        </div>
+    </footer>
 </body>
 </html>
