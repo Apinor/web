@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title || 'Apinor' %></title>
+  <title><%= it.title || 'Apinor' %></title>
   <link rel="icon" href="favicon.ico">
 </head>
 <body>
@@ -16,8 +16,8 @@
   </div>
   
   <div id="newsCarusellContainer">
-    <% if (newsCarousel && newsCarousel.length) { %>
-      <% newsCarousel.forEach((item) => { %>
+    <% if (it.newsCarousel && it.newsCarousel.length) { %>
+      <% it.newsCarousel.forEach((item) => { %>
         <div class="carousel-item"><%= item %></div>
       <% }) %>
     <% } else { %>
@@ -26,12 +26,12 @@
   </div>
   
   <div id="shopTopTextContainer">
-    <h1><%= shopTopText %></h1>
+    <h1><%= it.shopTopText %></h1>
   </div>
   
   <div id="shopFrontContainer">
-    <% if (shopItems && shopItems.length) { %>
-      <% shopItems.forEach((item) => { %>
+    <% if (it.shopItems && it.shopItems.length) { %>
+      <% it.shopItems.forEach((item) => { %>
         <div class="shop-item">
           <h2><%= item.title %></h2>
           <p><%= item.description %></p>
@@ -44,8 +44,8 @@
   </div>
   
   <div id="newsContainer">
-    <% if (news && news.length) { %>
-      <% news.forEach((article) => { %>
+    <% if (it.news && it.news.length) { %>
+      <% it.news.forEach((article) => { %>
         <div class="news-article">
           <h3><%= article.title %></h3>
           <p><%= article.content %></p>
@@ -57,7 +57,7 @@
   </div>
   
   <div id="footerContainer">
-    <%= footer || '' %>
+    <%= it.footer || '' %>
   </div>
 </body>
 </html>

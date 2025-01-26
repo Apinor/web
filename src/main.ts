@@ -1,6 +1,12 @@
 import { serveDir } from "https://deno.land/std@0.224.0/http/file_server.ts";
-import { renderFile } from "https://deno.land/x/dejs@0.10.3/mod.ts";
+import { join } from "https://deno.land/std@0.224.0/path/join.ts";
+import { configure, renderFile } from "https://deno.land/x/eta@v2.2.0/mod.ts";
 
+// Configure Eta
+configure({
+  views: join(Deno.cwd(), "public", "views"),
+  cache: true,
+});
 const templateData = {
   title: "Apinor",
   newsCarousel: ["News Item 1", "News Item 2", "News Item 3"],
@@ -21,20 +27,26 @@ Deno.serve(async (req: Request) => {
   try {
     const url = new URL(req.url);
 
-    // Serve the EJS template for the root route
     if (url.pathname === "/") {
-      const body = await renderFile("public/views/index.ejs", templateData); // Pass `templateData` here
-      console.log("Template Data:", templateData);
+      try {
+        const body = await renderFile("index.ejs", templateData);
+        
+        if (!body) {
+          throw new Error("Template rendered empty content");
+        }
 
-
-      return new Response(body, { 
-        headers: { "Content-Type": "text/html" } 
-      });
+        console.log("Template rendered successfully");
+        
+        return new Response(body, { 
+          headers: { "Content-Type": "text/html; charset=utf-8" } 
+        });
+      } catch (err) {
+        console.error("Template rendering error:", err);
+        return new Response("Error rendering template", { status: 500 });
+      }
     }
 
-    // Serve static files from the 'public' directory
     return serveDir(req, { fsRoot: "./public" });
-
   } catch (error) {
     console.error("Error handling request:", error);
     return new Response("Internal Server Error", { status: 500 });
