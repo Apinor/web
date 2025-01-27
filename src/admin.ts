@@ -2,8 +2,10 @@ import {createSqlConnection} from "./dbscripts/DbConnection.ts";
 import { serveDir } from "https://deno.land/std@0.224.0/http/file_server.ts";
 import {generateSessionToken} from "./utils/generateSessionToken.ts"
 import console from "./utils/logging.ts" 
+import { load } from "https://deno.land/std@0.204.0/dotenv/mod.ts";
 import { validateSession } from "./utils/validateSession.ts";
 import {saveSession} from "./utils/saveSession.ts";
+const env = await load();
 const mysql = await createSqlConnection();
 if (mysql) {
   console.info("Database connection established!");
@@ -15,7 +17,7 @@ if (mysql) {
 Deno.serve(async (req: Request) => {
     try {
         const url = new URL(req.url);
-        console.info("Session token: ",req.headers.get("cookie")?.match(/session=([^;]+)/)?.[1])
+        // console.info("Session token: ",req.headers.get("cookie")?.match(/session=([^;]+)/)?.[1])
         // Handle login POST request
         console.info("Request path: ", url.pathname);
 
@@ -30,14 +32,17 @@ Deno.serve(async (req: Request) => {
             const username = formData.get("username");
             const password = formData.get("password");
 
-            if (username === "1" && password === "1") {
+            if (username === env["ADMIN_USR"] && password === env["ADMIN_PWD"]) {
                 console.info("Login successful");
                 const sessionToken = generateSessionToken();
                 console.info("Session token:", sessionToken);
+                
+                await saveSession(sessionToken);
+                
                 const response = new Response(null, {
-                    status: 302, // HTTP redirect status code
+                    status: 302,
                     headers: {
-                        "Location": "/panel", // Redirect to admin panel
+                        "Location": "/panel/",
                         "Set-Cookie": `session=${sessionToken}; HttpOnly; Path=/; Max-Age=7200; SameSite=Strict`,
                         "Cache-Control": "no-cache, no-store, must-revalidate"
                     }
@@ -48,6 +53,21 @@ Deno.serve(async (req: Request) => {
             }
         } else if (url.pathname == "/login/" || url.pathname == "/login" && req.method === "GET") {
             return serveDir(req, { fsRoot: "./admin/public" });
+        }else if (url.pathname === "/panel" || url.pathname == "/panel/" && req.method === "GET") {
+            const sessionToken = req.headers.get("cookie")?.match(/session=([^;]+)/)?.[1];
+            if (!sessionToken) {
+                return new Response("Unauthorized", { status: 401 });
+            }
+            const validatedSessionToken = await validateSession(sessionToken);
+            console.info("Session token sent to validateSession:", sessionToken);
+            console.info("Validated session token:", validatedSessionToken);
+            if (validatedSessionToken) {
+                console.info("User is authenticated");
+                return serveDir(req, { fsRoot: "./admin/public" });
+            } else {
+                console.info("Session validation failed");
+                return new Response("Unauthorized", { status: 401 });
+            }
         }
 
         // Serve files from the 'public' directory for all other paths
