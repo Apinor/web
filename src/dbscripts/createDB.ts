@@ -171,6 +171,16 @@ async function createDatabase() {
                 ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         `);
+        await mysql.query(`
+            CREATE TABLE Sessions (
+                ID INT AUTO_INCREMENT PRIMARY KEY,
+                Created_At DATETIME,
+                Duration_Seconds INT,
+                Active TINYINT DEFAULT 1,
+                Token VARCHAR(64) NOT NULL,
+                UNIQUE INDEX idx_token (Token)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        `);
 
         console.info('Database and tables created successfully.');
     } catch (error) {

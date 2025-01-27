@@ -14,7 +14,8 @@ export async function createSqlConnection() {
     hostname: env["DB_HOST"],
     port: parseInt(env["DB_PORT"] || "3306"),
     username: env["DB_USER"],
-    password: env["DB_PASSWORD"]
+    password: env["DB_PASSWORD"],
+    db: "apinor_DB",
   });
   
   console.info("Connected to MySQL database!");
