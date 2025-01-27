@@ -1,3 +1,4 @@
+/* General Styles */
 * {
   box-sizing: border-box;
 }
@@ -19,108 +20,160 @@ body {
 #navbarContainer {
   display: flex;
   justify-content: center;
+  background-color: white;
 }
 
 #navbar {
   width: 85%;
-  background-color: white;
-  overflow: hidden;
   display: flex;
   justify-content: space-between; /* Align items horizontally */
   align-items: center; /* Align items vertically */
   padding: 10px;
-}
-
-#navbarIMGContainer {
-  flex: 1;
+  background-color: white;
 }
 
 #navbarIMGContainer img {
-  max-height: 70px; /* Adjust the height as needed */
+  max-height: 60px; /* Adjust the height for better scaling */
   width: auto;
 }
 
 #navbarButtons {
   display: flex;
-  gap: 10px;
+  gap: 15px;
 }
 
 .navbarButton {
   background-color: white;
   color: black;
-  padding: 14px 20px;
+  padding: 12px 20px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   border: none;
   cursor: pointer;
-  font-size: 25px;
+  font-size: 20px;
+  border-radius: 5px;
+  transition: color 0.3s, background-color 0.3s;
 }
 
 .navbarButton:hover {
   color: rgb(102, 102, 102);
+  background-color: #f1f1f1;
 }
 
-#navbarLine {
-  height: 6px;
-  background-color: #D9D9D9;
+#dropdown {
+  display: flex;
+  align-items: center;
+  display: none;
 }
 
-#apiBanner {
-  width: 100%;
-}
-
-.dropdown {
-  font-size: 70px;
-  display: none; /* Hide by default */
+/* Dropdown Button */
+#dropdown button {
+  background-color: white;
+  color: black; /* Make the icon black */
+  font-family: "Arial", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  border-radius: 50%; /* Circular button */
+  border: 2px solid black; /* Optional: Add a border for visibility */
   cursor: pointer;
-  margin-right: 15%;
+  transition: background-color 0.3s, transform 0.2s;
+  position: relative;
+  outline: none; /* Remove outline */
+}
+
+/* Remove outline on focus */
+#dropdown button:focus {
+  outline: none; /* Fully removes focus outline */
+  box-shadow: none; /* Prevent any shadow from being added */
+}
+
+/* Hover Effect */
+#dropdown button:hover {
+  background-color: #f1f1f1; /* Light gray for hover */
+  transform: scale(1.05); /* Slight enlargement on hover */
 }
 
 #dropdownMenu {
-  display: none; /* Hide by default */
+  display: none; /* Initially hidden */
+  position: absolute;
+  top: 60px; /* Adjust relative to navbar */
+  right: 10px;
+  background-color: white;
+  color: black;
+  font-family: "Arial", sans-serif;
+  font-size: 14px;
+  padding: 8px 0;
+  min-width: 180px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000; /* Ensure it overlays other content */
 }
 
-@media (max-width: 850px) {
+#dropdownMenu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#dropdownMenu li a {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+#dropdownMenu li a:hover {
+  background-color: #f1f1f1;
+  color: #000;
+}
+
+/* Show dropdown menu when active */
+#dropdownMenu.active {
+  display: block;
+}
+
+/* Responsive Styles */
+@media (max-width: 880px) {
   #navbarButtons {
-    display: none; /* Hide buttons on small screens */
+    display: none; /* Hide navbar buttons */
   }
 
-  .dropdown {
-    display: block; /* Show dropdown symbol on small screens */
-  }
-
-  #dropdownMenu {
-    display: block; /* Show dropdown menu on small screens */
+  #dropdown {
+    display: flex;
+    align-items: center;
   }
 }
 
+
+/* Navbar Divider */
+#navbarLine {
+  height: 4px;
+  background-color: #d9d9d9;
+}
+
+/* Banner */
+#apiBanner {
+  width: 100%;
+  height: auto;
+}
+
+/* Footer */
 footer {
-  background-color: #4D4D4D;
+  background-color: #4d4d4d;
   color: white;
   padding: 20px;  
   text-align: left;
 }
 
-footer .company-info,
-footer .contact,
-footer .social {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-footer .social {
-  align-items: center;
-}
-
-footer .social p {
-  margin-right: 10px;
-}
-
 footer a {
   color: white;
   text-decoration: none;
-  align-items: center;
 }
 
 footer a:hover {

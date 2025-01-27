@@ -25,13 +25,39 @@
                     <button id="contact" class="navbarButton">KONTAKT</button>
                 </div>
             </nav>
-            <div class="dropdown">
-                <button class="btn btn-default" type="button" id="menu1" data-toggle="dropdown" style="font-size: 20px;">≡</button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">OM APINOR</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">BESTILLING</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">KONTAKT</a></li>
+            <div id="dropdown" class="relative inline-block text-left">
+              <button onclick="toggleDropdown()">☰</button>
+              <div
+                id="dropdownMenu"
+
+              >
+                <ul class="py-1">
+                  <li>
+                    <a
+                      href="/om-apinor"
+                      class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900"
+                    >
+                      OM APINOR
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/bestilling"
+                      class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900"
+                    >
+                      BESTILLING
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/kontakt"
+                      class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900"
+                    >
+                      KONTAKT
+                    </a>
+                  </li>
                 </ul>
+              </div>
             </div>
         </div>
         <div id="navbarLine"></div>
@@ -90,5 +116,15 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      function toggleDropdown() {
+        const menu = document.getElementById('dropdownMenu');
+        if (menu.style.display === 'block') {
+          menu.style.display = 'none';
+        } else {
+          menu.style.display = 'block';
+        }
+      }
+    </script>
 </body>
 </html>
