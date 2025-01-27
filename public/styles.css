@@ -1,41 +1,94 @@
-
 * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    height: 100vh;
-    background: #221d2d;
-    color: #fdfcfd;
-    font-family: "Euclid Circular A", "Poppins";
-  }
-  
+  box-sizing: border-box;
+}
 
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background: #221d2d;
+  color: #fdfcfd;
+  font-family: "Euclid Circular A", "Poppins";
+}
 
+.content {
+  flex: 1;
+}
 
+#navbar {
+  width: 95%;
+  background-color: white;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between; /* Align items horizontally */
+  align-items: center; /* Align items vertically */
+  padding: 10px;
+}
 
-  /* Navbar styling */
-  #navbar {
-    background-color: #333;
-    overflow: hidden;
+#navbarIMGContainer {
+  flex: 1;
+}
+
+#navbarIMGContainer img {
+  max-height: 50px; /* Adjust the height as needed */
+  width: auto;
+}
+
+#navbarButtons {
+  display: flex;
+  gap: 10px;
 }
 
 .navbarButton {
-    background-color: #333;
-    color: white;
-    padding: 14px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border: none;
-    cursor: pointer;
-    font-size: 17px;
+  background-color: white;
+  color: black;
+  padding: 14px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
 }
 
 .navbarButton:hover {
-    background-color: #ddd;
-    color: black;
+  color: rgb(102, 102, 102);
+}
+
+footer {
+  background-color: #4D4D4D;
+  color: white;
+  padding: 20px;  
+  text-align: left;
+}
+
+footer .company-info,
+footer .contact,
+footer .social {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+footer .social {
+  align-items: center;
+}
+
+footer .social p {
+  margin-right: 10px;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  align-items: center;
+}
+
+footer a:hover {
+  color: #ddd;
+}
+
+/* Override Bootstrap my-4 class */
+.my-4 {
+  margin-bottom: 0 !important;
 }

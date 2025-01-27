@@ -5,64 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel="stylesheet" href="/public/styles.css">
+    <!-- Add Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <nav id="navbar">
-        <button id="aboutUs" class="navbarButton">OM APINOR</button>
-        <button id="order" class="navbarButton">BESTILLING</button>
-        <button id="contact" class="navbarButton">KONTAKT</button>
-    </nav>
-    <!-- News Carousel Section -->
-    <div class="carousel">
-        <% newsCarousel.forEach(function(news) { %>
-            <div class="carousel-item">
-                <%= news %>
+    <div class="content">
+        <nav id="navbar">
+            <div id="navbarIMGContainer">
+                <img src="/public/images/ApinorLogo.png" alt="ApinorLogo">
             </div>
-        <% }); %>
-    </div>
-
-    <!-- Shop Section -->
-    <section class="shop">
-        <h1><%= shopTopText %></h1>
-        
-        <div class="shop-items">
-            <% shopItems.forEach(function(item) { %> 
-                <div class="shop-item">
-                    <img src="<%= item.image %>" alt="<%= item.title %>">
-                    <h3><%= item.title %></h3>
-                    <p><%= item.description %></p>
-                    <span class="price"><%= item.price %></span>
+            <div id="navbarButtons">
+                <button id="aboutUs" class="navbarButton">OM APINOR</button>
+                <button id="order" class="navbarButton">BESTILLING</button>
+                <button id="contact" class="navbarButton">KONTAKT</button>
+            </div>
+        </nav>
+        <!-- News Carousel Section -->
+        <div class="carousel">
+            <% newsCarousel.forEach(function(news) { %>
+                <div class="carousel-item">
+                    <%= news %>
                 </div>
             <% }); %>
         </div>
-    </section>
 
-    <!-- News Section -->
-    <section class="news">
-        <h2>Latest News</h2>
-        <% news.forEach(function(article) { %>
-            <article>
-                <h3><%= article.title %></h3>
-                <time><%= article.date %></time>
-                <p><%= article.content %></p>
-            </article>
-        <% }); %>
-    </section>
+        <!-- Shop Section -->
+        <section class="shop">
+            <h1><%= shopTopText %></h1>
+            
+            <div class="shop-items">
+                <% shopItems.forEach(function(item) { %> 
+                    <div class="shop-item">
+                        <img src="<%= item.image %>" alt="<%= item.title %>">
+                        <h3><%= item.title %></h3>
+                        <p><%= item.description %></p>
+                        <span class="price"><%= item.price %></span>
+                    </div>
+                <% }); %>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section class="news">
+            <h2>Nyheter</h2>
+            <% news.forEach(function(article) { %>
+                <article>
+                    <h3><%= article.title %></h3>
+                    <time><%= article.date %></time>
+                    <p><%= article.content %></p>
+                </article>
+            <% }); %>
+        </section>
+    </div>
 
     <!-- Footer -->
-    <footer>
-        <div class="company-info">
-            <p><%= footer.companyInfo %></p>
-        </div>
-        <div class="contact">
-            <p>Email: <%= footer.contact.email %></p>
-            <p>Phone: <%= footer.contact.phone %></p>
-        </div>
-        <div class="social">
-            <p>Follow us:</p>
-            <a href="https://facebook.com/<%= footer.social.facebook %>">Facebook</a>
-            <a href="https://instagram.com/<%= footer.social.instagram %>">Instagram</a>
-        </div>
+    <footer class="py-3">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+        </ul>
+        <p class="text-center text-body-secondary"><%= footer.companyInfo %></p>
     </footer>
+
+    <!-- Add Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
