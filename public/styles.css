@@ -16,8 +16,13 @@ body {
   flex: 1;
 }
 
+#navbarContainer {
+  display: flex;
+  justify-content: center;
+}
+
 #navbar {
-  width: 95%;
+  width: 85%;
   background-color: white;
   overflow: hidden;
   display: flex;
@@ -31,7 +36,7 @@ body {
 }
 
 #navbarIMGContainer img {
-  max-height: 50px; /* Adjust the height as needed */
+  max-height: 70px; /* Adjust the height as needed */
   width: auto;
 }
 
@@ -49,11 +54,45 @@ body {
   display: inline-block;
   border: none;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 25px;
 }
 
 .navbarButton:hover {
   color: rgb(102, 102, 102);
+}
+
+#navbarLine {
+  height: 6px;
+  background-color: #D9D9D9;
+}
+
+#apiBanner {
+  width: 100%;
+}
+
+.dropdown {
+  font-size: 70px;
+  display: none; /* Hide by default */
+  cursor: pointer;
+  margin-right: 15%;
+}
+
+#dropdownMenu {
+  display: none; /* Hide by default */
+}
+
+@media (max-width: 850px) {
+  #navbarButtons {
+    display: none; /* Hide buttons on small screens */
+  }
+
+  .dropdown {
+    display: block; /* Show dropdown symbol on small screens */
+  }
+
+  #dropdownMenu {
+    display: block; /* Show dropdown menu on small screens */
+  }
 }
 
 footer {

@@ -7,19 +7,35 @@
     <link rel="stylesheet" href="/public/styles.css">
     <!-- Add Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <div class="content">
-        <nav id="navbar">
-            <div id="navbarIMGContainer">
-                <img src="/public/images/ApinorLogo.png" alt="ApinorLogo">
+        <div id="navbarContainer">
+            <nav id="navbar">
+                <div id="navbarIMGContainer">
+                    <img src="/public/images/ApinorLogo.png" alt="ApinorLogo">
+                </div>
+                <div id="navbarButtons">
+                    <button id="aboutUs" class="navbarButton">OM APINOR</button>
+                    <button id="order" class="navbarButton">BESTILLING</button>
+                    <button id="contact" class="navbarButton">KONTAKT</button>
+                </div>
+            </nav>
+            <div class="dropdown">
+                <button class="btn btn-default" type="button" id="menu1" data-toggle="dropdown" style="font-size: 20px;">≡</button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">OM APINOR</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">BESTILLING</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">KONTAKT</a></li>
+                </ul>
             </div>
-            <div id="navbarButtons">
-                <button id="aboutUs" class="navbarButton">OM APINOR</button>
-                <button id="order" class="navbarButton">BESTILLING</button>
-                <button id="contact" class="navbarButton">KONTAKT</button>
-            </div>
-        </nav>
+        </div>
+        <div id="navbarLine"></div>
+        <img src="/public/images/ApinorBanner.jpg" alt="Banner" id="apiBanner">
         <!-- News Carousel Section -->
         <div class="carousel">
             <% newsCarousel.forEach(function(news) { %>
