@@ -73,7 +73,7 @@ Deno.serve(async (req: Request) => {
         }
 
         // Serve files from the 'public' directory for all other paths
-        return serveDir(req, { fsRoot: "./admin" });
+        return serveDir(req, { fsRoot: "./admin/public" });
     } catch (error) {
         console.error("Error handling request:", error);
         return new Response("Internal Server Error", { status: 500 });
