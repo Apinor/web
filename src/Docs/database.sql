@@ -38,8 +38,8 @@ Quantity INT DEFAULT 0,
 Image_Path VARCHAR(255),
 Created_At DATETIME,
 Modified_At DATETIME,
-Status TINYINT DEFAULT 1, -- Could represent 'active/inactive'
-Discount DECIMAL(10,2), -- Shortcut for additional discount info
+Status TINYINT DEFAULT 1,
+Discount DECIMAL(10,2),
 Discount_ID INT,
 Sticker_ID INT,
 CONSTRAINT fk_products_discount
@@ -103,7 +103,7 @@ CREATE TABLE Transactions (
 ID INT AUTO_INCREMENT PRIMARY KEY,
 Product_ID INT NOT NULL,
 User_ID INT NOT NULL,
-Status TINYINT DEFAULT 0, -- e.g. 0 = pending, 1 = completed, etc.
+Status TINYINT DEFAULT 0,
 Initiated DATETIME,
 Payed_Price DECIMAL(10,2),
 Quantity INT DEFAULT 1,
@@ -160,4 +160,11 @@ ON DELETE CASCADE
 ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- End of script
+CREATE TABLE Sessions (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Created_At DATETIME,
+    Duration_Seconds INT,
+    Active TINYINT DEFAULT 1,
+    Token VARCHAR(64) NOT NULL,
+    UNIQUE INDEX idx_token (Token);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
