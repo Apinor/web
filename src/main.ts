@@ -1,4 +1,5 @@
 import { renderFileToString } from "https://deno.land/x/dejs@0.10.3/mod.ts";
+import { serveFile } from "https://deno.land/std@0.114.0/http/file_server.ts";
 
 // Mock data structure
 const templateData = {
@@ -55,7 +56,10 @@ const templateData = {
 };
 
 Deno.serve({ port: 8000 }, async (req: Request) => {
-  if (req.method === "GET" && new URL(req.url).pathname === "/") {
+  const url = new URL(req.url);
+  const pathname = url.pathname;
+
+  if (req.method === "GET" && pathname === "/") {
     try {
       const body = await renderFileToString("public/views/index.ejs", templateData);
       return new Response(body, {
@@ -64,6 +68,15 @@ Deno.serve({ port: 8000 }, async (req: Request) => {
     } catch (error) {
       console.error("Template rendering error:", error);
       return new Response("Error rendering template", { status: 500 });
+    }
+  } else if (req.method === "GET" && pathname.startsWith("/public")) {
+    try {
+      const filePath = `.${pathname}`;
+      const file = await serveFile(req, filePath);
+      return file;
+    } catch (error) {
+      console.error("File serving error:", error);
+      return new Response("File not found", { status: 404 });
     }
   }
 

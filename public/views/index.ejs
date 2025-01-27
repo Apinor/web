@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <link rel="stylesheet" href="/public/styles.css">
 </head>
 <body>
+    <nav id="navbar">
+        <button id="aboutUs" class="navbarButton">OM APINOR</button>
+        <button id="order" class="navbarButton">BESTILLING</button>
+        <button id="contact" class="navbarButton">KONTAKT</button>
+    </nav>
     <!-- News Carousel Section -->
     <div class="carousel">
         <% newsCarousel.forEach(function(news) { %>
@@ -20,7 +26,7 @@
         <h1><%= shopTopText %></h1>
         
         <div class="shop-items">
-            <% shopItems.forEach(function(item) { %>
+            <% shopItems.forEach(function(item) { %> 
                 <div class="shop-item">
                     <img src="<%= item.image %>" alt="<%= item.title %>">
                     <h3><%= item.title %></h3>
