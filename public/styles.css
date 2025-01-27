@@ -184,3 +184,13 @@ footer a:hover {
 .my-4 {
   margin-bottom: 0 !important;
 }
+
+
+.social-icon {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px;
+}
+.nav {
+  margin-bottom: 0;
+}

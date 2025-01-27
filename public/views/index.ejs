@@ -102,15 +102,23 @@
 
     <!-- Footer -->
     <footer class="py-3">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-        </ul>
-        <p class="text-center text-body-secondary"><%= footer.companyInfo %></p>
-    </footer>
+      <div class="border-bottom pb-3 mb-3" style="width: 85%; margin-left: 7.5%; margin-right: 7.5%;">
+          <ul class="nav justify-content-left">
+              <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+              <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+              <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+              <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+              <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+          </ul>
+          <div class="social-icons text-left mt-3">
+              <a href="#"><img src="/public/images/webIcons/facebook-svgrepo-com.svg" alt="Facebook" class="social-icon"></a>
+              <a href="#"><img src="/public/images/webIcons/XLogo.svg" alt="X.com" class="social-icon"></a>
+              <a href="#"><img src="/public/images/webIcons/instagram-svgrepo-com.svg" alt="Instagram" class="social-icon"></a>
+              <a href="#"><img src="/public/images/webIcons/youtube-svgrepo-com.svg" alt="YouTube" class="social-icon"></a>
+          </div>
+      </div>
+      <p class="text-left text-body-secondary" style="margin-left: 7.5%; margin-right: 7.5%;"><%= footer.companyInfo %></p>
+  </footer>
 
     <!-- Add Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
