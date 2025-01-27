@@ -5,6 +5,11 @@ import console from "./utils/logging.ts"
 import { load } from "https://deno.land/std@0.204.0/dotenv/mod.ts";
 import { validateSession } from "./utils/validateSession.ts";
 import {saveSession} from "./utils/saveSession.ts";
+import { cleanupSessions, deactivateSession } from "./utils/sessionManager.ts";
+
+// Cleanup expired sessions every hour
+setInterval(cleanupSessions, 3600000);
+
 const env = await load();
 const mysql = await createSqlConnection();
 if (mysql) {
