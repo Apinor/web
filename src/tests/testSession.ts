@@ -1,8 +1,6 @@
 
-import {generateSessionToken} from "../utils/generateSessionToken.ts"
+import { generateSessionToken, validateSession, saveSession, cleanupSessions } from "../utils/sessionUtils.ts";
 import console from "../utils/logging.ts" 
-import { validateSession } from "../utils/validateSession.ts";
-import {saveSession} from "../utils/saveSession.ts";
 const isValid = await validateSession("5d39c2656d166424598a47d83378829c8fa09ed8f7b6c9412e54d5d105893727");
 if (isValid) {
     console.info("Access granted");

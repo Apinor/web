@@ -1,11 +1,8 @@
 import {createSqlConnection} from "./dbscripts/DbConnection.ts";
 import { serveDir } from "https://deno.land/std@0.224.0/http/file_server.ts";
-import {generateSessionToken} from "./utils/generateSessionToken.ts"
 import console from "./utils/logging.ts" 
 import { load } from "https://deno.land/std@0.204.0/dotenv/mod.ts";
-import { validateSession } from "./utils/validateSession.ts";
-import {saveSession} from "./utils/saveSession.ts";
-import { cleanupSessions, deactivateSession } from "./utils/sessionManager.ts";
+import { generateSessionToken, validateSession, saveSession, cleanupSessions } from "./utils/sessionUtils.ts";
 
 // Cleanup expired sessions every hour
 setInterval(cleanupSessions, 3600000);
