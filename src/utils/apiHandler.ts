@@ -35,9 +35,10 @@ async function createProduct(data: ProductData): Promise<number | null> {
             ]
         );
 
-        // Remove array destructuring and access result directly
-        console.info("Insert result:", JSON.stringify(result, null, 2));
-        return result[0]?.insertId || null;
+        // console.info("Insert result:", JSON.stringify(result, null, 2));
+        // console.info("Result something", JSON.stringify(result))
+        // console.info("Result something2", result.affectedRows)
+        return result.affectedRows || null;
     } catch (error) {
         console.error("Error creating product:", error);
         console.error("Product data:", JSON.stringify(data, null, 2));
@@ -55,75 +56,68 @@ export async function handleApiRequest(req: Request): Promise<Response> {
             headers: { "Content-Type": "application/json" }
         });
     }
-
+    if(url.pathname === "/api/products" && req.method === "POST"){
+        try {
+            const formData = await req.formData();
+            // Log the received form data
+            console.info("Received form data:", Object.fromEntries(formData));
+    
+            const productData: ProductData = {
+                name: formData.get("name") as string,
+                price: parseFloat(formData.get("price") as string),
+                description: formData.get("description") as string || undefined,
+                quantity: parseInt(formData.get("quantity") as string) || 0,
+                image_path: formData.get("image_path") as string || undefined,
+                discount: parseFloat(formData.get("discount") as string) || undefined,
+                discount_id: parseInt(formData.get("discount_id") as string) || undefined,
+                sticker_id: parseInt(formData.get("sticker_id") as string) || undefined
+            };
+    
+            // Log the parsed product data
+            console.info("Parsed product data:", JSON.stringify(productData));
+    
+            // Validate required fields
+            if (!productData.name || isNaN(productData.price)) {
+                return new Response(JSON.stringify({ 
+                    error: "Name and valid price are required",
+                    received: productData 
+                }), {
+                    status: 400,
+                    headers: { "Content-Type": "application/json" }
+                });
+            }
+    
+            const productId = await createProduct(productData);
+            console.info("Product ID:", productId);
+            if (productId) {
+                return new Response(JSON.stringify({ 
+                    success: true, 
+                    message: "Product created successfully",
+                    product_id: productId 
+                }), {
+                    status: 201,
+                    headers: { "Content-Type": "application/json" }
+                });
+            } else {
+                throw new Error("Failed to create product in database");
+            }
+        } catch (error) {
+            console.error("Product creation error:", error);
+            return new Response(JSON.stringify({ 
+                error: error instanceof Error ? error.message : "Unknown error",
+                details: error instanceof Error ? error.stack : undefined
+            }), {
+                status: 500,
+                headers: { "Content-Type": "application/json" }
+            });
+        }
+    }
     // Handle different API endpoints
     switch (url.pathname) {
         case "/api/status":
             return new Response(JSON.stringify({ status: "ok" }), {
                 headers: { "Content-Type": "application/json" }
-            });
-
-            case "/api/products":
-                if (req.method !== "POST") {
-                    return new Response(JSON.stringify({ error: "Method not allowed" }), {
-                        status: 405,
-                        headers: { "Content-Type": "application/json" }
-                    });
-                }
-            
-                try {
-                    const formData = await req.formData();
-                    // Log the received form data
-                    console.info("Received form data:", Object.fromEntries(formData));
-            
-                    const productData: ProductData = {
-                        name: formData.get("name") as string,
-                        price: parseFloat(formData.get("price") as string),
-                        description: formData.get("description") as string || undefined,
-                        quantity: parseInt(formData.get("quantity") as string) || 0,
-                        image_path: formData.get("image_path") as string || undefined,
-                        discount: parseFloat(formData.get("discount") as string) || undefined,
-                        discount_id: parseInt(formData.get("discount_id") as string) || undefined,
-                        sticker_id: parseInt(formData.get("sticker_id") as string) || undefined
-                    };
-            
-                    // Log the parsed product data
-                    console.info("Parsed product data:", productData);
-            
-                    // Validate required fields
-                    if (!productData.name || isNaN(productData.price)) {
-                        return new Response(JSON.stringify({ 
-                            error: "Name and valid price are required",
-                            received: productData 
-                        }), {
-                            status: 400,
-                            headers: { "Content-Type": "application/json" }
-                        });
-                    }
-            
-                    const productId = await createProduct(productData);
-                    if (productId) {
-                        return new Response(JSON.stringify({ 
-                            success: true, 
-                            message: "Product created successfully",
-                            product_id: productId 
-                        }), {
-                            status: 201,
-                            headers: { "Content-Type": "application/json" }
-                        });
-                    } else {
-                        throw new Error("Failed to create product in database");
-                    }
-                } catch (error) {
-                    console.error("Product creation error:", error);
-                    return new Response(JSON.stringify({ 
-                        error: error instanceof Error ? error.message : "Unknown error",
-                        details: error instanceof Error ? error.stack : undefined
-                    }), {
-                        status: 500,
-                        headers: { "Content-Type": "application/json" }
-                    });
-                }
+            });        
         default:
             return new Response(JSON.stringify({ error: "Not Found" }), {
                 status: 404,
