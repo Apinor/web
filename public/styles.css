@@ -165,8 +165,7 @@ body {
 
 /* Footer */
 footer {
-  background-color: #4d4d4d;
-  color: white;
+  color: black;
   padding: 20px;  
   text-align: left;
 }
@@ -177,7 +176,8 @@ footer a {
 }
 
 footer a:hover {
-  color: #ddd;
+  scale: 1.1;
+  transition: ease-in-out 0.2s;
 }
 
 /* Override Bootstrap my-4 class */
