@@ -83,9 +83,10 @@
                 <% shopItems.forEach(function(item) { %> 
                     <div class="shop-item">
                         <img src="<%= item.image %>" alt="<%= item.title %>">
+                        <span class="price"><%= item.price %></span>
                         <h3><%= item.title %></h3>
                         <p><%= item.description %></p>
-                        <span class="price"><%= item.price %></span>
+                        <button type="button" class="btn btn-primary">Kjøp nå</button>
                     </div>
                 <% }); %>
             </div>

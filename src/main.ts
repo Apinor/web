@@ -11,6 +11,24 @@ const templateData = {
   ],
   shopTopText: "Velkommen til Apinor!",
   shopItems: [
+    {
+      title: "Premium Honey",
+      description: "Pure natural honey from Norwegian bees",
+      price: "299 kr",
+      image: "/public/images/products/honey1.jpg"
+    },
+    {
+      title: "Beeswax Candles",
+      description: "Hand-crafted natural beeswax candles",
+      price: "159 kr",
+      image: "/public/images/products/candles1.jpg"
+    },
+    {
+      title: "Bee Pollen",
+      description: "Fresh bee pollen supplements",
+      price: "199 kr",
+      image: "/public/images/products/pollen1.jpg"
+    }
   ],
   news: [
     {
