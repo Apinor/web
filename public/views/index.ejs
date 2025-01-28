@@ -26,8 +26,7 @@
                 <button id="contact" class="navbarButton">KONTAKT</button>
             </div>
           </div>
-        </nav>
-        <div id="dropdown" class="relative inline-block text-left">
+          <div id="dropdown" class="relative inline-block text-left">
             <button onclick="toggleDropdown()">☰</button>
             <div id="dropdownMenu">
                 <ul class="py-1">
@@ -49,33 +48,44 @@
                 </ul>
             </div>
         </div>
+        </nav>
     </div>
     <div id="navbarLine"></div>
-    <div class="jumbotron" style="width: 85%; margin: 0 auto;">
-      <div id="newsCarousel" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-              <% news.forEach(function(article, index) { %>
-                  <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                      <div class="card mb-3">
-                          <div class="card-body">
-                              <h3 class="card-title"><%= article.title %></h3>
-                              <time class="card-subtitle mb-2 text-muted"><%= article.date %></time>
-                              <p class="card-text"><%= article.content %></p>
-                          </div>
-                      </div>
-                  </div>
-              <% }); %>
-          </div>
-          <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-          </a>
-      </div>
+    <div id="newsSection" style="width: 85%; margin: 0 auto;">
+        <div id="newsCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <% news.forEach(function(article, index) { %>
+                    <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h3 class="card-title"><%= article.title %></h3>
+                                <time class="card-subtitle mb-2 text-muted"><%= article.date %></time>
+                                <p class="card-text"><%= article.content %></p>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+            <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
     </div>
+  <div style="justify-content: center; display: flex;">
+      <!-- News Carousel Section -->
+      <div class="carousel">
+          <% newsCarousel.forEach(function(news) { %>
+              <div class="carousel-item">
+                  <%= news %>
+              </div>
+          <% }); %>
+      </div>
+  </div>
         <div style="justify-content: center; display: flex;">
                   <!-- News Carousel Section -->
             <div class="carousel">
