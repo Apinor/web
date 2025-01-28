@@ -1,3 +1,5 @@
+
+
 body {
   display: flex;
   flex-direction: column;
@@ -31,7 +33,7 @@ body {
 }
 
 #navbarContent {
-  width: 85%;
+  width: 80%;
   display: flex;
   justify-content: space-between; /* Align items horizontally */
   align-items: center; /* Align items vertically */
