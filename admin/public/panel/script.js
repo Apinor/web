@@ -42,14 +42,19 @@ document.getElementById("checkStatus").addEventListener("click", async () => {
 });
 document.getElementById("getProducts").addEventListener("click", async () => {
   try {
+    const getProductsStatusDiv = document.getElementById(
+      "getProductsStatusResult"
+    );
+
     const response = await fetch("/api/products", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include", // This is important for the session cookie
+      credentials: "include",
     });
     const products = await response.json();
+    getProductsStatusDiv.innerHTML = `<div class="alert alert-success">Fetching products Status: OK </div>`;
     const tableHTML = `
       <table class="table table-dark table-striped">
         <thead>
@@ -83,6 +88,12 @@ document.getElementById("getProducts").addEventListener("click", async () => {
 
     document.getElementById("productsTable").innerHTML = tableHTML;
   } catch (error) {
+    const getProductsStatusDiv = document.getElementById(
+      "getProductsStatusResult"
+    );
+
+    getProductsStatusDiv.innerHTML = `<div class="alert alert-danger">Fetching products Status: ${error} </div>`;
+
     console.error("Error:", error);
   }
 });
