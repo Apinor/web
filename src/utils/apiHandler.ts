@@ -45,6 +45,16 @@ async function createProduct(data: ProductData): Promise<number | null> {
         return null;
     }
 }
+async function getProducts(): Promise<ProductData[]> {
+    try {
+        const result = await mysql.query('SELECT * FROM Products');
+        console.info("Result from getting products", JSON.stringify(result))
+        return result as ProductData[];
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        return [];
+    }
+}
 export async function handleApiRequest(req: Request): Promise<Response> {
     const url = new URL(req.url);
     const sessionToken = req.headers.get("cookie")?.match(/session=([^;]+)/)?.[1];
@@ -111,6 +121,11 @@ export async function handleApiRequest(req: Request): Promise<Response> {
                 headers: { "Content-Type": "application/json" }
             });
         }
+    }if(url.pathname === "/api/products" && req.method === "GET"){
+        const products = await getProducts()
+        return new Response(JSON.stringify(products), {
+            headers: { "Content-Type": "application/json" }
+        });
     }
     // Handle different API endpoints
     switch (url.pathname) {

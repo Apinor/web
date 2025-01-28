@@ -40,3 +40,49 @@ document.getElementById("checkStatus").addEventListener("click", async () => {
     ).innerHTML = `<div class="alert alert-danger">Error connecting to API: ${error.message}</div>`;
   }
 });
+document.getElementById("getProducts").addEventListener("click", async () => {
+  try {
+    const response = await fetch("/api/products", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include", // This is important for the session cookie
+    });
+    const products = await response.json();
+    const tableHTML = `
+      <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${products
+            .map(
+              (product) => `
+            <tr>
+              <td>${product.ID || "-"}</td>
+              <td>${product.Name || "-"}</td>
+              <td>${product.Price || "-"}</td>
+              <td>${product.Description || "-"}</td>
+              <td>${product.Quantity || "0"}</td>
+              <td>${product.Status ? "Active" : "Inactive"}</td>
+            </tr>
+          `
+            )
+            .join("")}
+        </tbody>
+      </table>
+    `;
+
+    document.getElementById("productsTable").innerHTML = tableHTML;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+});
