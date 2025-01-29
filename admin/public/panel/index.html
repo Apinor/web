@@ -22,13 +22,209 @@
       <div id="statusResult" class="mt-3"></div>
     </div>
     <div class="container mt-5">
-      <h3>Product List</h3>
-      <button id="getProducts" class="btn btn-secondary mb-3">
-        Fetch Products
-      </button>
-      <div id="getProductsStatusResult" class="mt-3"></div>
-      <div id="productsTable" class="table-responsive">
-        <!-- Products will be displayed here -->
+      <ul class="nav nav-pills mb-4" id="adminTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="products-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#products"
+            type="button"
+            role="tab"
+          >
+            Products
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="discounts-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#discounts"
+            type="button"
+            role="tab"
+          >
+            Discounts
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="stickers-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#stickers"
+            type="button"
+            role="tab"
+          >
+            Stickers
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="news-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#news"
+            type="button"
+            role="tab"
+          >
+            News
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="banner-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#banner"
+            type="button"
+            role="tab"
+          >
+            Banner
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="users-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#users"
+            type="button"
+            role="tab"
+          >
+            Users
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="sessions-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#sessions"
+            type="button"
+            role="tab"
+          >
+            Sessions
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="transactions-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#transactions"
+            type="button"
+            role="tab"
+          >
+            Transactions
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="featured-products-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#featured-products"
+            type="button"
+            role="tab"
+          >
+            Featured Products
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="adminTabContent">
+        <!-- Products Tab -->
+        <div class="tab-pane fade show active" id="products" role="tabpanel">
+          <!-- Existing products content -->
+          <h3>Product List</h3>
+          <button id="getProducts" class="btn btn-secondary mb-3">
+            Fetch Products
+          </button>
+          <div id="getProductsStatusResult" class="mt-3"></div>
+          <div id="productsTable" class="table-responsive"></div>
+          <!-- Existing product form -->
+          <div id="productForm" class="mt-4">
+            <!-- ...existing product form content... -->
+          </div>
+        </div>
+        <div class="tab-pane fade" id="transactions" role="tabpanel">
+          <h3>Transactions List</h3>
+          <button id="getTransactions" class="btn btn-secondary mb-3">
+            Fetch Transactions
+          </button>
+          <div id="getTransactionsStatusResult" class="mt-3"></div>
+          <div id="transactionsTable" class="table-responsive"></div>
+        </div>
+
+        <!-- Featured Products Tab -->
+        <div class="tab-pane fade" id="featured-products" role="tabpanel">
+          <h3>Featured Products List</h3>
+          <button id="getFeaturedProduct" class="btn btn-secondary mb-3">
+            Fetch Featured Products
+          </button>
+          <div id="getFeaturedProductStatusResult" class="mt-3"></div>
+          <div id="featuredProductTable" class="table-responsive"></div>
+        </div>
+        <!-- Discounts Tab -->
+        <div class="tab-pane fade" id="discounts" role="tabpanel">
+          <h3>Discounts List</h3>
+          <button id="getDiscounts" class="btn btn-secondary mb-3">
+            Fetch Discounts
+          </button>
+          <div id="getDiscountsStatusResult" class="mt-3"></div>
+          <div id="discountsTable" class="table-responsive"></div>
+        </div>
+
+        <!-- Stickers Tab -->
+        <div class="tab-pane fade" id="stickers" role="tabpanel">
+          <h3>Stickers List</h3>
+          <button id="getStickers" class="btn btn-secondary mb-3">
+            Fetch Stickers
+          </button>
+          <div id="getStickersStatusResult" class="mt-3"></div>
+          <div id="stickersTable" class="table-responsive"></div>
+        </div>
+
+        <!-- News Tab -->
+        <div class="tab-pane fade" id="news" role="tabpanel">
+          <h3>News List</h3>
+          <button id="getNews" class="btn btn-secondary mb-3">
+            Fetch News
+          </button>
+          <div id="getNewsStatusResult" class="mt-3"></div>
+          <div id="newsTable" class="table-responsive"></div>
+        </div>
+
+        <!-- Banner Tab -->
+        <div class="tab-pane fade" id="banner" role="tabpanel">
+          <h3>Banner List</h3>
+          <button id="getBanner" class="btn btn-secondary mb-3">
+            Fetch Banner
+          </button>
+          <div id="getBannerStatusResult" class="mt-3"></div>
+          <div id="bannerTable" class="table-responsive"></div>
+        </div>
+
+        <!-- Users Tab -->
+        <div class="tab-pane fade" id="users" role="tabpanel">
+          <h3>Users List</h3>
+          <button id="getUsers" class="btn btn-secondary mb-3">
+            Fetch Users
+          </button>
+          <div id="getUsersStatusResult" class="mt-3"></div>
+          <div id="usersTable" class="table-responsive"></div>
+        </div>
+
+        <!-- Sessions Tab -->
+        <div class="tab-pane fade" id="sessions" role="tabpanel">
+          <h3>Sessions List</h3>
+          <button id="getSessions" class="btn btn-secondary mb-3">
+            Fetch Sessions
+          </button>
+          <div id="getSessionsStatusResult" class="mt-3"></div>
+          <div id="sessionsTable" class="table-responsive"></div>
+        </div>
       </div>
     </div>
     <div class="container mt-5">

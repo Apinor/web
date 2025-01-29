@@ -55,6 +55,85 @@ async function getProducts(): Promise<ProductData[]> {
     return [];
   }
 }
+async function getDiscounts() {
+  try {
+    const result = await mysql.query("SELECT * FROM Discount");
+    return result;
+  } catch (error) {
+    console.error("Error fetching discounts:", error);
+    return [];
+  }
+}
+
+async function getTransactions() {
+  try {
+    const result = await mysql.query("SELECT * FROM Transactions");
+    return result;
+  } catch (error) {
+    console.error("Error fetching transactions:", error);
+    return [];
+  }
+}
+
+async function getStickers() {
+  try {
+    const result = await mysql.query("SELECT * FROM Stickers");
+    return result;
+  } catch (error) {
+    console.error("Error fetching stickers:", error);
+    return [];
+  }
+}
+
+async function getNews() {
+  try {
+    const result = await mysql.query("SELECT * FROM News");
+    return result;
+  } catch (error) {
+    console.error("Error fetching news:", error);
+    return [];
+  }
+}
+
+async function getUsers() {
+  try {
+    const result = await mysql.query("SELECT * FROM Users");
+    return result;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return [];
+  }
+}
+
+async function getSessions() {
+  try {
+    const result = await mysql.query("SELECT * FROM Sessions");
+    return result;
+  } catch (error) {
+    console.error("Error fetching sessions:", error);
+    return [];
+  }
+}
+
+async function getBanner() {
+  try {
+    const result = await mysql.query("SELECT * FROM Banner");
+    return result;
+  } catch (error) {
+    console.error("Error fetching banner:", error);
+    return [];
+  }
+}
+
+async function getFeatured_product() {
+  try {
+    const result = await mysql.query("SELECT * FROM Featured_Product");
+    return result;
+  } catch (error) {
+    console.error("Error fetching featured product:", error);
+    return [];
+  }
+}
 export async function handleApiRequest(req: Request): Promise<Response> {
   const url = new URL(req.url);
   const sessionToken = req.headers.get("cookie")?.match(/session=([^;]+)/)?.[1];
@@ -135,6 +214,54 @@ export async function handleApiRequest(req: Request): Promise<Response> {
   if (url.pathname === "/api/products" && req.method === "GET") {
     const products = await getProducts();
     return new Response(JSON.stringify(products), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  if (url.pathname === "/api/discounts" && req.method === "GET") {
+    const discounts = await getDiscounts();
+    return new Response(JSON.stringify(discounts), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  if (url.pathname === "/api/transactions" && req.method === "GET") {
+    const transactions = await getTransactions();
+    return new Response(JSON.stringify(transactions), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  if (url.pathname === "/api/stickers" && req.method === "GET") {
+    const stickers = await getStickers();
+    return new Response(JSON.stringify(stickers), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  if (url.pathname === "/api/news" && req.method === "GET") {
+    const news = await getNews();
+    return new Response(JSON.stringify(news), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  if (url.pathname === "/api/users" && req.method === "GET") {
+    const users = await getUsers();
+    return new Response(JSON.stringify(users), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  if (url.pathname === "/api/sessions" && req.method === "GET") {
+    const sessions = await getSessions();
+    return new Response(JSON.stringify(sessions), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  if (url.pathname === "/api/banner" && req.method === "GET") {
+    const banner = await getBanner();
+    return new Response(JSON.stringify(banner), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  if (url.pathname === "/api/featured_product" && req.method === "GET") {
+    const featured_product = await getFeatured_product();
+    return new Response(JSON.stringify(featured_product), {
       headers: { "Content-Type": "application/json" },
     });
   }

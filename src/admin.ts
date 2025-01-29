@@ -9,7 +9,7 @@ import {
   cleanupSessions,
 } from "./utils/sessionUtils.ts";
 import { handleApiRequest } from "./utils/apiHandler.ts";
-// Cleanup expired sessions every hour
+// Cleanup expired sessions every hoursl
 setInterval(cleanupSessions, 3600000);
 
 const env = await load();
