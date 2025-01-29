@@ -98,29 +98,28 @@
         </div>
 
         <div style="justify-content: center; display: flex;">
-          <!-- Shop Section -->
-          <section class="shop">
-              <h1><%= shopTopText %></h1>
-              
-              <div class="shop-items row">
-                  <% shopItems.forEach(function(item) { %> 
-                      <div class="col-md-4 mb-4">
-                          <div class="card h-100">
-                              <img src="<%= item.image %>" class="card-img-top" alt="<%= item.title %>">
-                              <div class="card-body">
-                                  <h5 class="card-title"><%= item.title %></h5>
-                                  <p class="card-text"><%= item.description %></p>
-                                  <span class="price"><%= item.price %></span>
-                              </div>
-                              <div class="card-footer">
-                                  <button type="button" class="btn btn-primary">Kjøp nå</button>
-                              </div>
-                          </div>
-                      </div>
-                  <% }); %>
-              </div>
-          </section>
-      </div>
+            <!-- Shop Section -->
+            <section class="shop" style="width: 80%;">
+                <h1><%= shopTopText %></h1>
+                <div class="shop-items row" style="justify-content: space-between;">
+                    <% shopItems.forEach(function(item) { %> 
+                        <div class="col-md-3 mb-4">
+                            <div class="card h-100">
+                                <img src="<%= item.image %>" class="card-img-top" alt="<%= item.title %>">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= item.title %></h5>
+                                    <p class="card-text"><%= item.description %></p>
+                                    <span class="price"><%= item.price %></span>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" class="btn btn-primary">Kjøp nå</button>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </section>
+        </div>
     </div>
 
     <!-- Footer -->

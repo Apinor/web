@@ -15,23 +15,30 @@ const templateData = {
       title: "Premium Honey",
       description: "Pure natural honey from Norwegian bees",
       price: "299 kr",
-      image: "/public/images/products/honey1.jpg"
+      image: "public/images/products/Apifor.png"
     },
     {
       title: "Beeswax Candles",
       description: "Hand-crafted natural beeswax candles",
       price: "159 kr",
-      image: "/public/images/products/candles1.jpg"
+      image: "public/images/products/Apifor.png"
     },
     {
       title: "Bee Pollen",
       description: "Fresh bee pollen supplements",
       price: "199 kr",
-      image: "/public/images/products/pollen1.jpg"
+      image: "public/images/products/Apifor.png"
+    },
+    {
+      title: "Bee bolan braut",
+      description: "Fresh bee pollen supplements",
+      price: "199 kr",
+      image: "public/images/products/Apifor.png"
     }
   ],
   news: [
     {
+      image: "public/images/news/DrippBag.jpg",
       title: "Sustainable Beekeeping Workshop",
       date: "2025-02-15",
       content: "Join us for a day of learning about sustainable beekeeping practices."
