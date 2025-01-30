@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --watch --allow-net --allow-read src/main.ts",
+    "dev": "deno run --watch --allow-net --allow-read --allow-write src/main.ts",
     "test": "deno run --watch --allow-net --allow-read src/main_test.ts"
   },
   "imports": {

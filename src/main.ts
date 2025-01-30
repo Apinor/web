@@ -1,6 +1,7 @@
 import { renderFileToString } from "https://deno.land/x/dejs@0.10.3/mod.ts";
 import { serveFile } from "https://deno.land/std@0.114.0/http/file_server.ts";
-
+import logger from "./utils/logging.ts";
+const console = logger;
 // Mock data structure
 const templateData = {
   title: "Apinor",
@@ -110,4 +111,4 @@ Deno.serve({ port: 8000 }, async (req: Request) => {
   return new Response("Not Found", { status: 404 });
 });
 
-console.log("Server running at http://localhost:8000");
+console.info("Server running at http://localhost:8000");
