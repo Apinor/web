@@ -44,6 +44,7 @@ const templateData = {
       content: "Join us for a day of learning about sustainable beekeeping practices."
     },
     {
+      image: "public/images/news/ApiForNews.png",
       title: "New Honey Harvest",
       date: "2025-01-20",
       content: "Our latest honey harvest is now available in stores!"
@@ -76,6 +77,16 @@ Deno.serve({ port: 8000 }, async (req: Request) => {
       console.error("Template rendering error:", error);
       return new Response("Error rendering template", { status: 500 });
     }
+  } else if (req.method === "GET" && pathname === "/productPage") {
+    try {
+      const body = await renderFileToString("public/views/productPage.ejs", templateData);
+      return new Response(body, {
+        headers: { "Content-Type": "text/html; charset=utf-8" },
+      });
+    } catch (error) {
+      console.error("Template rendering error:", error);
+      return new Response("Error rendering template", { status: 500 });
+    }
   } else if (req.method === "GET" && pathname.startsWith("/public")) {
     try {
       const filePath = `.${pathname}`;
@@ -85,7 +96,16 @@ Deno.serve({ port: 8000 }, async (req: Request) => {
       console.error("File serving error:", error);
       return new Response("File not found", { status: 404 });
     }
-  }
+  } else if (req.method === "GET" && pathname.startsWith("/public/views")) {
+    try {
+      const filePath = `.${pathname}`;
+      const file = await serveFile(req, filePath);
+      return file;
+    } catch (error) {
+      console.error("File serving error:", error);
+      return new Response("File not found", { status: 404 });
+    }
+  } 
 
   return new Response("Not Found", { status: 404 });
 });

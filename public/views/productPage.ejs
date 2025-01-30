@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title  %></title>
+    <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+    <div class="content">
+        <div id="navbarContainer">
+          <img src="/public/images/ApinorBanner.jpg" alt="Banner" id="apiBanner">
+          <nav id="navbar" class="semi-transparent-navbar">
+            <div id="navbarContent">
+                <div id="navbarIMGContainer">
+                  <img src="/public/images/ApinorLogo.png" alt="ApinorLogo">
+                </div>
+              <div id="navbarButtons">
+                  <button id="aboutUs" class="navbarButton">OM APINOR</button>
+                  <button id="order" class="navbarButton">BESTILLING</button>
+                  <button id="contact" class="navbarButton">KONTAKT</button>
+              </div>
+            </div>
+            <div id="dropdown" class="relative inline-block text-left">
+              <button onclick="toggleDropdown()">☰</button>
+              <div id="dropdownMenu">
+                  <ul class="py-1">
+                      <li>
+                          <a href="/om-apinor" class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900">
+                              OM APINOR
+                          </a>
+                      </li>
+                      <li>
+                          <a href="/bestilling" class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900">
+                              BESTILLING
+                          </a>
+                      </li>
+                      <li>
+                          <a href="/kontakt" class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900">
+                              KONTAKT
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          </nav>
+    </div>
+    <div id="navbarLine"></div>
+    
+    <div id="productcontainer"></div>
+</body>
+</html>
