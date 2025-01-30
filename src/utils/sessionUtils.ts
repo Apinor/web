@@ -54,7 +54,7 @@ export async function validateSession(sessionToken: string): Promise<boolean> {
   }
 
   try {
-    const [rows]: any = await mysql.query(
+    const [rows] = await mysql.query(
       `SELECT COUNT(*) as count
             FROM Sessions 
             WHERE 
