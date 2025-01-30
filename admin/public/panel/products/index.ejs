@@ -124,37 +124,45 @@
     </div>
     <div class="container mt-5">
       <h3>Product List</h3>
-      <section class="shop" style="width: 80%;">
-          <h1><%= shopTopText %></h1>
-          <div class="shop-items row" style="justify-content: space-between;">
-              <% shopItems.forEach(function(item) { %>
-                  <div class="col-md-3 mb-4">
-                      <div class="card h-100">
-                          <% if (item.Image_Path) { %>
-                              <img src="<%= item.Image_Path %>" class="card-img-top" alt="<%= item.Name %>">
-                          <% } else { %>
-                              <img src="/images/placeholder.png" class="card-img-top" alt="No image available">
-                          <% } %>
-                          <div class="card-body">
-                              <h5 class="card-title"><%= item.Name %></h5>
-                              <p class="card-text"><%= item.Description %></p>
-                              <span class="price">NOK <%= item.Price %></span>
-                          </div>
-                          <div class="card-footer">
-                              <button type="button" class="btn btn-primary">Kjøp nå</button>
-                          </div>
-                      </div>
-                  </div>
-              <% }); %>
+      <section class="shop" style="width: 80%">
+        <h1><%= shopTopText %></h1>
+        <div class="shop-items row" style="justify-content: space-between">
+          <% shopItems.forEach(function(item) { %>
+          <div class="col-md-3 mb-4">
+            <div class="card h-100">
+              <% if (item.Image_Path) { %>
+              <img
+                src="<%= item.Image_Path %>"
+                class="card-img-top"
+                alt="<%= item.Name %>"
+              />
+              <% } else { %>
+              <img
+                src="/images/placeholder.png"
+                class="card-img-top"
+                alt="No image available"
+              />
+              <% } %>
+              <div class="card-body">
+                <h5 class="card-title"><%= item.Name %></h5>
+                <p class="card-text"><%= item.Description %></p>
+                <span class="price">NOK <%= item.Price %></span>
+              </div>
+              <div class="card-footer">
+                <button type="button" class="btn btn-primary">Kjøp nå</button>
+              </div>
+            </div>
           </div>
-          <button id="getProducts" class="btn btn-secondary mb-3">
-              Fetch Products
-          </button>
-          <div id="getProductsStatusResult" class="mt-3"></div>
-          <div id="productsTable" class="table-responsive"></div>
+          <% }); %>
+        </div>
+        <button id="getProducts" class="btn btn-secondary mb-3">
+          Fetch Products
+        </button>
+        <div id="getProductsStatusResult" class="mt-3"></div>
+        <div id="productsTable" class="table-responsive"></div>
       </section>
-  </div>
-  
+    </div>
+
     <script src="./script.js"></script>
   </body>
 </html>

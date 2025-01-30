@@ -70,8 +70,6 @@ document.getElementById("getProducts").addEventListener("click", async () => {
 
     document.getElementById("productsTable").innerHTML = tableHTML;
   } catch (error) {
-
-    
     const getProductsStatusDiv = document.getElementById(
       "getProductsStatusResult"
     );

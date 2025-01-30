@@ -84,11 +84,17 @@ Deno.serve(async (req: Request) => {
       }
     } else if (url.pathname.startsWith("/api/")) {
       return handleApiRequest(req);
-    } else if (url.pathname == "/panel/products/" || url.pathname == "/panel/products" && req.method === "GET") {
+    } else if (
+      url.pathname == "/panel/products/" ||
+      (url.pathname == "/panel/products" && req.method === "GET")
+    ) {
       try {
         const products = await mysql.query("SELECT * FROM Products");
         // console.info(Deno.inspect(products, { depth: Infinity, colors: true }));
-        const body = await renderFileToString("./admin/public/panel/products/index.ejs",  { shopItems: products, shopTopText: "Available Products" });
+        const body = await renderFileToString(
+          "./admin/public/panel/products/index.ejs",
+          { shopItems: products, shopTopText: "Available Products" }
+        );
         return new Response(body, {
           headers: { "Content-Type": "text/html; charset=utf-8" },
         });
