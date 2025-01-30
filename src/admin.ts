@@ -85,6 +85,18 @@ Deno.serve(async (req: Request) => {
       }
     } else if (url.pathname.startsWith("/api/")) {
       return handleApiRequest(req);
+    } else if (url.pathname == "/panel/products/" || url.pathname == "/panel/products" && req.method === "GET") {
+      try {
+        const products = await mysql.query("SELECT * FROM Products");
+        // console.info(Deno.inspect(products, { depth: Infinity, colors: true }));
+        const body = await renderFileToString("./admin/public/panel/products/index.ejs",  { shopItems: products, shopTopText: "Available Products" });
+        return new Response(body, {
+          headers: { "Content-Type": "text/html; charset=utf-8" },
+        });
+      } catch (error) {
+        console.error("Template rendering error:", error);
+        return new Response("Error rendering template", { status: 500 });
+      }
     }
     // Serve files from the 'public' directory for all other paths
     return serveDir(req, { fsRoot: "./admin/public" });
