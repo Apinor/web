@@ -79,3 +79,6 @@ document.getElementById("getProducts").addEventListener("click", async () => {
     console.error("Error:", error);
   }
 });
+function deleteItem(id){
+  console.log("Delete button clicked with id: ", id);
+}
