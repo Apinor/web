@@ -9,6 +9,8 @@ import {
   cleanupSessions,
 } from "./utils/sessionUtils.ts";
 import { handleApiRequest } from "./utils/apiHandler.ts";
+import { renderFileToString } from "https://deno.land/x/dejs@0.10.3/mod.ts";
+import { serveFile } from "https://deno.land/std@0.114.0/http/file_server.ts";
 // Cleanup expired sessions every hoursl
 setInterval(cleanupSessions, 3600000);
 
