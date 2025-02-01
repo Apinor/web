@@ -107,6 +107,98 @@ async function createProduct(data: ProductData): Promise<number | null> {
     return null;
   }
 }
+async function createSticker(data: Stickers): Promise<number | null> {
+  try {
+    const result = await mysql.query(
+      "INSERT INTO Stickers (Name, Description) VALUES (?, ?)",
+      [data.name, data.description || null]
+    );
+    return result.lastInsertId || null;
+  } catch (error) {
+    console.error("Error creating sticker:", error);
+    return null;
+  }
+}
+
+async function createDiscount(data: Discount): Promise<number | null> {
+  try {
+    const result = await mysql.query(
+      `INSERT INTO Discount (Name, Description, Discount_Percent, 
+        Discount_Amount, Sticker_ID) VALUES (?, ?, ?, ?, ?)`,
+      [
+        data.name,
+        data.description || null,
+        data.Discount_Percent || null,
+        data.Discount_Amount || null,
+        data.Sticker_ID || null
+      ]
+    );
+    return result.lastInsertId || null;
+  } catch (error) {
+    console.error("Error creating discount:", error);
+    return null;
+  }
+}
+
+async function createNews(data: News): Promise<number | null> {
+  try {
+    const result = await mysql.query(
+      `INSERT INTO News (Name, Description, News_Background_Image_Path, 
+        News_Spotlight_Image_Path, News_Spotlight_Image_Sticker_ID, 
+        News_InfoText, News_Header, Activated) 
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        data.Name,
+        data.Description,
+        data.News_Background_Image_Path,
+        data.News_Spotlight_Image_Path,
+        data.News_Spotlight_Image_Sticker_ID,
+        data.News_InfoText,
+        data.News_Header,
+        data.Activated || 0
+      ]
+    );
+    return result.lastInsertId || null;
+  } catch (error) {
+    console.error("Error creating news:", error);
+    return null;
+  }
+}
+
+async function createBanner(data: Banner): Promise<number | null> {
+  try {
+    const result = await mysql.query(
+      `INSERT INTO Banner (Name, Description, Banner_Header, 
+        Banner_Text, Banner_Img_Path, Activated) 
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [
+        data.Name,
+        data.Description,
+        data.Banner_Header,
+        data.Banner_Text,
+        data.Banner_Image_Path,
+        data.Activated || 0
+      ]
+    );
+    return result.lastInsertId || null;
+  } catch (error) {
+    console.error("Error creating banner:", error);
+    return null;
+  }
+}
+
+async function createFeaturedProduct(data: FeaturedProduct): Promise<number | null> {
+  try {
+    const result = await mysql.query(
+      "INSERT INTO Featured_Product (Product_ID, Activated) VALUES (?, ?)",
+      [data.Product_ID, data.Activated || 0]
+    );
+    return result.lastInsertId || null;
+  } catch (error) {
+    console.error("Error creating featured product:", error);
+    return null;
+  }
+}
 async function getProducts(): Promise<ProductData[]> {
   try {
     const result = await mysql.query("SELECT * FROM Products");
@@ -326,6 +418,183 @@ export async function handleApiRequest(req: Request): Promise<Response> {
     return new Response(JSON.stringify(featured_product), {
       headers: { "Content-Type": "application/json" },
     });
+  }
+  if (url.pathname === "/api/stickers" && req.method === "POST") {
+    try {
+      const formData = await req.formData();
+      const stickerData: Stickers = {
+        name: formData.get("name") as string,
+        description: formData.get("description") as string || undefined,
+      };
+
+      if (!stickerData.name) {
+        return new Response(
+          JSON.stringify({
+            error: "Name is required",
+            received: stickerData,
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+
+      const stickerId = await createSticker(stickerData);
+      if (stickerId) {
+        return new Response(
+          JSON.stringify({
+            success: true,
+            message: "Sticker created successfully",
+            sticker_id: stickerId,
+          }),
+          {
+            status: 201,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      } else {
+        throw new Error("Failed to create sticker in database");
+      }
+    } catch (error) {
+      console.error("Sticker creation error:", error);
+      return new Response(
+        JSON.stringify({
+          error: error instanceof Error ? error.message : "Unknown error",
+          details: error instanceof Error ? error.stack : undefined,
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+  }
+
+  if (url.pathname === "/api/discounts" && req.method === "POST") {
+    try {
+      const formData = await req.formData();
+      const discountData: Discount = {
+        name: formData.get("name") as string,
+        description: formData.get("description") as string || undefined,
+        Discount_Percent: parseFloat(formData.get("discount_percent") as string) || undefined,
+        Discount_Amount: parseFloat(formData.get("discount_amount") as string) || undefined,
+        Sticker_ID: parseInt(formData.get("sticker_id") as string) || undefined,
+      };
+
+      if (!discountData.name) {
+        return new Response(
+          JSON.stringify({
+            error: "Name is required",
+            received: discountData,
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+
+      const discountId = await createDiscount(discountData);
+      if (discountId) {
+        return new Response(
+          JSON.stringify({
+            success: true,
+            message: "Discount created successfully",
+            discount_id: discountId,
+          }),
+          {
+            status: 201,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      } else {
+        throw new Error("Failed to create discount in database");
+      }
+    } catch (error) {
+      console.error("Discount creation error:", error);
+      return new Response(
+        JSON.stringify({
+          error: error instanceof Error ? error.message : "Unknown error",
+          details: error instanceof Error ? error.stack : undefined,
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+  }
+  if (url.pathname === "/api/featured_product" && req.method === "POST") {
+    try {
+      const formData = await req.formData();
+      const featuredData: FeaturedProduct = {
+        Product_ID: parseInt(formData.get("product_id") as string),
+        Activated: parseInt(formData.get("activated") as string) || 0,
+      };
+  
+      // Validate required fields
+      if (!featuredData.Product_ID) {
+        return new Response(
+          JSON.stringify({
+            error: "Product ID is required",
+            received: featuredData,
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+  
+      // Check if product exists
+      const product = await mysql.query(
+        "SELECT ID FROM Products WHERE ID = ?",
+        [featuredData.Product_ID]
+      );
+  
+      if (!product.length) {
+        return new Response(
+          JSON.stringify({
+            error: "Product does not exist",
+            received: featuredData,
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+  
+      const featuredId = await createFeaturedProduct(featuredData);
+      if (featuredId) {
+        return new Response(
+          JSON.stringify({
+            success: true,
+            message: "Featured product created successfully",
+            featured_id: featuredId,
+          }),
+          {
+            status: 201,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      } else {
+        throw new Error("Failed to create featured product in database");
+      }
+    } catch (error) {
+      console.error("Featured product creation error:", error);
+      return new Response(
+        JSON.stringify({
+          error: error instanceof Error ? error.message : "Unknown error",
+          details: error instanceof Error ? error.stack : undefined,
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
   }
   // Handle different API endpoints
   switch (url.pathname) {
