@@ -12,6 +12,68 @@ interface ProductData {
   discount_id?: number;
   sticker_id?: number;
 }
+interface Discount {
+  name: string;
+  description?: string;
+  Discount_Percent?: number;
+  Discount_Amount?: number;
+  Sticker_ID?: number;
+}
+interface Stickers {
+  name: string;
+  description?: string;
+}
+interface Users {
+  Cookie_ID: string;
+  First_Visit: string;
+  Last_Visit: string;
+  Total_Visits: number;
+  Cart_ID: number;
+}
+
+interface Cart {
+  User_ID: number;
+}
+interface CartItems {
+  Cart_ID: number;
+  Product_ID: number;
+  Quantity: number;
+  Added_to_cart: string;
+}
+
+interface Transactions {
+  Product_ID: number;
+  User_ID: number;
+  Status: number;
+  Initiated: string;
+  Payed_Price: number;
+  Quantity: number;
+}
+
+interface Banner {
+  Name: string;
+  Description: string;
+  Banner_Header: string;
+  Banner_Text: string;
+  Banner_Image_Path: string;
+  Activated: number;
+}
+
+interface News {
+  Name: string;
+  Description: string;
+  News_Background_Image_Path: string;
+  News_Spotlight_Image_Path: string;
+  News_Spotlight_Image_Sticker_ID: number;
+  News_InfoText: string;
+  News_Header: string;
+  Activated: number;
+}
+
+interface FeaturedProduct {
+  Product_ID: number;
+  Activated: number;
+}
 
 const mysql = await createSqlConnection();
 
