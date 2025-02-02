@@ -1,3 +1,265 @@
-.row {
+/* General Styles */
+body {
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+#navbarContainer {
+  
   display: flex;
+  justify-content: center;
+}
+
+#navbar {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.785);
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+  height: 12vh;
+}
+
+#navbarContent {
+  width: 80%;
+  display: flex;
+  justify-content: space-between; /* Align items horizontally */
+  align-items: center; /* Align items vertically */
+}
+
+#navbarIMGContainer img {
+  max-height: 60px; /* Adjust the height for better scaling */
+  width: auto;
+}
+
+#navbarButtons {
+  font-size: x-large;
+  font-weight: 500;
+  display: flex;
+  gap: 15px;
+}
+
+.navbarButton {
+  color: black;
+  padding: 12px 20px;
+  background-color: transparent; /* Remove background color */
+  border: none; /* Remove border */
+  cursor: pointer; /* Change cursor to pointer */
+}
+
+#dropdown {
+  display: none;
+}
+
+#dropdownMenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+#dropdownMenu.active {
+  display: block;
+}
+
+#dropdownMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#dropdownMenu li {
+  padding: 8px 16px;
+}
+
+#dropdownMenu li a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+}
+
+#dropdownMenu li a:hover {
+  background-color: #f1f1f1;
+  color: #000;
+}
+
+/* Responsive Styles */
+@media (max-width: 880px) {
+  #navbarContainer {
+    height: 15vh;
+  }
+
+
+  #navbarButtons {
+    display: none; /* Hide navbar buttons */
+  }
+
+  #dropdown {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 600px) {
+  
+  #navbar {
+    padding: 20px; /* Increase padding */
+  }
+
+  #navbarContainer {
+    height: 15vh;
+  }
+
+  #navbarIMGContainer img {
+    max-height: 80px; /* Increase height */
+  }
+
+  .navbarButton {
+    font-size: larger; /* Increase font size */
+    padding: 16px 24px; /* Increase padding */
+  }
+
+  #apiBanner {
+    height: 300px; /* Increase banner height */
+  }
+}
+
+/* Navbar Divider */
+#navbarLine {
+  height: 4px;
+  background-color: #d9d9d9;
+}
+
+/* Banner */
+#apiBanner {
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+/* Product Section - Larger Size */
+.product-section {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  padding: 50px 0;
+}
+
+.product-title {
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.price h2 {
+  font-weight: 700;
+  font-size: 36px;
+}
+
+.about {
+  font-size: 20px;
+  line-height: 1.8;
+  color: #444;
+  max-width: 80%;
+}
+
+/* Image - Double Size */
+#main-image {
+  max-width: 100%;
+  width: 500px;  /* Increased size */
+  height: auto;
+}
+
+/* Enlarged Button */
+.btn-xl {
+  background: #d9534f;
+  border: none;
+  padding: 18px 36px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.btn-xl:hover {
+  background: #c9302c;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .product-title {
+    font-size: 36px;
+  }
+
+  .price h2 {
+    font-size: 28px;
+  }
+
+  .about {
+    font-size: 18px;
+  }
+
+  #main-image {
+    width: 100%; /* Auto scales down */
+  }
+
+  .btn-xl {
+    padding: 14px 28px;
+    font-size: 20px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-section {
+    text-align: center;
+  }
+  
+  .navbar-nav {
+    text-align: center;
+  }
+  
+  .navbar-nav .nav-item {
+    margin-bottom: 10px;
+  }
+}
+ 
+
+
+/* Footer */
+footer {
+  color: black;
+  padding: 20px;  
+  text-align: left;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+}
+
+footer a:hover {
+  scale: 1.1;
+  transition: ease-in-out 0.2s;
+}
+
+/* Override Bootstrap my-4 class */
+.my-4 {
+  margin-bottom: 0 !important;
+}
+
+.social-icon {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px;
 }
