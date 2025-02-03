@@ -30,10 +30,10 @@ async function insertTestData() {
     // Insert Products
     await mysql.query(`
       INSERT INTO Products (Name, Price, Description, Quantity, Image_Path, Created_At, Modified_At, Status, Discount_ID, Sticker_ID) VALUES
-      ('Norsk Genser', 599.00, 'Varm ullgenser for kalde vinterdager', 50, '/images/genser.jpg', NOW(), NOW(), 1, 1, 4),
-      ('Fjellsko', 1299.00, 'Vanntette fjellsko for turer', 30, '/images/fjellsko.jpg', NOW(), NOW(), 1, 2, 1),
-      ('Ullsokker', 149.00, 'Komfortable ullsokker', 100, '/images/sokker.jpg', NOW(), NOW(), 1, NULL, NULL),
-      ('Ryggsekk', 899.00, 'Slitesterk ryggsekk for dagsturer', 25, '/images/ryggsekk.jpg', NOW(), NOW(), 1, 3, 4);
+      ('Norsk Genser', 599.00, 'Varm ullgenser for kalde vinterdager', 50, '/public/images/products/Apifor.png', NOW(), NOW(), 1, 1, 4),
+      ('Fjellsko', 1299.00, 'Vanntette fjellsko for turer', 30, '/public/images/products/Apifor.png', NOW(), NOW(), 1, 2, 1),
+      ('Ullsokker', 149.00, 'Komfortable ullsokker', 100, '/public/images/products/Apifor.png', NOW(), NOW(), 1, NULL, NULL),
+      ('Ryggsekk', 899.00, 'Slitesterk ryggsekk for dagsturer', 25, '/public/images/products/Apifor.png', NOW(), NOW(), 1, 3, 4);
     `);
 
     // Insert Users
@@ -88,8 +88,8 @@ async function insertTestData() {
     // Insert News
     await mysql.query(`
       INSERT INTO News (Name, Description, News_Header, News_InfoText, News_Background_Image_Path, News_Spotlight_Image_Path, News_Spotlight_Image_Sticker_ID, Activated) VALUES
-      ('Høstnytt', 'Nyheter for høsten', 'Høstens Nyheter Er Her!', 'Opplev vår nye høstkolleksjon med varme og komfortable plagg.', '/images/autumn-bg.jpg', '/images/autumn-spotlight.jpg', 1, 1),
-      ('Fjellsport', 'Nyheter om fjellsport', 'Nye Fjellsko Er Ankommet', 'Utforsk vårt nye utvalg av fjellsko for alle forhold.', '/images/hiking-bg.jpg', '/images/shoes-spotlight.jpg', 1, 1);
+      ('Høstnytt', 'Nyheter for høsten', 'Høstens Nyheter Er Her!', 'Opplev vår nye høstkolleksjon med varme og komfortable plagg.', '/public/images/news/ApiForNews.png', '/images/autumn-spotlight.jpg', 1, 1),
+      ('Fjellsport', 'Nyheter om fjellsport', 'Nye Fjellsko Er Ankommet', 'Utforsk vårt nye utvalg av fjellsko for alle forhold.', '/public/images/news/DrippBag.jpg', '/images/shoes-spotlight.jpg', 1, 1);
     `);
 
     // Insert Featured Products
