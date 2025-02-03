@@ -16,7 +16,26 @@ if (mysql) {
 } else {
   console.error("Failed to connect to the database.");
 }
-
+interface ProductData {
+  name: string;
+  price: number;
+  description?: string;
+  quantity?: number;
+  image_path?: string;
+  discount?: number;
+  discount_id?: number;
+  sticker_id?: number;
+}
+async function getProducts(): Promise<ProductData[]> {
+  try {
+    const result = await mysql.query("SELECT * FROM Products");
+    // console.info("Result from getting products", JSON.stringify(result))
+    return result as ProductData[];
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
+}
 Deno.serve(async (req: Request) => {
     const url = new URL(req.url);
   if (req.method === "GET" && url.pathname === "/") {
@@ -61,5 +80,3 @@ Deno.serve(async (req: Request) => {
 
   return new Response("Not Found", { status: 404 });
 });
-
-console.info("Server running at http://localhost:8000");
