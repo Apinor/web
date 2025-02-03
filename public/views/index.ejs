@@ -96,38 +96,38 @@
             <section class="shop" style="width: 80%;">
                 <h1><%= shopTopText %></h1>
                 <div class="shop-items row" style="justify-content: space-between;">
-                    <% shopItems.forEach(function(item) { %> 
-                        <div class="col-md-3 mb-4">
-                            <div class="card h-100">
-                                <a href="/productPage?id=<%= item.ID %>" class="text-decoration-none">
-                                    <% if (item.Image_Path) { %>
-                                        <img src="<%= item.Image_Path %>" class="card-img-top" alt="<%= item.Name %>">
-                                    <% } else { %>
-                                        <img src="/public/images/placeholder.jpg" class="card-img-top" alt="No image available">
-                                    <% } %>
-                                    <div class="card-body">
-                                        <h5 class="card-title"><%= item.Name %></h5>
-                                        <p class="card-text"><%= item.Description || 'No description available' %></p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="price">NOK <%= typeof item.Price === 'number' ? item.Price.toFixed(2) : item.Price %></span>
-                                            <% if (typeof item.Quantity === 'number' && item.Quantity > 0) { %>
-                                                <button class="btn btn-primary">Add to Cart</button>
-                                            <% } else { %>
-                                                <button class="btn btn-secondary" disabled>Out of Stock</button>
-                                            <% } %>
-                                        </div>
-                                        <% if (item.Discount) { %>
-                                            <div class="mt-2">
-                                                <span class="badge bg-danger">
-                                                    <%= typeof item.Discount === 'number' ? item.Discount.toFixed(0) : item.Discount %>% OFF
-                                                </span>
-                                            </div>
-                                        <% } %>
-                                    </div>
-                                </a>
-                            </div>
+                <% shopItems.forEach(function(item) { %> 
+                    <div class="col-md-3 mb-4">
+                    <div class="card h-100 shop-item">
+                        <a href="/productPage?id=<%= item.ID %>" class="text-decoration-none">
+                        <% if (item.Image_Path) { %>
+                            <img src="<%= item.Image_Path %>" class="card-img-top" alt="<%= item.Name %>">
+                        <% } else { %>
+                            <img src="/public/images/placeholder.jpg" class="card-img-top" alt="No image available">
+                        <% } %>
+                        <div class="card-body">
+                            <h5 class="card-title"><%= item.Name %></h5>
+                            <p class="card-text"><%= item.Description || 'No description available' %></p>
                         </div>
-                    <% }); %>
+                        <div class="card-footer">
+                            <span class="price">NOK <%= typeof item.Price === 'number' ? item.Price.toFixed(2) : item.Price %></span>
+                            <% if (typeof item.Quantity === 'number' && item.Quantity > 0) { %>
+                            <button class="btn btn-primary">Add to Cart</button>
+                            <% } else { %>
+                            <button class="btn btn-secondary" disabled>Out of Stock</button>
+                            <% } %>
+                        </div>
+                        <% if (item.Discount) { %>
+                            <div class="mt-2">
+                            <span class="badge bg-danger">
+                                <%= typeof item.Discount === 'number' ? item.Discount.toFixed(0) : item.Discount %>% OFF
+                            </span>
+                            </div>
+                        <% } %>
+                        </a>
+                    </div>
+                    </div>
+                <% }); %>
                 </div>
             </section>
         </div>
