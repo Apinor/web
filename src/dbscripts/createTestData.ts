@@ -29,11 +29,11 @@ async function insertTestData() {
 
     // Insert Products
     await mysql.query(`
-      INSERT INTO Products (Name, Price, Description, Quantity, Image_Path, Created_At, Modified_At, Status, Discount_ID, Sticker_ID) VALUES
-      ('Norsk Genser', 599.00, 'Varm ullgenser for kalde vinterdager', 50, '/images/genser.jpg', NOW(), NOW(), 1, 1, 4),
-      ('Fjellsko', 1299.00, 'Vanntette fjellsko for turer', 30, '/images/fjellsko.jpg', NOW(), NOW(), 1, 2, 1),
-      ('Ullsokker', 149.00, 'Komfortable ullsokker', 100, '/images/sokker.jpg', NOW(), NOW(), 1, NULL, NULL),
-      ('Ryggsekk', 899.00, 'Slitesterk ryggsekk for dagsturer', 25, '/images/ryggsekk.jpg', NOW(), NOW(), 1, 3, 4);
+      INSERT INTO Products (Name, Price, Description, Quantity, Image_Path, Created_At, Modified_At, Status, Discount, Discount_ID, Sticker_ID) VALUES
+      ('Norsk Genser', 599.00, 'Varm ullgenser for kalde vinterdager', 50, '/images/genser.jpg', NOW(), NOW(), 1, 20.00, 1, 4),
+      ('Fjellsko', 1299.00, 'Vanntette fjellsko for turer', 30, '/images/fjellsko.jpg', NOW(), NOW(), 1, 15.00, 2, 1),
+      ('Ullsokker', 149.00, 'Komfortable ullsokker', 100, '/images/sokker.jpg', NOW(), NOW(), 1, NULL, NULL, NULL),
+      ('Ryggsekk', 899.00, 'Slitesterk ryggsekk for dagsturer', 25, '/images/ryggsekk.jpg', NOW(), NOW(), 1, 100.00, 3, 4);
     `);
 
     // Insert Users
@@ -93,11 +93,6 @@ async function insertTestData() {
     `);
 
     // Insert Featured Products
-    await mysql.query(`
-      INSERT INTO Featured_Product (Product_ID, Activated) VALUES
-      (1, 1),
-      (4, 1);
-    `);
     await mysql.query(`
         INSERT INTO Sessions (Created_At, Duration_Seconds, Active, Token) VALUES
         (NOW(), 7200, 1, '5d39c2656d166424598a47d83378829c8fa09ed8f7b6c9412e54d5d105893727'),
