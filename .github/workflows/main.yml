@@ -20,7 +20,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: kantine123
           MYSQL_DATABASE: kantine_db
-          MYSQL_USER: root
+          MYSQL_USER: sysadmin
           MYSQL_PASSWORD: kantine123
         ports:
           - 3306:3306
@@ -63,7 +63,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: kantine123
           MYSQL_DATABASE: apinor_db
-          MYSQL_USER: root
+          MYSQL_USER: sysadmin
           MYSQL_PASSWORD: kantine123
         ports:
           - 3306:3306
