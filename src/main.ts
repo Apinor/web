@@ -1,5 +1,8 @@
 import { createSqlConnection } from "./dbscripts/DbConnection.ts";
-import { serveDir, serveFile } from "https://deno.land/std@0.224.0/http/file_server.ts";
+import {
+  serveDir,
+  serveFile,
+} from "https://deno.land/std@0.224.0/http/file_server.ts";
 import console from "./utils/logging.ts";
 import { load } from "https://deno.land/std@0.204.0/dotenv/mod.ts";
 import {
@@ -16,6 +19,7 @@ if (mysql) {
 } else {
   console.error("Failed to connect to the database.");
 }
+
 interface ProductData {
   name: string;
   price: number;
@@ -26,21 +30,71 @@ interface ProductData {
   discount_id?: number;
   sticker_id?: number;
 }
+
 async function getProducts(): Promise<ProductData[]> {
   try {
     const result = await mysql.query("SELECT * FROM Products");
-    // console.info("Result from getting products", JSON.stringify(result))
-    return result as ProductData[];
+    // Convert price to number and ensure all numeric fields are properly typed
+    return (result as any[]).map(item => ({
+      ...item,
+      Price: Number(item.Price),
+      Quantity: Number(item.Quantity),
+      Discount: item.Discount ? Number(item.Discount) : null
+    }));
   } catch (error) {
     console.error("Error fetching products:", error);
     return [];
   }
 }
+
+async function getNews() {
+  try {
+    const result = await mysql.query("SELECT * FROM News WHERE Activated = 1");
+    return result;
+  } catch (error) {
+    console.error("Error fetching news:", error);
+    return [];
+  }
+}
+
 Deno.serve(async (req: Request) => {
-    const url = new URL(req.url);
+  const url = new URL(req.url);
+  if (url.pathname.startsWith("/public/") || url.pathname.startsWith("/images/")) {
+    try {
+      // Remove /public/ from the path if it exists
+      const actualPath = url.pathname.startsWith("/public/") 
+        ? `.${url.pathname}`  // Keep the /public/ in path
+        : `./public${url.pathname}`; // Add /public/ for images
+
+      const response = await serveFile(req, actualPath);
+      // Add cache headers for static assets
+      response.headers.set("Cache-Control", "public, max-age=31536000");
+      return response;
+    } catch (error) {
+      console.error("Static file serving error:", error);
+      return new Response("File not found", { status: 404 });
+    }
+  }
   if (req.method === "GET" && url.pathname === "/") {
     try {
-      const body = await renderFileToString("public/views/index.ejs", templateData);
+      const products = await getProducts();
+      const news = await getNews();
+      
+      const templateData = {
+        title: "Apinor - Home",
+        shopTopText: "Our Products",
+        shopItems: products,
+        news: news,
+        newsCarousel: [], // Empty array if you're not using this yet
+        footer: {
+          companyInfo: "© 2024 Apinor AS"
+        }
+      };
+
+      const body = await renderFileToString(
+        "public/views/index.ejs",
+        templateData
+      );
       return new Response(body, {
         headers: { "Content-Type": "text/html; charset=utf-8" },
       });
@@ -48,9 +102,21 @@ Deno.serve(async (req: Request) => {
       console.error("Template rendering error:", error);
       return new Response("Error rendering template", { status: 500 });
     }
-  } else if (req.method === "GET" && url.pathname === "/productPage") {
+  }
+  if (req.method === "GET" && url.pathname === "/") {
     try {
-      const body = await renderFileToString("public/views/productPage.ejs", templateData);
+      const products = await getProducts();
+      const templateData = {
+        title: "Apinor - Home",
+        shopTopText: "Our Products",
+        shopItems: products,
+        // ...other template data
+      };
+
+      const body = await renderFileToString(
+        "public/views/index.ejs",
+        templateData
+      );
       return new Response(body, {
         headers: { "Content-Type": "text/html; charset=utf-8" },
       });
@@ -76,7 +142,6 @@ Deno.serve(async (req: Request) => {
       console.error("File serving error:", error);
       return new Response("File not found", { status: 404 });
     }
-  } 
-
-  return new Response("Not Found", { status: 404 });
+  }
+  return serveDir(req, { fsRoot: "./public" });
 });

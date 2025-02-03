@@ -1,122 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="/public/stylesProduct.css">
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-</head>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/stylesProduct.css" />
 
-<body>
-  <header>
-    <div id="navbarContainer">
-      <img src="/public/images/ApinorBanner.jpg" alt="Banner" id="apiBanner">
-      <nav id="navbar" class="semi-transparent-navbar">
-        <div id="navbarContent">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+      <div id="navbarContainer">
+        <img
+          src="/public/images/ApinorBanner.jpg"
+          alt="Banner"
+          id="apiBanner"
+        />
+        <nav id="navbar" class="semi-transparent-navbar">
+          <div id="navbarContent">
             <div id="navbarIMGContainer">
-              <img src="/public/images/ApinorLogo.png" alt="ApinorLogo">
+              <img src="/public/images/ApinorLogo.png" alt="ApinorLogo" />
             </div>
-          <div id="navbarButtons">
+            <div id="navbarButtons">
               <button id="aboutUs" class="navbarButton">OM APINOR</button>
               <button id="order" class="navbarButton">BESTILLING</button>
               <button id="contact" class="navbarButton">KONTAKT</button>
+            </div>
           </div>
-        </div>
-        <div id="dropdown" class="relative inline-block text-left">
-          <button onclick="toggleDropdown()">☰</button>
-          <div id="dropdownMenu">
+          <div id="dropdown" class="relative inline-block text-left">
+            <button onclick="toggleDropdown()">☰</button>
+            <div id="dropdownMenu">
               <ul class="py-1">
-                  <li>
-                      <a href="/om-apinor" class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900">
-                          OM APINOR
-                      </a>
-                  </li>
-                  <li>
-                      <a href="/bestilling" class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900">
-                          BESTILLING
-                      </a>
-                  </li>
-                  <li>
-                      <a href="/kontakt" class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900">
-                          KONTAKT
-                      </a>
-                  </li>
+                <li>
+                  <a
+                    href="/om-apinor"
+                    class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900"
+                  >
+                    OM APINOR
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/bestilling"
+                    class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900"
+                  >
+                    BESTILLING
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/kontakt"
+                    class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900"
+                  >
+                    KONTAKT
+                  </a>
+                </li>
               </ul>
+            </div>
           </div>
+        </nav>
       </div>
-      </nav>
-  </div>
-  </header>
+    </header>
 
-<!-- Product Section (Doubled Size) -->
-<section class="product-section py-5">
-  <div class="container">
-    <div class="row align-items-center">
-      
-      <!-- Product Image -->
-      <div class="col-md-6 text-center">
-        <img id="main-image" src="/public/images/news/ApiForNews.png" class="img-fluid shadow rounded">
-      </div>
+    <!-- Product Section (Doubled Size) -->
 
-      <!-- Product Info -->
-      <div class="col-md-6">
-        <div class="product-details text-center text-md-left">
-          <h1 class="product-title text-uppercase">Produktnavn</h1>
-          <p class="brand text-muted">Orianz</p>
-
-          <div class="price mt-4">
-            <h2 class="text-danger">kr 299,00</h2>
+    <section class="product-section py-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <!-- Product Image -->
+          <div class="col-md-6 text-center">
+            <% if (product.Image_Path) { %>
+            <img
+              id="main-image"
+              src="<%= product.Image_Path %>"
+              class="img-fluid shadow rounded"
+              alt="<%= product.Name %>"
+            />
+            <% } else { %>
+            <img
+              id="main-image"
+              src="/public/images/placeholder.jpg"
+              class="img-fluid shadow rounded"
+              alt="No image available"
+            />
+            <% } %>
           </div>
 
-            <p class="about mt-4"></p>
-            Dette er en beskrivelse av produktet. Den inneholder viktige detaljer for kunden.
-            </p>
+          <!-- Product Info -->
+          <div class="col-md-6">
+            <div class="product-details text-center text-md-left">
+              <h1 class="product-title text-uppercase"><%= product.Name %></h1>
 
-          <!-- Order Button -->
-          <button class="btn btn-primary btn-xl mt-4">BESTILL</button>
+              <div class="price mt-4">
+                <% if (product.Discount) { %>
+                <h2 class="text-danger">
+                  <del class="text-muted"
+                    >kr <%= product.Price.toFixed(2) %></del
+                  >
+                  kr <%= (product.Price * (1 - product.Discount/100)).toFixed(2)
+                  %>
+                </h2>
+                <span class="badge bg-danger"
+                  ><%= product.Discount %>% OFF</span
+                >
+                <% } else { %>
+                <h2 class="text-danger">kr <%= product.Price.toFixed(2) %></h2>
+                <% } %>
+              </div>
+
+              <p class="about mt-4">
+                <%= product.Description || 'No description available' %>
+              </p>
+
+              <!-- Order Button -->
+              <% if (product.Quantity > 0) { %>
+              <button class="btn btn-primary btn-xl mt-4">BESTILL</button>
+              <% } else { %>
+              <button class="btn btn-secondary btn-xl mt-4" disabled>
+                UTSOLGT
+              </button>
+              <% } %> <% if (product.Quantity > 0 && product.Quantity < 10) { %>
+              <p class="text-warning mt-2">
+                Kun <%= product.Quantity %> igjen på lager!
+              </p>
+              <% } %>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
+    <!-- ...existing footer code... -->
 
-  <footer class="d-flex flex-wrap justify-content-between border-top py-3" style="width: 85%; align-items: center; margin: 0 auto;">
-    <div class="col-md-4 d-flex align-items-center justify-content-start">
-        <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+    <footer
+      class="d-flex flex-wrap justify-content-between border-top py-3"
+      style="width: 85%; align-items: center; margin: 0 auto"
+    >
+      <div class="col-md-4 d-flex align-items-center justify-content-start">
+        <a
+          href="/"
+          class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1"
+        >
+          <svg class="bi" width="30" height="24">
+            <use xlink:href="#bootstrap"></use>
+          </svg>
         </a>
         <span class=""><%= footer.companyInfo %></span>
-    </div>
-    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-        <li class="ms-3"><a href="#"><img src="/public/images/webIcons/facebook-svgrepo-com.svg" alt="Facebook" class="social-icon"></a></li>
-        <li class="ms-3"><a href="#"><img src="/public/images/webIcons/XLogo.svg" alt="X.com" class="social-icon"></a></li>
-        <li class="ms-3"><a href="#"><img src="/public/images/webIcons/instagram-svgrepo-com.svg" alt="Instagram" class="social-icon"></a></li>
-        <li class="ms-3"><a href="#"><img src="/public/images/webIcons/youtube-svgrepo-com.svg" alt="YouTube" class="social-icon"></a></li>
-    </ul>
-  </footer>
-  <!-- Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    function toggleDropdown() {
-      const menu = document.getElementById('dropdownMenu');
-      if (menu.style.display === 'block') {
-        menu.style.display = 'none';
-      } else {
-        menu.style.display = 'block';
+      </div>
+      <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+        <li class="ms-3">
+          <a href="#"
+            ><img
+              src="/public/images/webIcons/facebook-svgrepo-com.svg"
+              alt="Facebook"
+              class="social-icon"
+          /></a>
+        </li>
+        <li class="ms-3">
+          <a href="#"
+            ><img
+              src="/public/images/webIcons/XLogo.svg"
+              alt="X.com"
+              class="social-icon"
+          /></a>
+        </li>
+        <li class="ms-3">
+          <a href="#"
+            ><img
+              src="/public/images/webIcons/instagram-svgrepo-com.svg"
+              alt="Instagram"
+              class="social-icon"
+          /></a>
+        </li>
+        <li class="ms-3">
+          <a href="#"
+            ><img
+              src="/public/images/webIcons/youtube-svgrepo-com.svg"
+              alt="YouTube"
+              class="social-icon"
+          /></a>
+        </li>
+      </ul>
+    </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function toggleDropdown() {
+        const menu = document.getElementById("dropdownMenu");
+        if (menu.style.display === "block") {
+          menu.style.display = "none";
+        } else {
+          menu.style.display = "block";
+        }
       }
-    }
-  </script>
-</body>
+    </script>
+  </body>
 </html>

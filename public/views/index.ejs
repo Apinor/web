@@ -1,136 +1,115 @@
+ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    <link rel="productPage" href="/public/views/productPage.ejs">
-    <link rel="stylesheet" href="/public/styles.css">
-    <!-- Add Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Removed older Bootstrap CSS version to avoid conflicts -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/public/styles.css">
 </head>
 <body>
     <div class="content">
-      <div id="navbarContainer">
-        <img src="/public/images/ApinorBanner.jpg" alt="Banner" id="apiBanner">
-        <nav id="navbar" class="semi-transparent-navbar">
-          <div id="navbarContent">
-              <div id="navbarIMGContainer">
-                <img src="/public/images/ApinorLogo.png" alt="ApinorLogo">
-              </div>
-            <div id="navbarButtons">
-                <button id="aboutUs" class="navbarButton">OM APINOR</button>
-                <button id="order" class="navbarButton">BESTILLING</button>
-                <button id="contact" class="navbarButton">KONTAKT</button>
-            </div>
-          </div>
-          <div id="dropdown" class="relative inline-block text-left">
-            <button onclick="toggleDropdown()">☰</button>
-            <div id="dropdownMenu">
-                <ul class="py-1">
-                    <li>
-                        <a href="/om-apinor" class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900">
-                            OM APINOR
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/bestilling" class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900">
-                            BESTILLING
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/kontakt" class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900">
-                            KONTAKT
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <!-- Navigation -->
+        <div id="navbarContainer">
+            <img src="/public/images/ApinorBanner.jpg" alt="Banner" id="apiBanner">
+            <nav id="navbar" class="semi-transparent-navbar">
+                <div id="navbarContent">
+                    <div id="navbarIMGContainer">
+                        <img src="/public/images/ApinorLogo.png" alt="ApinorLogo">
+                    </div>
+                    <div id="navbarButtons">
+                        <button id="aboutUs" class="navbarButton">OM APINOR</button>
+                        <button id="order" class="navbarButton">BESTILLING</button>
+                        <button id="contact" class="navbarButton">KONTAKT</button>
+                    </div>
+                </div>
+                <div id="dropdown" class="relative inline-block text-left">
+                    <button onclick="toggleDropdown()">☰</button>
+                    <div id="dropdownMenu">
+                        <ul class="py-1">
+                            <li><a href="/om-apinor" class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900">OM APINOR</a></li>
+                            <li><a href="/bestilling" class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900">BESTILLING</a></li>
+                            <li><a href="/kontakt" class="block px-4 py-2 text-base text-gray-800 hover:bg-gray-100 hover:text-gray-900">KONTAKT</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
-        </nav>
-    </div>
-    <div id="navbarLine"></div>
-    <div id="newsSection" style="width: 80%; margin: 0 auto;">
-        <div id="newsCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <% news.forEach(function(article, index) { %>
-                    <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                        <div class="card mb-3">
-                            <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <img src="<%= article.image %>" class="card-img" alt="newsIMG" style="width: 50%; height: auto;">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h3 class="card-title"><%= article.title %></h3>
-                                        <time class="card-subtitle mb-2 text-muted"><%= article.date %></time>
-                                        <p class="card-text"><%= article.content %></p>
+        <div id="navbarLine"></div>
+
+        <!-- News Section -->
+        <div id="newsSection" style="width: 80%; margin: 0 auto;">
+            <% if (news && news.length > 0) { %>
+                <div id="newsCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <% news.forEach(function(article, index) { %>
+                            <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                                <div class="card mb-3">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-4">
+                                            <img src="<%= article.News_Background_Image_Path %>" class="card-img" alt="newsIMG" style="width: 50%; height: auto;">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h3 class="card-title"><%= article.News_Header %></h3>
+                                                <p class="card-text"><%= article.News_InfoText %></p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        <% }); %>
                     </div>
-                <% }); %>
-            </div>
-            <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div></a>
-            <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-  <div style="justify-content: center; display: flex;">
-      <!-- News Carousel Section -->
-      <div class="carousel">
-          <% newsCarousel.forEach(function(news) { %>
-              <div class="carousel-item">
-                  <%= news %>
-              </div>
-          <% }); %>
-      </div>
-  </div>
-        <div style="justify-content: center; display: flex;">
-                  <!-- News Carousel Section -->
-            <div class="carousel">
-              <% newsCarousel.forEach(function(news) { %>
-                  <div class="carousel-item">
-                      <%= news %>
-                  </div>
-              <% }); %>
-          </div>
+                    <% if (news.length > 1) { %>
+                        <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    <% } %>
+                </div>
+            <% } %>
         </div>
 
+        <!-- Shop Section -->
         <div style="justify-content: center; display: flex;">
-            <!-- Shop Section -->
             <section class="shop" style="width: 80%;">
                 <h1><%= shopTopText %></h1>
                 <div class="shop-items row" style="justify-content: space-between;">
                     <% shopItems.forEach(function(item) { %> 
                         <div class="col-md-3 mb-4">
                             <div class="card h-100">
-                                <img src="<%= item.image %>" class="card-img-top" alt="<%= item.title %>">
-                                <div class="card-body">
-                                    <h5 class="card-title"><%= item.title %></h5>
-                                    <p class="card-text"><%= item.description %></p>
-                                    <span class="price"><%= item.price %></span>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="/productPage" class="btn btn-primary">Kjøp nå</a>
-                                </div>
+                                <a href="/productPage?id=<%= item.ID %>" class="text-decoration-none">
+                                    <% if (item.Image_Path) { %>
+                                        <img src="<%= item.Image_Path %>" class="card-img-top" alt="<%= item.Name %>">
+                                    <% } else { %>
+                                        <img src="/public/images/placeholder.jpg" class="card-img-top" alt="No image available">
+                                    <% } %>
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%= item.Name %></h5>
+                                        <p class="card-text"><%= item.Description || 'No description available' %></p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="price">NOK <%= typeof item.Price === 'number' ? item.Price.toFixed(2) : item.Price %></span>
+                                            <% if (typeof item.Quantity === 'number' && item.Quantity > 0) { %>
+                                                <button class="btn btn-primary">Add to Cart</button>
+                                            <% } else { %>
+                                                <button class="btn btn-secondary" disabled>Out of Stock</button>
+                                            <% } %>
+                                        </div>
+                                        <% if (item.Discount) { %>
+                                            <div class="mt-2">
+                                                <span class="badge bg-danger">
+                                                    <%= typeof item.Discount === 'number' ? item.Discount.toFixed(0) : item.Discount %>% OFF
+                                                </span>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     <% }); %>
@@ -141,34 +120,26 @@
 
     <!-- Footer -->
     <footer class="d-flex flex-wrap justify-content-between border-top py-3" style="width: 85%; align-items: center; margin: 0 auto;">
-      <div class="col-md-4 d-flex align-items-center justify-content-start">
-          <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-              <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-          </a>
-          <span class=""><%= footer.companyInfo %></span>
-      </div>
-      <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-          <li class="ms-3"><a href="#"><img src="/public/images/webIcons/facebook-svgrepo-com.svg" alt="Facebook" class="social-icon"></a></li>
-          <li class="ms-3"><a href="#"><img src="/public/images/webIcons/XLogo.svg" alt="X.com" class="social-icon"></a></li>
-          <li class="ms-3"><a href="#"><img src="/public/images/webIcons/instagram-svgrepo-com.svg" alt="Instagram" class="social-icon"></a></li>
-          <li class="ms-3"><a href="#"><img src="/public/images/webIcons/youtube-svgrepo-com.svg" alt="YouTube" class="social-icon"></a></li>
-      </ul>
-  </footer>
+        <div class="col-md-4 d-flex align-items-center justify-content-start">
+            <span class=""><%= footer.companyInfo %></span>
+        </div>
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="ms-3"><a href="#"><img src="/public/images/webIcons/facebook-svgrepo-com.svg" alt="Facebook" class="social-icon"></a></li>
+            <li class="ms-3"><a href="#"><img src="/public/images/webIcons/XLogo.svg" alt="X.com" class="social-icon"></a></li>
+            <li class="ms-3"><a href="#"><img src="/public/images/webIcons/instagram-svgrepo-com.svg" alt="Instagram" class="social-icon"></a></li>
+            <li class="ms-3"><a href="#"><img src="/public/images/webIcons/youtube-svgrepo-com.svg" alt="YouTube" class="social-icon"></a></li>
+        </ul>
+    </footer>
 
-    <!-- Add Bootstrap JS -->
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script>
-      function toggleDropdown() {
-        const menu = document.getElementById('dropdownMenu');
-        if (menu.style.display === 'block') {
-          menu.style.display = 'none';
-        } else {
-          menu.style.display = 'block';
+        function toggleDropdown() {
+            const menu = document.getElementById('dropdownMenu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         }
-      }
     </script>
 </body>
 </html>
