@@ -8,17 +8,14 @@ jobs:
   assign-issue:
     runs-on: ubuntu-latest
     permissions:
-      issues: write  # Explicit permission needed
+      issues: write  # Explicit permission to modify issues
     steps:
-    - name: Assign issue
-      uses: actions/github-script@v6
+    - name: Assign issue to maintainers
+      uses: actions-ecosystem/action-add-assignee@v1
       with:
-        script: |
-          const maintainers = ['konk32', 'maskedman27'];
-          const assignee = maintainers[context.issue.number % 2];
-          await github.rest.issues.addAssignees({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: context.issue.number,
-            assignees: [assignee]
-          });
+        assignees: |
+          konk32
+          maskedman27
+        add_method: rotate  # Alternates between assignees
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Required for authentication
