@@ -57,6 +57,26 @@ async function getNews() {
   }
 }
 
+async function getProductById(id: string): Promise<ProductData | null> {
+  try {
+    const result = await mysql.query("SELECT * FROM Products WHERE ID = ?", [id]);
+    if (!result || result.length === 0) {
+      return null;
+    }
+    // Convert numeric fields
+    const product = result[0];
+    return {
+      ...product,
+      Price: Number(product.Price),
+      Quantity: Number(product.Quantity),
+      Discount: product.Discount ? Number(product.Discount) : null
+    };
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    return null;
+  }
+}
+
 Deno.serve(async (req: Request) => {
   const url = new URL(req.url);
   if (url.pathname.startsWith("/public/") || url.pathname.startsWith("/images/")) {
@@ -142,6 +162,37 @@ Deno.serve(async (req: Request) => {
       console.error("File serving error:", error);
       return new Response("File not found", { status: 404 });
     }
-  }
+  }else if (req.method === "GET" && url.pathname === "/productPage") {
+    try {
+      const productId = url.searchParams.get("id");
+      if (!productId) {
+        return new Response("Product ID is required", { status: 400 });
+      }
+  
+      const product = await getProductById(productId);
+      if (!product) {
+        return new Response("Product not found", { status: 404 });
+      }
+  
+      const templateData = {
+        title: `${product.name} - Apinor`,
+        product: product,
+        footer: {
+          companyInfo: "© 2024 Apinor AS"
+        }
+      };
+  
+      const body = await renderFileToString(
+        "public/views/productPage.ejs",
+        templateData
+      );
+      return new Response(body, {
+        headers: { "Content-Type": "text/html; charset=utf-8" },
+      });
+    } catch (error) {
+      console.error("Product page error:", error);
+      return new Response("Error loading product page", { status: 500 });
+    }}
+  
   return serveDir(req, { fsRoot: "./public" });
 });
