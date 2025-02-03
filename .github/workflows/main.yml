@@ -1,0 +1,30 @@
+name: Assign Issues
+
+on:
+  issues:
+    types: [opened, reopened]
+
+jobs:
+  assign-issue:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Assign issue to maintainers
+      uses: actions/github-script@v6
+      with:
+        script: |
+          // List of potential assignees
+          const maintainers = ['konk32', 'maskedman27'];
+          
+          // Get current issue number
+          const issueNumber = context.issue.number;
+          
+          // Alternate between assignees based on even/odd issue numbers
+          const assignee = maintainers[issueNumber % 2];
+          
+          // Add assignee to issue
+          await github.rest.issues.addAssignees({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: issueNumber,
+            assignees: [assignee]
+          });
