@@ -1,18 +1,90 @@
-name: Issue assignment
+name: Issue Assignment and Tests
 
 on:
-    issues:
-        types: [opened]
+  issues:
+    types: [opened]
+  push:
+    branches:
+      - main
 
 jobs:
-    auto-assign:
-        runs-on: ubuntu-latest
-        permissions:
-            issues: write
-        steps:
-            - name: 'Auto-assign issue'
-              uses: pozil/auto-assign-issue@v2
-              with:
-                  assignees: Konk32, maskedman27
-                  numOfAssignee: 2
-                  allowSelfAssign: true
+  auto-assign:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    # Define a MySQL service container that will be available to your job.
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: kantine123
+          MYSQL_DATABASE: kantine_db
+          MYSQL_USER: sysadmin
+          MYSQL_PASSWORD: kantine123
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      # Check out the repository to access your Deno files.
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Auto-assign issue
+        uses: pozil/auto-assign-issue@v2
+        with:
+          assignees: Konk32, maskedman27
+          numOfAssignee: 2
+          allowSelfAssign: true
+
+      # Set up Deno using the official action.
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2.0.2
+
+      # Run your Deno script.
+      # Make sure to pass the environment variables so that your Deno script can connect to MySQL.
+      - name: Run Deno file
+        env:
+          DB_HOST: localhost
+          DB_PORT: "3306"
+          DB_USER: root
+          DB_PASSWORD: kantine123
+        run: deno run --allow-read --allow-write --allow-net --allow-env ./src/dbscripts/setup.ts
+
+  tests:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    # Define the same MySQL service container for your tests.
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: kantine123
+          MYSQL_DATABASE: apinor_db
+          MYSQL_USER: sysadmin
+          MYSQL_PASSWORD: kantine123
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      # Check out the repository to run your tests.
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Deno using the official action.
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2.0.2
+
+      # Run your Deno tests.
+      # Ensure that your tests have the necessary permissions (e.g., network and env access).
+      - name: Run Deno tests
+        env:
+          DB_HOST: localhost
+          DB_PORT: "3306"
+          DB_USER: root
+          DB_PASSWORD: kantine123
+        run: deno run --allow-read --allow-write --allow-net --allow-env ./src/dbscripts/setup.ts
