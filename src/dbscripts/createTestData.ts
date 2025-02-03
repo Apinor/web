@@ -94,11 +94,6 @@ async function insertTestData() {
 
     // Insert Featured Products
     await mysql.query(`
-      INSERT INTO Featured_Product (Product_ID, Activated) VALUES
-      (1, 1),
-      (4, 1);
-    `);
-    await mysql.query(`
         INSERT INTO Sessions (Created_At, Duration_Seconds, Active, Token) VALUES
         (NOW(), 7200, 1, '5d39c2656d166424598a47d83378829c8fa09ed8f7b6c9412e54d5d105893727'),
         (NOW(), 7200, 1, 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0'),

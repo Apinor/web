@@ -50,6 +50,7 @@ async function createDatabase() {
                 Discount DECIMAL(10,2),
                 Discount_ID INT,
                 Sticker_ID INT,
+                Featured TINYINT DEFAULT 0,
                 CONSTRAINT fk_products_discount
                 FOREIGN KEY (Discount_ID)
                 REFERENCES Discount(ID)
@@ -159,18 +160,6 @@ async function createDatabase() {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         `);
 
-        await mysql.query(`
-            CREATE TABLE Featured_Product (
-                ID INT AUTO_INCREMENT PRIMARY KEY,
-                Product_ID INT NOT NULL,
-                Activated TINYINT DEFAULT 0,
-                CONSTRAINT fk_featured_product
-                FOREIGN KEY (Product_ID)
-                REFERENCES Products(ID)
-                ON DELETE CASCADE
-                ON UPDATE CASCADE
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        `);
         await mysql.query(`
             CREATE TABLE Sessions (
                 ID INT AUTO_INCREMENT PRIMARY KEY,

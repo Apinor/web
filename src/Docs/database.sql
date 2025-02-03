@@ -42,6 +42,7 @@ Status TINYINT DEFAULT 1,
 Discount DECIMAL(10,2),
 Discount_ID INT,
 Sticker_ID INT,
+Featured TINYINT DEFAULT 0,
 CONSTRAINT fk_products_discount
 FOREIGN KEY (Discount_ID)
 REFERENCES Discount(ID)
@@ -145,18 +146,6 @@ CONSTRAINT fk_news_spotlight_sticker
 FOREIGN KEY (News_Spotlight_Image_Sticker_ID)
 REFERENCES Stickers(ID)
 ON DELETE SET NULL
-ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 12) Create the "Featured_Product" table (depends on "Products")
-CREATE TABLE Featured_Product (
-ID INT AUTO_INCREMENT PRIMARY KEY,
-Product_ID INT NOT NULL,
-Activated TINYINT DEFAULT 0,
-CONSTRAINT fk_featured_product
-FOREIGN KEY (Product_ID)
-REFERENCES Products(ID)
-ON DELETE CASCADE
 ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
