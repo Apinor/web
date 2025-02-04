@@ -150,9 +150,11 @@ body {
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  background-color: black;
+  background-color: rgb(194, 194, 194);
   border-radius: 50%;
+  display: none;
 }
+
 
 /* Footer */
 footer {
