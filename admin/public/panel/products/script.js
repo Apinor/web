@@ -82,32 +82,3 @@ document.getElementById("getProducts").addEventListener("click", async () => {
 function deleteItem(id){
   console.log("Delete button clicked with id: ", id);
 }
-document.getElementById('featuredProductForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const messageDiv = document.getElementById('featuredProductMessage');
-  
-  try {
-    const formData = new FormData(this);
-    const response = await fetch('/api/featured_product', {
-      method: 'POST',
-      body: formData,
-      credentials: 'include'
-    });
-
-    const result = await response.json();
-    
-    messageDiv.style.display = 'block';
-    if (response.ok) {
-      messageDiv.className = 'alert alert-success';
-      messageDiv.textContent = 'Featured product updated successfully!';
-    } else {
-      messageDiv.className = 'alert alert-danger';
-      messageDiv.textContent = result.error || 'Failed to set featured product';
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    messageDiv.style.display = 'block';
-    messageDiv.className = 'alert alert-danger';
-    messageDiv.textContent = 'Error setting featured product';
-  }
-});

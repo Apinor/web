@@ -122,34 +122,6 @@
         <button type="submit" class="btn btn-primary">Add Product</button>
       </form>
     </div>
-    <div class="container mt-5 mb-5">
-      <h3>Set Featured Product</h3>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-body">
-              <form id="featuredProductForm">
-                <div class="mb-3">
-                  <label for="product_id" class="form-label">Select Product to Feature</label>
-                  <select class="form-select" id="product_id" name="product_id" required>
-                    <option value="">Choose a product...</option>
-                    <% shopItems.forEach(function(item) { %>
-                      <option value="<%= item.ID %>"><%= item.Name %> - NOK <%= item.Price %></option>
-                    <% }); %>
-                  </select>
-                </div>
-                <div class="mb-3 form-check">
-                  <input type="checkbox" class="form-check-input" id="activated" name="activated" value="1" checked>
-                  <label class="form-check-label" for="activated">Active</label>
-                </div>
-                <button type="submit" class="btn btn-success">Set as Featured</button>
-              </form>
-              <div id="featuredProductMessage" class="alert mt-3" style="display: none;"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="container mt-5">
       <h3>Product List</h3>
       <section class="shop" style="width: 80%">
