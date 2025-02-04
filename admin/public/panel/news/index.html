@@ -49,5 +49,78 @@
         </div>
       </nav>
     </div>
+
+    <div class="container mt-5">
+      <h2>Create News</h2>
+      <form id="newsForm" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            required
+          />
+          <div class="invalid-feedback">
+            Please provide a name for the news.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="news" class="form-label">Description</label>
+          <textarea
+            class="form-control"
+            id="description"
+            name="description"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="News_Spotlight_Image_Sticker_ID" class="form-label"
+            >Sticker ID</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            id="News_Spotlight_Image_Sticker_ID"
+            name="News_Spotlight_Image_Sticker_ID"
+            required
+          />
+          <div class="invalid-feedback">Please provide a Sticker ID.</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="News_Header" class="form-label">News Header</label>
+          <input
+            type="text"
+            class="form-control"
+            id="News_Header"
+            name="News_Header"
+            required
+          />
+          <div class="invalid-feedback">Please provide a Header.</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="News_InfoText" class="form-label">Info Text</label>
+          <input
+            type="text"
+            class="form-control"
+            id="News_InfoText"
+            name="News_InfoText"
+            rows="3"
+            required
+          />
+          <div class="invalid-feedback">Please provide the info text</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create new News</button>
+      </form>
+
+      <div id="responseMessage" class="alert mt-3" style="display: none"></div>
+    </div>
+    <script src="script.js"></script>
   </body>
 </html>
