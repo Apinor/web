@@ -2,6 +2,7 @@ import { createSqlConnection } from "../dbscripts/DbConnection.ts";
 import { validateSession } from "../utils/sessionUtils.ts";
 import console from "../utils/logging.ts";
 
+const mysql = await createSqlConnection();
 interface ProductData {
   name: string;
   price: number;
@@ -75,7 +76,7 @@ interface FeaturedProduct {
   Activated: number;
 }
 
-const mysql = await createSqlConnection();
+
 
 async function createProduct(data: ProductData): Promise<number | null> {
   try {
