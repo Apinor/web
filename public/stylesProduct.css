@@ -208,6 +208,12 @@ body {
 
   .about {
     font-size: 18px;
+    text-align: center; /* Center text horizontally */
+    display: flex;
+    justify-content: center; /* Center content */
+    align-items: center; /* Vertically center if necessary */
+    max-width: 100%; /* Ensure no overflow */
+    margin: 0 auto; /* Center the container itself */
   }
 
   #main-image {
@@ -219,7 +225,6 @@ body {
     font-size: 20px;
   }
 }
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .product-section {
@@ -231,7 +236,7 @@ body {
   }
   
   .navbar-nav .nav-item {
-    margin-bottom: 10px;
+    text-align: center;
   }
 }
  

@@ -104,41 +104,34 @@
           <!-- Product Info -->
           <div class="col-md-6">
             <div class="product-details text-center text-md-left">
-              <h1 class="product-title text-uppercase"><%= product.Name %></h1>
+                <h1 class="product-title text-uppercase"><%= product.Name %></h1>
 
-              <div class="price mt-4">
-                <% if (product.Discount) { %>
-                <h2 class="text-danger">
-                  <del class="text-muted"
-                    >kr <%= product.Price.toFixed(2) %></del
-                  >
-                  kr <%= (product.Price * (1 - product.Discount/100)).toFixed(2)
-                  %>
-                </h2>
-                <span class="badge bg-danger"
-                  ><%= product.Discount %>% OFF</span
-                >
+                <div class="price mt-4">
+                    <% if (product.Discount) { %>
+                    <h2 class="text-danger">
+                        <del class="text-muted">kr <%= product.Price.toFixed(2) %></del>
+                        kr <%= (product.Price * (1 - product.Discount / 100)).toFixed(2) %>
+                    </h2>
+                    <span class="badge bg-danger"><%= product.Discount %>% OFF</span>
+                    <% } else { %>
+                    <h2 class="text-danger">kr <%= product.Price.toFixed(2) %></h2>
+                    <% } %>
+                </div>
+                <div class="about-container">
+                    <h5 class="about mt-4 text-center text-md-left">
+                        <%= product.Description || 'No description available' %>
+                    </h5>
+                </div>
+
+                <!-- Order Button -->
+                <% if (product.Quantity > 0) { %>
+                <button class="btn btn-primary btn-xl mt-4">BESTILL</button>
                 <% } else { %>
-                <h2 class="text-danger">kr <%= product.Price.toFixed(2) %></h2>
+                <button class="btn btn-secondary btn-xl mt-4" disabled>UTSOLGT</button>
                 <% } %>
-              </div>
-
-                <p class="about mt-4 text-center text-md-left">
-                <%= product.Description || 'No description available' %>
-                </p>
-
-              <!-- Order Button -->
-              <% if (product.Quantity > 0) { %>
-              <button class="btn btn-primary btn-xl mt-4">BESTILL</button>
-              <% } else { %>
-              <button class="btn btn-secondary btn-xl mt-4" disabled>
-                UTSOLGT
-              </button>
-              <% } %> <% if (product.Quantity > 0 && product.Quantity < 10) { %>
-              <p class="text-warning mt-2">
-                Kun <%= product.Quantity %> igjen på lager!
-              </p>
-              <% } %>
+                <% if (product.Quantity > 0 && product.Quantity < 10) { %>
+                <p class="text-warning mt-2">Kun <%= product.Quantity %> igjen på lager!</p>
+                <% } %>
             </div>
           </div>
         </div>
