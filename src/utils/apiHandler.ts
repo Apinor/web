@@ -61,14 +61,14 @@ interface Banner {
 }
 
 interface News {
-  Name: string;
-  Description: string;
-  News_Background_Image_Path: string;
-  News_Spotlight_Image_Path: string;
-  News_Spotlight_Image_Sticker_ID: number;
-  News_InfoText: string;
-  News_Header: string;
-  Activated: number;
+  Name?: string;
+  Description?: string;
+  News_Background_Image_Path?: string;
+  News_Spotlight_Image_Path?: string;
+  News_Spotlight_Image_Sticker_ID?: number;
+  News_InfoText?: string;
+  News_Header?: string;
+  Activated?: number;
 }
 
 interface FeaturedProduct {
@@ -514,6 +514,81 @@ export async function handleApiRequest(req: Request): Promise<Response> {
       }
     } catch (error) {
       console.error("Discount creation error:", error);
+      return new Response(
+        JSON.stringify({
+          error: error instanceof Error ? error.message : "Unknown error",
+          details: error instanceof Error ? error.stack : undefined,
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+  }
+  if (url.pathname === "/api/news" && req.method === "POST") {
+    try {
+      const formData = await req.formData();
+      const newsData: News = {
+        Name: formData.get("name") as string,
+        Description: formData.get("description") as string || undefined,
+        News_Spotlight_Image_Sticker_ID: parseInt(formData.get("News_Spotlight_Image_Sticker_ID") as string) || undefined,
+        News_InfoText: formData.get("News_InfoText") as string || undefined,
+        News_Header: formData.get("News_Header") as string || undefined,
+        Activated: 1, // Default to activated when created
+      };
+  
+      // Validate required fields based on your form
+      if (!newsData.Name || !newsData.News_Header || !newsData.News_InfoText || !newsData.News_Spotlight_Image_Sticker_ID) {
+        return new Response(
+          JSON.stringify({
+            error: "All required fields must be filled",
+            received: newsData,
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+  
+      // Verify sticker ID exists before creating news
+      const stickerExists = await mysql.query(
+        "SELECT ID FROM Stickers WHERE ID = ?",
+        [newsData.News_Spotlight_Image_Sticker_ID]
+      );
+  
+      if (!stickerExists.length) {
+        return new Response(
+          JSON.stringify({
+            error: "Selected sticker ID does not exist",
+            received: newsData,
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+  
+      const newsId = await createNews(newsData);
+      if (newsId) {
+        return new Response(
+          JSON.stringify({
+            success: true,
+            message: "News created successfully",
+            news_id: newsId,
+          }),
+          {
+            status: 201,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      } else {
+        throw new Error("Failed to create news in database");
+      }
+    } catch (error) {
+      console.error("News creation error:", error);
       return new Response(
         JSON.stringify({
           error: error instanceof Error ? error.message : "Unknown error",
