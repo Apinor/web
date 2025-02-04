@@ -526,77 +526,77 @@ export async function handleApiRequest(req: Request): Promise<Response> {
       );
     }
   }
-  if (url.pathname === "/api/featured_product" && req.method === "POST") {
-    try {
-      const formData = await req.formData();
-      const featuredData: FeaturedProduct = {
-        Product_ID: parseInt(formData.get("product_id") as string),
-        Activated: parseInt(formData.get("activated") as string) || 0,
-      };
+  // if (url.pathname === "/api/featured_product" && req.method === "POST") {
+  //   try {
+  //     const formData = await req.formData();
+  //     const featuredData: FeaturedProduct = {
+  //       Product_ID: parseInt(formData.get("product_id") as string),
+  //       Activated: parseInt(formData.get("activated") as string) || 0,
+  //     };
   
-      // Validate required fields
-      if (!featuredData.Product_ID) {
-        return new Response(
-          JSON.stringify({
-            error: "Product ID is required",
-            received: featuredData,
-          }),
-          {
-            status: 400,
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-      }
+  //     // Validate required fields
+  //     if (!featuredData.Product_ID) {
+  //       return new Response(
+  //         JSON.stringify({
+  //           error: "Product ID is required",
+  //           received: featuredData,
+  //         }),
+  //         {
+  //           status: 400,
+  //           headers: { "Content-Type": "application/json" },
+  //         }
+  //       );
+  //     }
   
-      // Check if product exists
-      const product = await mysql.query(
-        "SELECT ID FROM Products WHERE ID = ?",
-        [featuredData.Product_ID]
-      );
+  //     // Check if product exists
+  //     const product = await mysql.query(
+  //       "SELECT ID FROM Products WHERE ID = ?",
+  //       [featuredData.Product_ID]
+  //     );
   
-      if (!product.length) {
-        return new Response(
-          JSON.stringify({
-            error: "Product does not exist",
-            received: featuredData,
-          }),
-          {
-            status: 400,
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-      }
+  //     if (!product.length) {
+  //       return new Response(
+  //         JSON.stringify({
+  //           error: "Product does not exist",
+  //           received: featuredData,
+  //         }),
+  //         {
+  //           status: 400,
+  //           headers: { "Content-Type": "application/json" },
+  //         }
+  //       );
+  //     }
   
-      const featuredId = await createFeaturedProduct(featuredData);
-      if (featuredId) {
-        return new Response(
-          JSON.stringify({
-            success: true,
-            message: "Featured product created successfully",
-            featured_id: featuredId,
-          }),
-          {
-            status: 201,
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-      } else {
-        throw new Error("Failed to create featured product in database");
-      }
-    } catch (error) {
-      console.error("Featured product creation error:", error);
-      return new Response(
-        JSON.stringify({
-          error: error instanceof Error ? error.message : "Unknown error",
-          details: error instanceof Error ? error.stack : undefined,
-        }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-    }
-  }
+  //     const featuredId = await createFeaturedProduct(featuredData);
+  //     if (featuredId) {
+  //       return new Response(
+  //         JSON.stringify({
+  //           success: true,
+  //           message: "Featured product created successfully",
+  //           featured_id: featuredId,
+  //         }),
+  //         {
+  //           status: 201,
+  //           headers: { "Content-Type": "application/json" },
+  //         }
+  //       );
+  //     } else {
+  //       throw new Error("Failed to create featured product in database");
+  //     }
+  //   } catch (error) {
+  //     console.error("Featured product creation error:", error);
+  //     return new Response(
+  //       JSON.stringify({
+  //         error: error instanceof Error ? error.message : "Unknown error",
+  //         details: error instanceof Error ? error.stack : undefined,
+  //       }),
+  //       {
+  //         status: 500,
+  //         headers: { "Content-Type": "application/json" },
+  //       }
+  //     );
+  //   }
+  // }
   // Handle different API endpoints
   switch (url.pathname) {
     case "/api/status":
