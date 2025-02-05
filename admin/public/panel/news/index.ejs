@@ -49,7 +49,34 @@
         </div>
       </nav>
     </div>
-
+    <div class="container mt-5">
+      <h3>News List</h3>
+      <section class="news" style="width: 80%">
+        <h1><%= newsTopText %></h1>
+        <div class="news-items row" style="justify-content: space-between">
+          <% newsItems.forEach(function(item) { %>
+          <div class="col-md-3 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title"><%= item.Name %></h5>
+                <h6 class="card-subtitle mb-2 text-muted"><%= item.News_Header %></h6>
+                <p class="card-text"><%= item.Description %></p>
+                <p class="card-text"><small><%= item.News_InfoText %></small></p>
+                <span class="badge <%= item.Activated ? 'bg-success' : 'bg-secondary' %>">
+                  <%= item.Activated ? 'Active' : 'Inactive' %>
+                </span>
+              </div>
+              <div class="card-footer">
+                <button type="button" class="btn btn-warning" onclick="deleteNews(<%= item.ID %>)">
+                  Delete News
+                </button>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+      </section>
+    </div>
     <div class="container mt-5">
       <h2>Create News</h2>
       <form id="newsForm" class="needs-validation" novalidate>
