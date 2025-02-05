@@ -86,14 +86,61 @@ Deno.serve(async (req: Request) => {
       return handleApiRequest(req);
     } else if (
       url.pathname == "/panel/products/" ||
-      (url.pathname == "/panel/products" && req.method === "GET")
-    ) {
+      (url.pathname == "/panel/products" && req.method === "GET")) {
       try {
         const products = await mysql.query("SELECT * FROM Products");
         // console.info(Deno.inspect(products, { depth: Infinity, colors: true }));
         const body = await renderFileToString(
           "./admin/public/panel/products/index.ejs",
           { shopItems: products, shopTopText: "Available Products" }
+        );
+        return new Response(body, {
+          headers: { "Content-Type": "text/html; charset=utf-8" },
+        });
+      } catch (error) {
+        console.error("Template rendering error:", error);
+        return new Response("Error rendering template", { status: 500 });
+      }
+    }else if (
+      url.pathname == "/panel/news/" ||
+      (url.pathname == "/panel/news" && req.method === "GET")) {
+      try {
+        const news = await mysql.query("SELECT * FROM News");
+        const body = await renderFileToString(
+          "./admin/public/panel/news/index.ejs",
+          { newsItems: news, newsTopText: "Available News" }
+        );
+        return new Response(body, {
+          headers: { "Content-Type": "text/html; charset=utf-8" },
+        });
+      } catch (error) {
+        console.error("Template rendering error:", error);
+        return new Response("Error rendering template", { status: 500 });
+      }
+    } else if (
+      url.pathname == "/panel/discount/" ||
+      (url.pathname == "/panel/discount" && req.method === "GET")) {
+      try {
+        const discounts = await mysql.query("SELECT * FROM Discount");
+        const body = await renderFileToString(
+          "./admin/public/panel/discount/index.ejs",
+          { discountItems: discounts, discountTopText: "Available Discounts" }
+        );
+        return new Response(body, {
+          headers: { "Content-Type": "text/html; charset=utf-8" },
+        });
+      } catch (error) {
+        console.error("Template rendering error:", error);
+        return new Response("Error rendering template", { status: 500 });
+      }
+    } else if (
+      url.pathname == "/panel/stickers/" ||
+      (url.pathname == "/panel/stickers" && req.method === "GET")) {
+      try {
+        const stickers = await mysql.query("SELECT * FROM Stickers");
+        const body = await renderFileToString(
+          "./admin/public/panel/stickers/index.ejs",
+          { stickerItems: stickers, stickerTopText: "Available Stickers" }
         );
         return new Response(body, {
           headers: { "Content-Type": "text/html; charset=utf-8" },

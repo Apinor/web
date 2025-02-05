@@ -10,43 +10,45 @@
     />
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="/panel">Apinor ADMIN</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarsExample04"
-        aria-controls="navbarsExample04"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <div class="container mt-5">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="/panel">Apinor ADMIN</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarsExample04"
+          aria-controls="navbarsExample04"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <div class="collapse navbar-collapse" id="navbarsExample04">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="/panel/products">Products</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/panel/transactions">Transactions</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/panel/news">News</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/panel/discount">Discounts</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/panel/stickers">Stickers</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/panel/stats">Stats</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="/panel/products">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/panel/news">News</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/panel/discount">Discounts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/panel/stickers">Stickers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/panel/stats">Stats</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/panel/transactions">Transactions</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
     <div class="container mt-5">
       <form id="productForm" class="mt-4">
         <h3>Add New Product</h3>
@@ -122,34 +124,6 @@
         <button type="submit" class="btn btn-primary">Add Product</button>
       </form>
     </div>
-    <div class="container mt-5 mb-5">
-      <h3>Set Featured Product</h3>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-body">
-              <form id="featuredProductForm">
-                <div class="mb-3">
-                  <label for="product_id" class="form-label">Select Product to Feature</label>
-                  <select class="form-select" id="product_id" name="product_id" required>
-                    <option value="">Choose a product...</option>
-                    <% shopItems.forEach(function(item) { %>
-                      <option value="<%= item.ID %>"><%= item.Name %> - NOK <%= item.Price %></option>
-                    <% }); %>
-                  </select>
-                </div>
-                <div class="mb-3 form-check">
-                  <input type="checkbox" class="form-check-input" id="activated" name="activated" value="1" checked>
-                  <label class="form-check-label" for="activated">Active</label>
-                </div>
-                <button type="submit" class="btn btn-success">Set as Featured</button>
-              </form>
-              <div id="featuredProductMessage" class="alert mt-3" style="display: none;"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="container mt-5">
       <h3>Product List</h3>
       <section class="shop" style="width: 80%">
@@ -177,12 +151,14 @@
                 <span class="price">NOK <%= item.Price %></span>
               </div>
               <div class="card-footer">
-                <button 
-                    type="button" 
-                    class="btn btn-warning" 
-                    onclick="deleteItem(<%= item.ID %>)"
-                >Slett produkt</button>
-            </div>
+                <button
+                  type="button"
+                  class="btn btn-warning"
+                  onclick="deleteItem(<%= item.ID %>)"
+                >
+                  Slett produkt
+                </button>
+              </div>
             </div>
           </div>
           <% }); %>
@@ -196,6 +172,5 @@
     </div>
 
     <script src="./products/script.js"></script>
-    
   </body>
 </html>

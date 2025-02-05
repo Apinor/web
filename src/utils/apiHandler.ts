@@ -2,6 +2,7 @@ import { createSqlConnection } from "../dbscripts/DbConnection.ts";
 import { validateSession } from "../utils/sessionUtils.ts";
 import console from "../utils/logging.ts";
 
+const mysql = await createSqlConnection();
 interface ProductData {
   name: string;
   price: number;
@@ -60,22 +61,20 @@ interface Banner {
 }
 
 interface News {
-  Name: string;
-  Description: string;
-  News_Background_Image_Path: string;
-  News_Spotlight_Image_Path: string;
-  News_Spotlight_Image_Sticker_ID: number;
-  News_InfoText: string;
-  News_Header: string;
-  Activated: number;
+  Name?: string;
+  Description?: string;
+  News_Background_Image_Path?: string;
+  News_Spotlight_Image_Path?: string;
+  News_Spotlight_Image_Sticker_ID?: number;
+  News_InfoText?: string;
+  News_Header?: string;
+  Activated?: number;
 }
 
 interface FeaturedProduct {
   Product_ID: number;
   Activated: number;
 }
-
-const mysql = await createSqlConnection();
 
 async function createProduct(data: ProductData): Promise<number | null> {
   try {
@@ -525,20 +524,24 @@ export async function handleApiRequest(req: Request): Promise<Response> {
       );
     }
   }
-  if (url.pathname === "/api/featured_product" && req.method === "POST") {
+  if (url.pathname === "/api/news" && req.method === "POST") {
     try {
       const formData = await req.formData();
-      const featuredData: FeaturedProduct = {
-        Product_ID: parseInt(formData.get("product_id") as string),
-        Activated: parseInt(formData.get("activated") as string) || 0,
+      const newsData: News = {
+        Name: formData.get("name") as string,
+        Description: formData.get("description") as string || undefined,
+        News_Spotlight_Image_Sticker_ID: parseInt(formData.get("News_Spotlight_Image_Sticker_ID") as string) || undefined,
+        News_InfoText: formData.get("News_InfoText") as string || undefined,
+        News_Header: formData.get("News_Header") as string || undefined,
+        Activated: 1, // Default to activated when created
       };
   
-      // Validate required fields
-      if (!featuredData.Product_ID) {
+      // Validate required fields based on your form
+      if (!newsData.Name || !newsData.News_Header || !newsData.News_InfoText || !newsData.News_Spotlight_Image_Sticker_ID) {
         return new Response(
           JSON.stringify({
-            error: "Product ID is required",
-            received: featuredData,
+            error: "All required fields must be filled",
+            received: newsData,
           }),
           {
             status: 400,
@@ -547,17 +550,17 @@ export async function handleApiRequest(req: Request): Promise<Response> {
         );
       }
   
-      // Check if product exists
-      const product = await mysql.query(
-        "SELECT ID FROM Products WHERE ID = ?",
-        [featuredData.Product_ID]
+      // Verify sticker ID exists before creating news
+      const stickerExists = await mysql.query(
+        "SELECT ID FROM Stickers WHERE ID = ?",
+        [newsData.News_Spotlight_Image_Sticker_ID]
       );
   
-      if (!product.length) {
+      if (!stickerExists.length) {
         return new Response(
           JSON.stringify({
-            error: "Product does not exist",
-            received: featuredData,
+            error: "Selected sticker ID does not exist",
+            received: newsData,
           }),
           {
             status: 400,
@@ -566,13 +569,13 @@ export async function handleApiRequest(req: Request): Promise<Response> {
         );
       }
   
-      const featuredId = await createFeaturedProduct(featuredData);
-      if (featuredId) {
+      const newsId = await createNews(newsData);
+      if (newsId) {
         return new Response(
           JSON.stringify({
             success: true,
-            message: "Featured product created successfully",
-            featured_id: featuredId,
+            message: "News created successfully",
+            news_id: newsId,
           }),
           {
             status: 201,
@@ -580,10 +583,10 @@ export async function handleApiRequest(req: Request): Promise<Response> {
           }
         );
       } else {
-        throw new Error("Failed to create featured product in database");
+        throw new Error("Failed to create news in database");
       }
     } catch (error) {
-      console.error("Featured product creation error:", error);
+      console.error("News creation error:", error);
       return new Response(
         JSON.stringify({
           error: error instanceof Error ? error.message : "Unknown error",
@@ -596,6 +599,77 @@ export async function handleApiRequest(req: Request): Promise<Response> {
       );
     }
   }
+  // if (url.pathname === "/api/featured_product" && req.method === "POST") {
+  //   try {
+  //     const formData = await req.formData();
+  //     const featuredData: FeaturedProduct = {
+  //       Product_ID: parseInt(formData.get("product_id") as string),
+  //       Activated: parseInt(formData.get("activated") as string) || 0,
+  //     };
+  
+  //     // Validate required fields
+  //     if (!featuredData.Product_ID) {
+  //       return new Response(
+  //         JSON.stringify({
+  //           error: "Product ID is required",
+  //           received: featuredData,
+  //         }),
+  //         {
+  //           status: 400,
+  //           headers: { "Content-Type": "application/json" },
+  //         }
+  //       );
+  //     }
+  
+  //     // Check if product exists
+  //     const product = await mysql.query(
+  //       "SELECT ID FROM Products WHERE ID = ?",
+  //       [featuredData.Product_ID]
+  //     );
+  
+  //     if (!product.length) {
+  //       return new Response(
+  //         JSON.stringify({
+  //           error: "Product does not exist",
+  //           received: featuredData,
+  //         }),
+  //         {
+  //           status: 400,
+  //           headers: { "Content-Type": "application/json" },
+  //         }
+  //       );
+  //     }
+  
+  //     const featuredId = await createFeaturedProduct(featuredData);
+  //     if (featuredId) {
+  //       return new Response(
+  //         JSON.stringify({
+  //           success: true,
+  //           message: "Featured product created successfully",
+  //           featured_id: featuredId,
+  //         }),
+  //         {
+  //           status: 201,
+  //           headers: { "Content-Type": "application/json" },
+  //         }
+  //       );
+  //     } else {
+  //       throw new Error("Failed to create featured product in database");
+  //     }
+  //   } catch (error) {
+  //     console.error("Featured product creation error:", error);
+  //     return new Response(
+  //       JSON.stringify({
+  //         error: error instanceof Error ? error.message : "Unknown error",
+  //         details: error instanceof Error ? error.stack : undefined,
+  //       }),
+  //       {
+  //         status: 500,
+  //         headers: { "Content-Type": "application/json" },
+  //       }
+  //     );
+  //   }
+  // }
   // Handle different API endpoints
   switch (url.pathname) {
     case "/api/status":
