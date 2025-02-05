@@ -49,6 +49,30 @@
         </div>
       </nav>
     </div>
+
+<div class="container mt-5">
+  <h3>Stickers List</h3>
+  <section class="stickers" style="width: 80%">
+    <h1><%= stickerTopText %></h1>
+    <div class="sticker-items row" style="justify-content: space-between">
+      <% stickerItems.forEach(function(item) { %>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title"><%= item.Name %></h5>
+            <p class="card-text"><%= item.Description %></p>
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn btn-warning" onclick="deleteSticker(<%= item.ID %>)">
+              Delete Sticker
+            </button>
+          </div>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+  </section>
+</div>
     <div class="container mt-5">
       <h2>Create sticker</h2>
       <form id="stickerForm" class="needs-validation" novalidate>
