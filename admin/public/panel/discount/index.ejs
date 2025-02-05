@@ -50,6 +50,38 @@
       </nav>
     </div>
     <div class="container mt-5">
+      <h3>Discounts List</h3>
+      <section class="discounts" style="width: 80%">
+        <h1><%= discountTopText %></h1>
+        <div class="discount-items row" style="justify-content: space-between">
+          <% discountItems.forEach(function(item) { %>
+          <div class="col-md-3 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title"><%= item.Name %></h5>
+                <p class="card-text"><%= item.Description %></p>
+                <div class="discount-details">
+                  <% if (item.Discount_Percent) { %>
+                    <span class="badge bg-primary"><%= item.Discount_Percent %>% OFF</span>
+                  <% } %>
+                  <% if (item.Discount_Amount) { %>
+                    <span class="badge bg-success">NOK <%= item.Discount_Amount %> OFF</span>
+                  <% } %>
+                </div>
+                <p class="card-text"><small class="text-muted">Sticker ID: <%= item.Sticker_ID || 'None' %></small></p>
+              </div>
+              <div class="card-footer">
+                <button type="button" class="btn btn-warning" onclick="deleteDiscount(<%= item.ID %>)">
+                  Delete Discount
+                </button>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+      </section>
+    </div>
+    <div class="container mt-5">
       <h2>Create Discount</h2>
       <form id="discountForm" class="needs-validation" novalidate>
         <div class="mb-3">
