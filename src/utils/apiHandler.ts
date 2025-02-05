@@ -76,8 +76,6 @@ interface FeaturedProduct {
   Activated: number;
 }
 
-
-
 async function createProduct(data: ProductData): Promise<number | null> {
   try {
     const result = await mysql.query(
