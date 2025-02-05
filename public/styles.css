@@ -155,7 +155,6 @@ body {
   display: none;
 }
 
-
 /* Footer */
 footer {
   color: black;
@@ -192,21 +191,125 @@ footer a:hover {
 .shop-item .card-body {
   display: flex;
   flex-direction: column;
+  color: black; /* Ensure text is black */
 }
 
 .shop-item .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: black; /* Ensure text is black */
 }
 
-@media (max-width: 700px) {
+@media (max-width: 992px) {
   .shop-item .card-footer {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center; /* Center content */
   }
 
   .shop-item .card-footer .price {
     margin-bottom: 10px;
+  }
+}
+
+/* Product Section - Larger Size */
+.product-section, .shop {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  padding: 50px 0;
+}
+
+.product-title, .shop h1 {
+  font-size: 48px;
+  font-weight: 700;
+  color: black; /* Ensure text is black */
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: black; /* Ensure text is black */
+}
+
+.price h2 {
+  font-weight: 700;
+  font-size: 36px;
+  color: black; /* Ensure text is black */
+}
+
+.about {
+  font-size: 20px;
+  line-height: 1.8;
+  color: #444;
+  max-width: 80%;
+}
+
+/* Image - Double Size */
+#main-image {
+  max-width: 100%;
+  width: 500px;  /* Increased size */
+  height: auto;
+}
+
+/* Enlarged Button */
+.btn-xl, .btn-primary {
+  background: #d9534f;
+  border: none;
+  padding: 18px 36px;
+  font-size: 22px;
+  font-weight: 700;
+  color: white; /* Ensure text is white */
+}
+
+.btn-xl:hover, .btn-primary:hover {
+  background: #c9302c;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .product-title, .shop h1 {
+    font-size: 36px;
+  }
+
+  .price h2 {
+    font-size: 28px;
+  }
+
+  .about {
+    font-size: 18px;
+    text-align: center; /* Center text horizontally */
+    display: flex;
+    justify-content: center; /* Center content */
+    align-items: center; /* Vertically center if necessary */
+    max-width: 100%; /* Ensure no overflow */
+    margin: 0 auto; /* Center the container itself */
+  }
+
+  #main-image {
+    width: 100%; /* Auto scales down */
+  }
+
+  .btn-xl, .btn-primary {
+    padding: 14px 28px;
+    font-size: 20px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-section, .shop {
+    text-align: center;
+  }
+  
+  .navbar-nav {
+    text-align: center;
+  }
+  
+  .navbar-nav .nav-item {
+    text-align: center;
   }
 }
