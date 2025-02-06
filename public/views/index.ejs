@@ -64,14 +64,15 @@
                         <% news.forEach(function(article, index) { %>
                             <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
                                 <div class="card mb-3">
-                                    <div class="row no-gutters">
+                                    <div class="row no-gutters align-items-center">
                                         <div class="col-md-4">
-                                            <img src="<%= article.News_Background_Image_Path %>" class="card-img" alt="newsIMG" style="width: 50%; height: auto;">
+                                            <img src="<%= article.News_Background_Image_Path %>" class="card-img" alt="newsIMG" style="width: 60%; height: auto; margin-left: 6%; margin-top: 6%; margin-bottom: 6%;">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
-                                                <h3 class="card-title"><%= article.News_Header %></h3>
-                                                <p class="card-text"><%= article.News_InfoText %></p>
+                                                <h1>Nyhet!</h1>
+                                                <h3 class=""><%= article.News_Header %></h3>
+                                                <p class=""><%= article.News_InfoText %></p>
                                             </div>
                                         </div>
                                     </div>
@@ -96,8 +97,8 @@
         <!-- Shop Section -->
         <div style="justify-content: center; display: flex;">
             <section class="shop" style="width: 80%;">
-                <h1><%= shopTopText %></h1>
-                <div class="shop-items row" style="justify-content: space-between;">
+                <h1 style="margin-left: 2%;"><%= shopTopText %></h1>
+                <div class="shop-items row" style="justify-content: space-between; margin-left: 1%; margin-right: 1%;">
                 <% shopItems.forEach(function(item) { %> 
                     <div class="col-md-3 mb-4">
                     <div class="card h-100 shop-item">

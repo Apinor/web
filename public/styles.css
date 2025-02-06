@@ -192,6 +192,7 @@ footer a:hover {
   display: flex;
   flex-direction: column;
   color: black; /* Ensure text is black */
+  
 }
 
 .shop-item .card-footer {
@@ -200,18 +201,16 @@ footer a:hover {
   align-items: center;
   color: black; /* Ensure text is black */
 }
-
-@media (max-width: 992px) {
-  .shop-item .card-footer {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Center content */
-  }
-
-  .shop-item .card-footer .price {
-    margin-bottom: 10px;
-  }
+.shop-item .card-footer {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center content */
 }
+
+.shop-item .card-footer .price {
+  margin-bottom: 10px;
+}
+
 
 /* Product Section - Larger Size */
 .product-section, .shop {
