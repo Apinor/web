@@ -287,6 +287,58 @@ async function getFeatured_product() {
     return [];
   }
 }
+
+async function deleteProduct(id: string): Promise<boolean> {
+  try {
+    const result = await mysql.query(
+      "DELETE FROM Products WHERE ID = ?",
+      [id]
+    );
+    return result.affectedRows > 0;
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    return false;
+  }
+}
+
+async function deleteDiscount(id: string): Promise<boolean> {
+  try {
+    const result = await mysql.query(
+      "DELETE FROM Discount WHERE ID = ?",
+      [id]
+    );
+    return result.affectedRows > 0;
+  } catch (error) {
+    console.error("Error deleting discount:", error);
+    return false;
+  }
+}
+
+async function deleteSticker(id: string): Promise<boolean> {
+  try {
+    const result = await mysql.query(
+      "DELETE FROM Stickers WHERE ID = ?",
+      [id]
+    );
+    return result.affectedRows > 0;
+  } catch (error) {
+    console.error("Error deleting sticker:", error);
+    return false;
+  }
+}
+
+async function deleteNews(id: string): Promise<boolean> {
+  try {
+    const result = await mysql.query(
+      "DELETE FROM News WHERE ID = ?",
+      [id]
+    );
+    return result.affectedRows > 0;
+  } catch (error) {
+    console.error("Error deleting news:", error);
+    return false;
+  }
+}
 export async function handleApiRequest(req: Request): Promise<Response> {
   const url = new URL(req.url);
   const sessionToken = req.headers.get("cookie")?.match(/session=([^;]+)/)?.[1];
@@ -599,78 +651,94 @@ export async function handleApiRequest(req: Request): Promise<Response> {
       );
     }
   }
-  // if (url.pathname === "/api/featured_product" && req.method === "POST") {
-  //   try {
-  //     const formData = await req.formData();
-  //     const featuredData: FeaturedProduct = {
-  //       Product_ID: parseInt(formData.get("product_id") as string),
-  //       Activated: parseInt(formData.get("activated") as string) || 0,
-  //     };
-  
-  //     // Validate required fields
-  //     if (!featuredData.Product_ID) {
-  //       return new Response(
-  //         JSON.stringify({
-  //           error: "Product ID is required",
-  //           received: featuredData,
-  //         }),
-  //         {
-  //           status: 400,
-  //           headers: { "Content-Type": "application/json" },
-  //         }
-  //       );
-  //     }
-  
-  //     // Check if product exists
-  //     const product = await mysql.query(
-  //       "SELECT ID FROM Products WHERE ID = ?",
-  //       [featuredData.Product_ID]
-  //     );
-  
-  //     if (!product.length) {
-  //       return new Response(
-  //         JSON.stringify({
-  //           error: "Product does not exist",
-  //           received: featuredData,
-  //         }),
-  //         {
-  //           status: 400,
-  //           headers: { "Content-Type": "application/json" },
-  //         }
-  //       );
-  //     }
-  
-  //     const featuredId = await createFeaturedProduct(featuredData);
-  //     if (featuredId) {
-  //       return new Response(
-  //         JSON.stringify({
-  //           success: true,
-  //           message: "Featured product created successfully",
-  //           featured_id: featuredId,
-  //         }),
-  //         {
-  //           status: 201,
-  //           headers: { "Content-Type": "application/json" },
-  //         }
-  //       );
-  //     } else {
-  //       throw new Error("Failed to create featured product in database");
-  //     }
-  //   } catch (error) {
-  //     console.error("Featured product creation error:", error);
-  //     return new Response(
-  //       JSON.stringify({
-  //         error: error instanceof Error ? error.message : "Unknown error",
-  //         details: error instanceof Error ? error.stack : undefined,
-  //       }),
-  //       {
-  //         status: 500,
-  //         headers: { "Content-Type": "application/json" },
-  //       }
-  //     );
-  //   }
-  // }
-  // Handle different API endpoints
+  if (req.method === "DELETE") {
+    switch (url.pathname){
+      case "/api/products/":{
+        const data = await req.json();
+        const productId = data.id;
+        if (!productId) {
+          return new Response(JSON.stringify({ error: "Product ID is required" }), {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+        const success = await deleteProduct(productId);
+        if (success) {
+          return new Response(JSON.stringify({ success: true }), {
+            headers: { "Content-Type": "application/json" },
+          });
+        } else {
+          return new Response(JSON.stringify({ error: "Failed to delete product" }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+      }
+      case "/api/discount/":{
+        const data = await req.json();
+        const discountId = data.id;
+        if (!discountId) {
+          return new Response(JSON.stringify({ error: "Discount ID is required" }), {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+        const success = await deleteDiscount(discountId);
+        if (success) {
+          return new Response(JSON.stringify({ success: true }), {
+            headers: { "Content-Type": "application/json" },
+          });
+        } else {
+          return new Response(JSON.stringify({ error: "Failed to delete discount" }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+      }
+      case "/api/stickers/":{
+        const data = await req.json();
+        const stickerId = data.id;
+        if (!stickerId) {
+          return new Response(JSON.stringify({ error: "Sticker ID is required" }), {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+        const success = await deleteSticker(stickerId);
+        if (success) {
+          return new Response(JSON.stringify({ success: true }), {
+            headers: { "Content-Type": "application/json" },
+          });
+        } else {
+          return new Response(JSON.stringify({ error: "Failed to delete sticker" }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+      }
+      case "/api/news/":{
+        const data = await req.json();
+        const newsId = data.id;
+        if (!newsId) {
+          return new Response(JSON.stringify({ error: "News ID is required" }), {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+        const success = await deleteNews(newsId);
+        if (success) {
+          return new Response(JSON.stringify({ success: true }), {
+            headers: { "Content-Type": "application/json" },
+          });
+        } else {
+          return new Response(JSON.stringify({ error: "Failed to delete news" }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+      }
+    }
+  }
   switch (url.pathname) {
     case "/api/status":
       return new Response(JSON.stringify({ status: "ok" }), {
