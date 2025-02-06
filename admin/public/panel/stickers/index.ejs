@@ -56,14 +56,14 @@
     <h1><%= stickerTopText %></h1>
     <div class="sticker-items row" style="justify-content: space-between">
       <% stickerItems.forEach(function(item) { %>
-      <div class="col-md-3 mb-4">
+      <div class="col-md-3 mb-4" id="stickersID-<%= item.ID %>">
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title"><%= item.Name %></h5>
             <p class="card-text"><%= item.Description %></p>
           </div>
           <div class="card-footer">
-            <button type="button" class="btn btn-warning" onclick="deleteSticker('<%= item.ID %>')">
+            <button type="button" class="btn btn-warning" onclick="deleteItem('<%= item.ID %>')">
               Delete Sticker
             </button>
           </div>
@@ -103,6 +103,6 @@
 
       <div id="responseMessage" class="alert mt-3" style="display: none"></div>
     </div>
-    <script src="./stickers/script.js"></script>
+    <script src="/panel/stickers/script.js"></script>
   </body>
 </html>

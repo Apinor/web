@@ -49,15 +49,17 @@ function deleteItem(id){
     body: JSON.stringify({ id: id }),
     credentials: "include",
   })
-    .then((response) => {
-      if (response.ok) {
-        alert("Stickers deleted successfully!");
-      } else {
-        response.json().then((error) => {
-          alert(`Error: ${error.error}`);
-        });
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      const productElement = document.getElementById(`stickersID-${id}`);
+      if (productElement) {
+        productElement.remove();
       }
-    })
+    } else {
+      console.error('Deletion failed:', data.error);
+    }
+  })
     .catch((error) => {
       alert("Failed to delete stickers: " + error.message);
     });
