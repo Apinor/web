@@ -6,6 +6,7 @@ if (!mysql) {
   console.error("Failed to connect to the database.");
 }
 
+
 async function insertTestData() {
   try {
     await mysql.query('USE apinor_DB');
