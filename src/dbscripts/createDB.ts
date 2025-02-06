@@ -1,18 +1,38 @@
-import {createSqlConnection} from "./DbConnection.ts";
+import { load } from "https://deno.land/std@0.204.0/dotenv/mod.ts";
+import { Client } from "https://deno.land/x/mysql@v2.11.0/mod.ts";
 import console from "../utils/logging.ts";
-const mysql = await createSqlConnection();
-if (mysql) {
-  console.info("Database connection established!");
-} else {
-  console.error("Failed to connect to the database.");
-}
-async function createDatabase() {
-    try {
-        await mysql.query('DROP DATABASE IF EXISTS apinor_DB');
-        await mysql.query('CREATE DATABASE apinor_DB');
-        await mysql.query('USE apinor_DB');
+const env = await load();
 
-        await mysql.query(`
+// Logging for testing .env connection status and variables, uncomment for use in testing if needed.
+// console.info("hostname: ", env.DB_HOST);
+// console.info("port: ", env.DB_PORT);
+// console.info("username: ", env.DB_USER);
+// console.info("password: ", env.DB_PASSWORD);
+
+async function createSqlConnection() {
+  try {
+    const client = await new Client().connect({
+      hostname: env["DB_HOST"],
+      port: parseInt(env["DB_PORT"] || "3306"),
+      username: env["DB_USER"],
+      password: env["DB_PASSWORD"],
+    });
+
+    console.info("Connected to MySQL database!");
+    return client;
+  } catch (error) {
+    console.error("Database connection error:", error);
+    throw error; // Re-throw to handle it in the calling code
+  }
+}
+const mysql = await createSqlConnection();
+async function createDatabase() {
+  try {
+    await mysql.query("DROP DATABASE IF EXISTS apinor_DB");
+    await mysql.query("CREATE DATABASE apinor_DB");
+    await mysql.query("USE apinor_DB");
+
+    await mysql.query(`
             CREATE TABLE Stickers (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Name VARCHAR(255) NOT NULL,
@@ -20,7 +40,7 @@ async function createDatabase() {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         `);
 
-        await mysql.query(`
+    await mysql.query(`
             CREATE TABLE Discount (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Name VARCHAR(255) NOT NULL,
@@ -36,7 +56,7 @@ async function createDatabase() {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         `);
 
-        await mysql.query(`
+    await mysql.query(`
             CREATE TABLE Products (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Name VARCHAR(255) NOT NULL,
@@ -64,7 +84,7 @@ async function createDatabase() {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         `);
 
-        await mysql.query(`
+    await mysql.query(`
             CREATE TABLE Users (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Cookie_ID VARCHAR(255),
@@ -75,7 +95,7 @@ async function createDatabase() {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         `);
 
-        await mysql.query(`
+    await mysql.query(`
             CREATE TABLE Cart (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 User_ID INT NOT NULL,
@@ -87,7 +107,7 @@ async function createDatabase() {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         `);
 
-        await mysql.query(`
+    await mysql.query(`
             CREATE TABLE CartItems (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Cart_ID INT NOT NULL,
@@ -107,7 +127,7 @@ async function createDatabase() {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         `);
 
-        await mysql.query(`
+    await mysql.query(`
             CREATE TABLE Transactions (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Product_ID INT NOT NULL,
@@ -129,7 +149,7 @@ async function createDatabase() {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         `);
 
-        await mysql.query(`
+    await mysql.query(`
             CREATE TABLE Banner (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Name VARCHAR(255) NOT NULL,
@@ -141,7 +161,7 @@ async function createDatabase() {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         `);
 
-        await mysql.query(`
+    await mysql.query(`
             CREATE TABLE News (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Name VARCHAR(255) NOT NULL,
@@ -160,7 +180,7 @@ async function createDatabase() {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         `);
 
-        await mysql.query(`
+    await mysql.query(`
             CREATE TABLE Sessions (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 Created_At DATETIME,
@@ -171,11 +191,11 @@ async function createDatabase() {
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         `);
 
-        console.info('Database and tables created successfully.');
-    } catch (error) {
-        console.error('Error creating database and tables:', error);
-    } finally {
-        await mysql.close();
-    }
+    console.info("Database and tables created successfully.");
+  } catch (error) {
+    console.error("Error creating database and tables:", error);
+  } finally {
+    await mysql.close();
+  }
 }
 createDatabase();

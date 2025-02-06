@@ -8,16 +8,20 @@ const env = await load();
 // console.info("port: ", env.DB_PORT);
 // console.info("username: ", env.DB_USER);
 // console.info("password: ", env.DB_PASSWORD);
-
 export async function createSqlConnection() {
-  const client = await new Client().connect({
-    hostname: env["DB_HOST"],
-    port: parseInt(env["DB_PORT"] || "3306"),
-    username: env["DB_USER"],
-    password: env["DB_PASSWORD"],
-    db: "apinor_DB",
-  });
-  
-  console.info("Connected to MySQL database!");
-  return client;
+  try {
+    const client = await new Client().connect({
+      hostname: env["DB_HOST"],
+      port: parseInt(env["DB_PORT"] || "3306"),
+      username: env["DB_USER"],
+      password: env["DB_PASSWORD"],
+      db: "apinor_DB",
+    });
+    
+    console.info("Connected to MySQL database!");
+    return client;
+  } catch (error) {
+    console.error("Database connection error:", error);
+    throw error; // Re-throw to handle it in the calling code
+  }
 }
