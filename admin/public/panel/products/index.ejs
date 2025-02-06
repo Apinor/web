@@ -130,7 +130,7 @@
         <h1><%= shopTopText %></h1>
         <div class="shop-items row" style="justify-content: space-between">
           <% shopItems.forEach(function(item) { %>
-          <div class="col-md-3 mb-4">
+          <div class="col-md-3 mb-4" id="productID-<%= item.ID %>">
             <div class="card h-100">
               <% if (item.Image_Path) { %>
               <!-- <img
