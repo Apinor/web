@@ -42,4 +42,24 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
-  
+
+  function deleteItem(id){
+    console.log("Delete button clicked with id: ", id);
+    fetch(`/api/news/`, {
+      method: "DELETE",
+      body: JSON.stringify({ id: id }),
+      credentials: "include",
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("News deleted successfully!");
+        } else {
+          response.json().then((error) => {
+            alert(`Error: ${error.error}`);
+          });
+        }
+      })
+      .catch((error) => {
+        alert("Failed to delete news: " + error.message);
+      });
+  }
