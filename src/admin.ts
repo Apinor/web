@@ -86,8 +86,22 @@ Deno.serve(async (req: Request) => {
       return handleApiRequest(req);
     } else if (
       url.pathname == "/panel/products/" ||
-      (url.pathname == "/panel/products" && req.method === "GET")) {
+      (url.pathname == "/panel/products" && req.method === "GET")
+    ) {
       try {
+        const sessionToken = req.headers
+          .get("cookie")
+          ?.match(/session=([^;]+)/)?.[1];
+        if (!sessionToken) {
+          return new Response("Unauthorized", { status: 401 });
+        }
+        const validatedSessionToken = await validateSession(sessionToken);
+        console.info("Session token sent to validateSession:", sessionToken);
+        console.info("Validated session token:", validatedSessionToken);
+        if (!validatedSessionToken) {
+          console.info("Session validation failed");
+          return new Response("Unauthorized", { status: 401 });
+        }
         const products = await mysql.query("SELECT * FROM Products");
         // console.info(Deno.inspect(products, { depth: Infinity, colors: true }));
         const body = await renderFileToString(
@@ -101,10 +115,24 @@ Deno.serve(async (req: Request) => {
         console.error("Template rendering error:", error);
         return new Response("Error rendering template", { status: 500 });
       }
-    }else if (
+    } else if (
       url.pathname == "/panel/news/" ||
-      (url.pathname == "/panel/news" && req.method === "GET")) {
+      (url.pathname == "/panel/news" && req.method === "GET")
+    ) {
       try {
+        const sessionToken = req.headers
+          .get("cookie")
+          ?.match(/session=([^;]+)/)?.[1];
+        if (!sessionToken) {
+          return new Response("Unauthorized", { status: 401 });
+        }
+        const validatedSessionToken = await validateSession(sessionToken);
+        console.info("Session token sent to validateSession:", sessionToken);
+        console.info("Validated session token:", validatedSessionToken);
+        if (!validatedSessionToken) {
+          console.info("Session validation failed");
+          return new Response("Unauthorized", { status: 401 });
+        }
         const news = await mysql.query("SELECT * FROM News");
         const body = await renderFileToString(
           "./admin/public/panel/news/index.ejs",
@@ -119,8 +147,22 @@ Deno.serve(async (req: Request) => {
       }
     } else if (
       url.pathname == "/panel/discount/" ||
-      (url.pathname == "/panel/discount" && req.method === "GET")) {
+      (url.pathname == "/panel/discount" && req.method === "GET")
+    ) {
       try {
+        const sessionToken = req.headers
+          .get("cookie")
+          ?.match(/session=([^;]+)/)?.[1];
+        if (!sessionToken) {
+          return new Response("Unauthorized", { status: 401 });
+        }
+        const validatedSessionToken = await validateSession(sessionToken);
+        console.info("Session token sent to validateSession:", sessionToken);
+        console.info("Validated session token:", validatedSessionToken);
+        if (!validatedSessionToken) {
+          console.info("Session validation failed");
+          return new Response("Unauthorized", { status: 401 });
+        }
         const discounts = await mysql.query("SELECT * FROM Discount");
         const body = await renderFileToString(
           "./admin/public/panel/discount/index.ejs",
@@ -135,8 +177,22 @@ Deno.serve(async (req: Request) => {
       }
     } else if (
       url.pathname == "/panel/stickers/" ||
-      (url.pathname == "/panel/stickers" && req.method === "GET")) {
+      (url.pathname == "/panel/stickers" && req.method === "GET")
+    ) {
       try {
+        const sessionToken = req.headers
+          .get("cookie")
+          ?.match(/session=([^;]+)/)?.[1];
+        if (!sessionToken) {
+          return new Response("Unauthorized", { status: 401 });
+        }
+        const validatedSessionToken = await validateSession(sessionToken);
+        console.info("Session token sent to validateSession:", sessionToken);
+        console.info("Validated session token:", validatedSessionToken);
+        if (!validatedSessionToken) {
+          console.info("Session validation failed");
+          return new Response("Unauthorized", { status: 401 });
+        }
         const stickers = await mysql.query("SELECT * FROM Stickers");
         const body = await renderFileToString(
           "./admin/public/panel/stickers/index.ejs",
