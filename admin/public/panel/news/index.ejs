@@ -55,7 +55,7 @@
         <h1><%= newsTopText %></h1>
         <div class="news-items row" style="justify-content: space-between">
           <% newsItems.forEach(function(item) { %>
-          <div class="col-md-3 mb-4">
+          <div class="col-md-3 mb-4" id="newsID-<%= item.ID %>">
             <div class="card h-100">
               <div class="card-body">
                 <h5 class="card-title"><%= item.Name %></h5>
@@ -67,7 +67,7 @@
                 </span>
               </div>
               <div class="card-footer">
-                <button type="button" class="btn btn-warning" onclick="deleteNews('<%= item.ID %>')">
+                <button type="button" class="btn btn-warning" onclick="deleteItem('<%= item.ID %>')">
                   Delete News
                 </button>
               </div>
@@ -148,6 +148,6 @@
 
       <div id="responseMessage" class="alert mt-3" style="display: none"></div>
     </div>
-    <script src="./news/script.js"></script>
+    <script src="/panel/news/script.js"></script>
   </body>
 </html>
