@@ -13,6 +13,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/public/stylesProduct.css" />
+    <link rel="stylesheet" href="/public/descriptionText.css">
+
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -132,6 +134,7 @@
                 <% } %>
             </div>
           </div>
+          <div id="shop-description">
         </div>
       </div>
     </section>
@@ -200,6 +203,41 @@
           menu.style.display = "block";
         }
       }
+    </script>
+    <script>
+      // Test description data for a "Norsk Genser"
+      const testDescription = {
+        header: {
+          content: "Norsk Genser",
+          style: "headerStyle"
+        },
+        mainSection: {
+          content: "A traditional Norwegian sweater, hand-knit with intricate patterns inspired by the snowy landscapes and rich cultural heritage of Norway. Perfect for keeping warm during cold winters.",
+          style: "paragraphStyle"
+        },
+        featuresSection: {
+          content: "Material: 100% Wool | Weight: Medium | Colors: Classic Nordic Patterns (Red, Blue, White)",
+          style: "highlightStyle"
+        },
+        loreSection: {
+          content: "Crafted by skilled artisans in the fjord regions of Norway, this sweater is a symbol of warmth, tradition, and timeless style. Each pattern tells a story of the mountains, forests, and rivers of Norway.",
+          style: "paragraphStyle"
+        },
+        footer: {
+          content: "Care Instructions: Hand wash cold, lay flat to dry | Origin: Norway | Craftsmanship: Handmade",
+          style: "footerStyle"
+        }
+      };
+
+      // Render the test description
+      const shopDescription = document.getElementById("shop-description");
+      Object.keys(testDescription).forEach(section => {
+        const div = document.createElement("div");
+        div.id = section;
+        div.className = testDescription[section].style;
+        div.innerHTML = testDescription[section].content;
+        shopDescription.appendChild(div);
+      });
     </script>
   </body>
 </html>
