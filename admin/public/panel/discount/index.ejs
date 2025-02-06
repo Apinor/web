@@ -55,7 +55,7 @@
         <h1><%= discountTopText %></h1>
         <div class="discount-items row" style="justify-content: space-between">
           <% discountItems.forEach(function(item) { %>
-          <div class="col-md-3 mb-4">
+          <div class="col-md-3 mb-4" id="discountID-<%= item.ID %>">
             <div class="card h-100">
               <div class="card-body">
                 <h5 class="card-title"><%= item.Name %></h5>
@@ -71,7 +71,7 @@
                 <p class="card-text"><small class="text-muted">Sticker ID: <%= item.Sticker_ID || 'None' %></small></p>
               </div>
               <div class="card-footer">
-                <button type="button" class="btn btn-warning" onclick="deleteDiscount('<%= item.ID %>')">
+                <button type="button" class="btn btn-warning" onclick="deleteItem('<%= item.ID %>')">
                   Delete Discount
                 </button>
               </div>
@@ -151,6 +151,6 @@
 
       <div id="responseMessage" class="alert mt-3" style="display: none"></div>
     </div>
-    <script src="./discount/script.js"></script>
+    <script src="/panel/discount/script.js"></script>
   </body>
 </html>
