@@ -42,3 +42,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+function deleteItem(id){
+  console.log("Delete button clicked with id: ", id);
+  fetch(`/api/stickers/`, {
+    method: "DELETE",
+    body: JSON.stringify({ id: id }),
+    credentials: "include",
+  })
+    .then((response) => {
+      if (response.ok) {
+        alert("Stickers deleted successfully!");
+      } else {
+        response.json().then((error) => {
+          alert(`Error: ${error.error}`);
+        });
+      }
+    })
+    .catch((error) => {
+      alert("Failed to delete stickers: " + error.message);
+    });
+}
