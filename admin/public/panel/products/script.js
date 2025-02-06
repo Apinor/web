@@ -81,4 +81,21 @@ document.getElementById("getProducts").addEventListener("click", async () => {
 });
 function deleteItem(id){
   console.log("Delete button clicked with id: ", id);
+  fetch(`/api/products/`, {
+    method: "DELETE",
+    body: JSON.stringify({ id: id }),
+    credentials: "include",
+  })
+    .then((response) => {
+      if (response.ok) {
+        alert("Product deleted successfully!");
+      } else {
+        response.json().then((error) => {
+          alert(`Error: ${error.error}`);
+        });
+      }
+    })
+    .catch((error) => {
+      alert("Failed to delete product: " + error.message);
+    });
 }
