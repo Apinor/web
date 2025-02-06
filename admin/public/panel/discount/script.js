@@ -56,3 +56,23 @@ document.addEventListener('DOMContentLoaded', async function() {
       }
     });
   });
+  function deleteItem(id){
+    console.log("Delete button clicked with id: ", id);
+    fetch(`/api/discount/`, {
+      method: "DELETE",
+      body: JSON.stringify({ id: id }),
+      credentials: "include",
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Discount deleted successfully!");
+        } else {
+          response.json().then((error) => {
+            alert(`Error: ${error.error}`);
+          });
+        }
+      })
+      .catch((error) => {
+        alert("Failed to delete discount: " + error.message);
+      });
+  }
