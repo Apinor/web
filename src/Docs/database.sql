@@ -30,29 +30,31 @@ ON UPDATE CASCADE
 
 -- 5) Create the "Products" table (depends on "Discount" & "Stickers")
 CREATE TABLE Products (
-ID INT AUTO_INCREMENT PRIMARY KEY,
-Name VARCHAR(255) NOT NULL,
-Price DECIMAL(10,2) NOT NULL,
-Description TEXT,
-Quantity INT DEFAULT 0,
-Image_Path VARCHAR(255),
-Created_At DATETIME,
-Modified_At DATETIME,
-Status TINYINT DEFAULT 1,
-Discount DECIMAL(10,2),
-Discount_ID INT,
-Sticker_ID INT,
-Featured TINYINT DEFAULT 0,
-CONSTRAINT fk_products_discount
-FOREIGN KEY (Discount_ID)
-REFERENCES Discount(ID)
-ON DELETE SET NULL
-ON UPDATE CASCADE,
-CONSTRAINT fk_products_sticker
-FOREIGN KEY (Sticker_ID)
-REFERENCES Stickers(ID)
-ON DELETE SET NULL
-ON UPDATE CASCADE
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL,
+    Price DECIMAL(10,2) NOT NULL,
+    Description TEXT,                             -- In-depth description
+    Video_Link VARCHAR(255),                      -- Video link
+    Specifications TEXT,                          -- Specifications
+    Quantity INT DEFAULT 0,
+    Image_Path VARCHAR(255),
+    Created_At DATETIME,
+    Modified_At DATETIME,
+    Status TINYINT DEFAULT 1,
+    Discount DECIMAL(10,2),
+    Discount_ID INT,
+    Sticker_ID INT,
+    Featured TINYINT DEFAULT 0,
+    CONSTRAINT fk_products_discount
+        FOREIGN KEY (Discount_ID)
+        REFERENCES Discount(ID)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_products_sticker
+        FOREIGN KEY (Sticker_ID)
+        REFERENCES Stickers(ID)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 6) Create the "Users" table (no direct dependencies)
