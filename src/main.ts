@@ -29,6 +29,7 @@ interface ProductData {
   discount?: number;
   discount_id?: number;
   sticker_id?: number;
+  description_json?: string; // Add this field
 }
 
 async function getProducts(): Promise<ProductData[]> {
@@ -69,14 +70,14 @@ async function getProductById(id: string): Promise<ProductData | null> {
       ...product,
       Price: Number(product.Price),
       Quantity: Number(product.Quantity),
-      Discount: product.Discount ? Number(product.Discount) : null
+      Discount: product.Discount ? Number(product.Discount) : null,
+      Description_JSON: product.Description_JSON ? JSON.parse(product.Description_JSON) : null // Parse JSON string
     };
   } catch (error) {
     console.error("Error fetching product:", error);
     return null;
   }
 }
-
 Deno.serve(async (req: Request) => {
   const url = new URL(req.url);
   if (url.pathname.startsWith("/public/") || url.pathname.startsWith("/images/")) {
@@ -162,7 +163,7 @@ Deno.serve(async (req: Request) => {
       console.error("File serving error:", error);
       return new Response("File not found", { status: 404 });
     }
-  }else if (req.method === "GET" && url.pathname === "/productPage") {
+  } else if (req.method === "GET" && url.pathname === "/productPage") {
     try {
       const productId = url.searchParams.get("id");
       if (!productId) {
@@ -177,6 +178,7 @@ Deno.serve(async (req: Request) => {
       const templateData = {
         title: `${product.name} - Apinor`,
         product: product,
+        description: product.Description_JSON, // Pass the JSON description
         footer: {
           companyInfo: "© 2024 Apinor AS"
         }
@@ -192,7 +194,8 @@ Deno.serve(async (req: Request) => {
     } catch (error) {
       console.error("Product page error:", error);
       return new Response("Error loading product page", { status: 500 });
-    }}
+    }
+  }
   
   return serveDir(req, { fsRoot: "./public" });
 });
