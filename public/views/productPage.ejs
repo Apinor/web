@@ -137,12 +137,32 @@
           <div id="shop-description">
             <% if (description) { %>
               <% Object.keys(description).forEach(section => { %>
-                <div id="<%= section %>" class="<%= description[section].style %>">
-                  <%= description[section].content %>
+                <div class="<%= description[section].style %>">
+                  <% if (Array.isArray(description[section].content)) { %>
+                    <!-- Key Features (List) -->
+                    <ul>
+                      <% description[section].content.forEach(item => { %>
+                        <li><%= item %></li>
+                      <% }) %>
+                    </ul>
+                  <% } else if (typeof description[section].content === 'object') { %>
+                    <!-- Technical Specs (Table) -->
+                    <table>
+                      <% Object.entries(description[section].content).forEach(([key, value]) => { %>
+                        <tr>
+                          <th><%= key %></th>
+                          <td><%= value %></td>
+                        </tr>
+                      <% }) %>
+                    </table>
+                  <% } else { %>
+                    <!-- Header, Paragraph, Instructions -->
+                    <%= description[section].content %>
+                  <% } %>
                 </div>
               <% }) %>
             <% } else { %>
-              <p>No description available for this product.</p>
+              <p>No description available.</p>
             <% } %>
           </div>
         </div>

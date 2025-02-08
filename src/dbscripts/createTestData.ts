@@ -11,23 +11,33 @@ const productDescriptions = {
   "Norsk Genser": {
     header: {
       content: "Norsk Genser",
-      style: "headerStyle"
+      style: "description-header"
     },
-    mainSection: {
+    mainDescription: {
       content: "A traditional Norwegian sweater, hand-knit with intricate patterns inspired by the snowy landscapes and rich cultural heritage of Norway. Perfect for keeping warm during cold winters.",
-      style: "paragraphStyle"
+      style: "description-paragraph"
     },
-    featuresSection: {
-      content: "Material: 100% Wool | Weight: Medium | Colors: Classic Nordic Patterns (Red, Blue, White)",
-      style: "highlightStyle"
+    keyFeatures: {
+      content: [
+        "100% Pure Norwegian Wool",
+        "Hand-Knit by Skilled Artisans",
+        "Classic Nordic Patterns (Red, Blue, White)",
+        "Medium Weight for Year-Round Comfort"
+      ],
+      style: "description-features"
     },
-    loreSection: {
-      content: "Crafted by skilled artisans in the fjord regions of Norway, this sweater is a symbol of warmth, tradition, and timeless style. Each pattern tells a story of the mountains, forests, and rivers of Norway.",
-      style: "paragraphStyle"
+    technicalSpecs: {
+      conten: {
+        "Material": "100% Wool",
+        "Weight": "Medium (450g)",
+        "Dimensions": "Length: 70cm | Chest: 110cm",
+        "Care": "Hand wash cold, lay flat to dry"
+      },
+      style: "description-specs"
     },
-    footer: {
-      content: "Care Instructions: Hand wash cold, lay flat to dry | Origin: Norway | Craftsmanship: Handmade",
-      style: "footerStyle"
+    usageInstructions: {
+      content: "For best results, hand wash in cold water with mild detergent. Lay flat to dry away from direct sunlight. Do not bleach or iron.",
+      style: "description-instructions"
     }
   },
   "Fjellsko": {
