@@ -1,0 +1,86 @@
+/* General description container */
+#shop-description {
+    margin-top: 2rem;
+    padding: 1rem;
+    border-top: 1px solid #eee;
+  }
+  
+  /* Header */
+  .description-header {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+  }
+  
+  /* Main paragraph */
+  .description-paragraph {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #34495e;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Key Features (bullet list) */
+  .description-features {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .description-features ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .description-features li {
+    padding: 0.5rem 0;
+    color: #2c3e50;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  
+  .description-features li:before {
+    content: "•";
+    color: #3498db;
+    position: absolute;
+    left: 0;
+  }
+  
+  /* Technical Specs (table) */
+  .description-specs {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .description-specs table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .description-specs th,
+  .description-specs td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .description-specs th {
+    color: #3498db;
+    width: 40%;
+  }
+  
+  /* Usage Instructions (highlighted) */
+  .description-instructions {
+    background-color: #e3f2fd;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+  }

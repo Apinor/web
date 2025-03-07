@@ -6,6 +6,108 @@ if (!mysql) {
   console.error("Failed to connect to the database.");
 }
 
+// JSON Descriptions for Products
+const productDescriptions = {
+  "Norsk Genser": {
+    header: {
+      content: "Norsk Genser",
+      style: "description-header"
+    },
+    mainDescription: {
+      content: "A traditional Norwegian sweater, hand-knit with intricate patterns inspired by the snowy landscapes and rich cultural heritage of Norway. Perfect for keeping warm during cold winters.",
+      style: "description-paragraph"
+    },
+    keyFeatures: {
+      content: [
+        "100% Pure Norwegian Wool",
+        "Hand-Knit by Skilled Artisans",
+        "Classic Nordic Patterns (Red, Blue, White)",
+        "Medium Weight for Year-Round Comfort"
+      ],
+      style: "description-features"
+    },
+    technicalSpecs: {
+      conten: {
+        "Material": "100% Wool",
+        "Weight": "Medium (450g)",
+        "Dimensions": "Length: 70cm | Chest: 110cm",
+        "Care": "Hand wash cold, lay flat to dry"
+      },
+      style: "description-specs"
+    },
+    usageInstructions: {
+      content: "For best results, hand wash in cold water with mild detergent. Lay flat to dry away from direct sunlight. Do not bleach or iron.",
+      style: "description-instructions"
+    }
+  },
+  "Fjellsko": {
+    header: {
+      content: "Fjellsko",
+      style: "headerStyle"
+    },
+    mainSection: {
+      content: "Durable and waterproof mountain boots designed for rugged terrains. Perfect for hiking, trekking, and outdoor adventures.",
+      style: "paragraphStyle"
+    },
+    featuresSection: {
+      content: "Material: Leather and Gore-Tex | Weight: Heavy | Colors: Brown, Black",
+      style: "highlightStyle"
+    },
+    loreSection: {
+      content: "Inspired by the Norwegian mountains, these boots are built to withstand the harshest weather conditions while providing maximum comfort.",
+      style: "paragraphStyle"
+    },
+    footer: {
+      content: "Care Instructions: Clean with a damp cloth, apply leather conditioner | Origin: Norway | Craftsmanship: Handmade",
+      style: "footerStyle"
+    }
+  },
+  "Ullsokker": {
+    header: {
+      content: "Ullsokker",
+      style: "headerStyle"
+    },
+    mainSection: {
+      content: "Warm and comfortable woolen socks, perfect for keeping your feet cozy during winter.",
+      style: "paragraphStyle"
+    },
+    featuresSection: {
+      content: "Material: 100% Wool | Weight: Light | Colors: Gray, Black, White",
+      style: "highlightStyle"
+    },
+    loreSection: {
+      content: "Made from the finest Norwegian wool, these socks are a must-have for cold weather.",
+      style: "paragraphStyle"
+    },
+    footer: {
+      content: "Care Instructions: Machine wash cold, lay flat to dry | Origin: Norway | Craftsmanship: Handmade",
+      style: "footerStyle"
+    }
+  },
+  "Ryggsekk": {
+    header: {
+      content: "Ryggsekk",
+      style: "headerStyle"
+    },
+    mainSection: {
+      content: "A sturdy and spacious backpack designed for day trips and outdoor adventures. Features multiple compartments and durable materials.",
+      style: "paragraphStyle"
+    },
+    featuresSection: {
+      content: "Material: Nylon | Weight: Medium | Colors: Green, Blue, Black",
+      style: "highlightStyle"
+    },
+    loreSection: {
+      content: "Designed for adventurers, this backpack is built to carry all your essentials while exploring the great outdoors.",
+      style: "paragraphStyle"
+    },
+    footer: {
+      content: "Care Instructions: Wipe clean with a damp cloth | Origin: Norway | Craftsmanship: Handmade",
+      style: "footerStyle"
+    }
+  }
+};
+
 async function insertTestData() {
   try {
     await mysql.query('USE apinor_DB');
@@ -27,14 +129,19 @@ async function insertTestData() {
       ('Outlet', 'Outlet-priser', NULL, 100.00, 2);
     `);
 
-    // Insert Products
+    // Insert Products with JSON Descriptions
     await mysql.query(`
-      INSERT INTO Products (Name, Price, Description, Quantity, Image_Path, Created_At, Modified_At, Status, Discount_ID, Sticker_ID) VALUES
-      ('Norsk Genser', 599.00, 'Varm ullgenser for kalde vinterdager', 50, '/public/images/products/Apifor.png', NOW(), NOW(), 1, 1, 4),
-      ('Fjellsko', 1299.00, 'Vanntette fjellsko for turer', 30, '/public/images/products/Apifor.png', NOW(), NOW(), 1, 2, 1),
-      ('Ullsokker', 149.00, 'Komfortable ullsokker', 100, '/public/images/products/Apifor.png', NOW(), NOW(), 1, NULL, NULL),
-      ('Ryggsekk', 899.00, 'Slitesterk ryggsekk for dagsturer', 25, '/public/images/products/Apifor.png', NOW(), NOW(), 1, 3, 4);
-    `);
+      INSERT INTO Products (Name, Price, Description, Quantity, Image_Path, Created_At, Modified_At, Status, Discount_ID, Sticker_ID, Description_JSON) VALUES
+      ('Norsk Genser', 599.00, 'Varm ullgenser for kalde vinterdager', 50, '/public/images/products/Apifor.png', NOW(), NOW(), 1, 1, 4, ?),
+      ('Fjellsko', 1299.00, 'Vanntette fjellsko for turer', 30, '/public/images/products/Apifor.png', NOW(), NOW(), 1, 2, 1, ?),
+      ('Ullsokker', 149.00, 'Komfortable ullsokker', 100, '/public/images/products/Apifor.png', NOW(), NOW(), 1, NULL, NULL, ?),
+      ('Ryggsekk', 899.00, 'Slitesterk ryggsekk for dagsturer', 25, '/public/images/products/Apifor.png', NOW(), NOW(), 1, 3, 4, ?);
+    `, [
+      JSON.stringify(productDescriptions["Norsk Genser"]),
+      JSON.stringify(productDescriptions["Fjellsko"]),
+      JSON.stringify(productDescriptions["Ullsokker"]),
+      JSON.stringify(productDescriptions["Ryggsekk"])
+    ]);
 
     // Insert Users
     await mysql.query(`

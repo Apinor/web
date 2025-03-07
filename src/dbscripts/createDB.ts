@@ -64,6 +64,7 @@ async function createDatabase() {
                 Description TEXT,
                 Quantity INT DEFAULT 0,
                 Image_Path VARCHAR(255),
+                Description_JSON JSON,
                 Created_At DATETIME,
                 Modified_At DATETIME,
                 Status TINYINT DEFAULT 1,
